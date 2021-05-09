@@ -12,12 +12,12 @@
 #'
 #' @return
 #' Returns a list including:
-#' @param Tsquared a data frame containing the T-squared statistic
-#' @param Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses
-#' @param cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level
-#' @param cutoff.95pct an integer indicating the T-squared cutoff value at 95% confidence level
+#' Tsquared a data frame containing the T-squared statistic
+#' Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses
+#' cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level
+#' cutoff.95pct an integer indicating the T-squared cutoff value at 95% confidence level
 #'
-#' @author Christian L. Goueguel
+#' @author Christian L. Goueguel, christian.goueguel@gmail.com
 #'
 #' @examples
 #' ## Principal components analysis (PCA)

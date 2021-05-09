@@ -14,17 +14,13 @@ HotellingEllipse(data, k = 2, pcx = 1, pcy = 2)
 \item{pcx}{an integer specifying which component is on the x-axis (by default 1)}
 
 \item{pcy}{an integer specifying which component is on the y-axis (by default 2)}
-
-\item{Tsquared}{a data frame containing the T-squared statistic}
-
-\item{Ellipse}{a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses}
-
-\item{cutoff.99pct}{an integer indicating the T-squared cutoff value at 99\% confidence level}
-
-\item{cutoff.95pct}{an integer indicating the T-squared cutoff value at 95\% confidence level}
 }
 \value{
 Returns a list including:
+Tsquared a data frame containing the T-squared statistic
+Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses
+cutoff.99pct an integer indicating the T-squared cutoff value at 99\% confidence level
+cutoff.95pct an integer indicating the T-squared cutoff value at 95\% confidence level
 }
 \description{
 Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
@@ -50,5 +46,5 @@ T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 
 }
 \author{
-Christian L. Goueguel
+Christian L. Goueguel, christian.goueguel@gmail.com
 }
