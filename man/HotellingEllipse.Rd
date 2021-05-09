@@ -2,28 +2,53 @@
 % Please edit documentation in R/HotellingEllipse.R
 \name{HotellingEllipse}
 \alias{HotellingEllipse}
-\title{Hotelling Ellipse}
+\title{Hotelling's T-squared Statistic and Ellipse}
 \usage{
 HotellingEllipse(data, k = 2, pcx = 1, pcy = 2)
 }
 \arguments{
-\item{data}{Data frame or tibble of PCA/PLS scores coordinates.}
+\item{data}{a data frame or tibble of scores coordinates}
 
-\item{k}{Integer, specifying the number of components (k = 2 by default).}
+\item{k}{number of components (by default 2)}
 
-\item{pcx}{Integer, specifying which component is on the x-axis (pcx = 1 by default).}
+\item{pcx}{an integer specifying which component is on the x-axis (by default 1)}
 
-\item{pcy}{Integer, specifying which component is on the y-axis (pcy = 2 by default).}
+\item{pcy}{an integer specifying which component is on the y-axis (by default 2)}
+
+\item{Tsquared}{a data frame containing the T-squared statistic}
+
+\item{Ellipse}{a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses}
+
+\item{cutoff.99pct}{an integer indicating the T-squared cutoff value at 99\% confidence level}
+
+\item{cutoff.95pct}{an integer indicating the T-squared cutoff value at 95\% confidence level}
 }
 \value{
-A list with the T-squared statistic, Hotelling ellipse axis parameters, and T-squared cutoff at 95\% and 99\% confidence levels.
+Returns a list including:
 }
 \description{
 Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
-The function is created to be used with PCA or PLS scores coordinates, i.e. on the PCs or LVs axes.
+The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
 It shows the statistical limits computed using Hotelling T-squared distribution at 95\% and 99\% confidence levels.
 }
 \examples{
-HotellingEllipse(data = PCA_scores, k = 2, pcx = 1, pcy = 2)
+## Principal components analysis (PCA)
+library(tidyverse)
+set.seed(123)
+pca_mod <- LIBS_spec \%>\%
+  select(where(is.numeric)) \%>\%
+  FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 
+## Extract PCA scores
+pca_scores <- pca_mod \%>\%
+   pluck("ind", "coord") \%>\%
+   as_tibble()
+
+## Compute Hotelling T-squared statistic and ellipse parameters
+library(HotellingEllipse)
+T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+
+}
+\author{
+Christian L. Goueguel
 }
