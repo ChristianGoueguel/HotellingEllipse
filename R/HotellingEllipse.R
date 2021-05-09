@@ -1,19 +1,40 @@
-#' Hotelling Ellipse
+#' Hotelling's T-squared Statistic and Ellipse
 #'
 #' @description
 #' Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
-#' The function is created to be used with PCA or PLS scores coordinates, i.e. on the PCs or LVs axes.
+#' The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
 #' It shows the statistical limits computed using Hotelling T-squared distribution at 95% and 99% confidence levels.
 #'
-#' @param data Data frame or tibble of PCA/PLS scores coordinates.
-#' @param k Integer, specifying the number of components (k = 2 by default).
-#' @param pcx Integer, specifying which component is on the x-axis (pcx = 1 by default).
-#' @param pcy Integer, specifying which component is on the y-axis (pcy = 2 by default).
+#' @param data a data frame or tibble of scores coordinates
+#' @param k number of components (by default 2)
+#' @param pcx an integer specifying which component is on the x-axis (by default 1)
+#' @param pcy an integer specifying which component is on the y-axis (by default 2)
 #'
-#' @return A list with the T-squared statistic, Hotelling ellipse axis parameters, and T-squared cutoff at 95% and 99% confidence levels.
-#' @export
+#' @return
+#' Returns a list including:
+#' @param Tsquared a data frame containing the T-squared statistic
+#' @param Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses
+#' @param cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level
+#' @param cutoff.95pct an integer indicating the T-squared cutoff value at 95% confidence level
 #'
-#' @examples HotellingEllipse(data = PCA_scores, k = 2, pcx = 1, pcy = 2)
+#' @author Christian L. Goueguel
+#'
+#' @examples
+#' ## Principal components analysis (PCA)
+#' library(tidyverse)
+#' set.seed(123)
+#' pca_mod <- LIBS_spec %>%
+#'   select(where(is.numeric)) %>%
+#'   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
+#'
+#' ## Extract PCA scores
+#' pca_scores <- pca_mod %>%
+#'    pluck("ind", "coord") %>%
+#'    as_tibble()
+#'
+#' ## Compute Hotelling T-squared statistic and ellipse parameters
+#' library(HotellingEllipse)
+#' T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 #'
 HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
@@ -76,8 +97,8 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     res_list <- list(
       "Tsquared" = Tsq,
       "Ellipse" = axisvals,
-      "conf.limit.99pct" = Tsq_limit1,
-      "conf.limit.95pct" = Tsq_limit2
+      "cutoff.99pct" = Tsq_limit1,
+      "cutoff.95pct" = Tsq_limit2
     )
 
     return(res_list)
