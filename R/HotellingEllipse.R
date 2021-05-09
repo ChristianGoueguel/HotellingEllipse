@@ -22,16 +22,16 @@
 #'
 #' @examples
 #' ## Principal components analysis (PCA)
-#' library(tidyverse)
+#' library(magrittr)
 #' set.seed(123)
 #' pca_mod <- LIBS_spec %>%
-#'   select(where(is.numeric)) %>%
+#'   dplyr::select(where(is.numeric)) %>%
 #'   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 #'
 #' ## Extract PCA scores
 #' pca_scores <- pca_mod %>%
-#'    pluck("ind", "coord") %>%
-#'    as_tibble()
+#'    purrr::pluck("ind", "coord") %>%
+#'    tibble::as_tibble()
 #'
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
