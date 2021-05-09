@@ -18,9 +18,9 @@ HotellingEllipse(data, k = 2, pcx = 1, pcy = 2)
 \value{
 Returns a list including:
 (1) Tsquared, a data frame containing the T-squared statistic.
-(2) Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
-(3) cutoff.99pct an integer indicating the T-squared cutoff value at 99\% confidence level.
-(4) cutoff.95pct an integer indicating the T-squared cutoff value at 95\% confidence level.
+(2) Ellipse, a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
+(3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99\% confidence level.
+(4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95\% confidence level.
 }
 \description{
 Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.

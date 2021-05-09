@@ -13,9 +13,9 @@
 #' @return
 #' Returns a list including:
 #' (1) Tsquared, a data frame containing the T-squared statistic.
-#' (2) Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
-#' (3) cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level.
-#' (4) cutoff.95pct an integer indicating the T-squared cutoff value at 95% confidence level.
+#' (2) Ellipse, a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
+#' (3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99% confidence level.
+#' (4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95% confidence level.
 #'
 #' @author Christian L. Goueguel
 #' christian.goueguel@gmail.com
@@ -43,7 +43,7 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     stop("Seems you forgot to provide data values.")
   }
 
-  if (is.data.frame(data) == FALSE | is_tibble(data) == FALSE) {
+  if (is.data.frame(data) == FALSE | tibble::is_tibble(data) == FALSE) {
     stop("Input data must be a data.frame, tbl_df, tbl")
   }
 
@@ -68,7 +68,7 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   )
 
   # Hotelling’s T-squared statistic
-  Tsq <- data.frame(statistic = ((n-k)/(k*(n-1)))*MDsq)
+  Tsq <- tibble::tibble(statistic = ((n-k)/(k*(n-1)))*MDsq)
 
   if(k > 2) {
     return(Tsq)
@@ -88,7 +88,7 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     b_limit1 <- as.numeric(sqrt(Tsq_limit1*var(data[pcy])))
     b_limit2 <- as.numeric(sqrt(Tsq_limit2*var(data[pcy])))
 
-    axisvals <- data.frame(
+    axisvals <- tibble::tibble(
       a1 = a_limit1,
       b1 = b_limit1,
       a2 = a_limit2,
