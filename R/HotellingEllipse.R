@@ -60,10 +60,10 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   }
 
   # Squared Mahalanobis distance
-  MDsq <- mahalanobis(
+  MDsq <- stats::mahalanobis(
     x = as.matrix(data),
     center = colMeans(as.matrix(data)),
-    cov = cov(as.matrix(data)),
+    cov = stats::cov(as.matrix(data)),
     inverted = FALSE
   )
 
@@ -79,14 +79,14 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     n <- nrow(data)
 
     # 99% and 95% confidence limit for T-squared
-    Tsq_limit1 <- (k*(n-1)/(n-k))*qf(p = 0.99, df1 = k, df2 = (n-k))
-    Tsq_limit2 <- (k*(n-1)/(n-k))*qf(p = 0.95, df1 = k, df2 = (n-k))
+    Tsq_limit1 <- (k*(n-1)/(n-k))*stats::qf(p = 0.99, df1 = k, df2 = (n-k))
+    Tsq_limit2 <- (k*(n-1)/(n-k))*stats::qf(p = 0.95, df1 = k, df2 = (n-k))
 
     # Hotelling’s T-squared ellipse axis parameters
-    a_limit1 <- as.numeric(sqrt(Tsq_limit1*var(data[pcx])))
-    a_limit2 <- as.numeric(sqrt(Tsq_limit2*var(data[pcx])))
-    b_limit1 <- as.numeric(sqrt(Tsq_limit1*var(data[pcy])))
-    b_limit2 <- as.numeric(sqrt(Tsq_limit2*var(data[pcy])))
+    a_limit1 <- as.numeric(sqrt(Tsq_limit1*stats::var(data[pcx])))
+    a_limit2 <- as.numeric(sqrt(Tsq_limit2*stats::var(data[pcx])))
+    b_limit1 <- as.numeric(sqrt(Tsq_limit1*stats::var(data[pcy])))
+    b_limit2 <- as.numeric(sqrt(Tsq_limit2*stats::var(data[pcy])))
 
     axisvals <- tibble::tibble(
       a1 = a_limit1,
