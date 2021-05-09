@@ -10,13 +10,15 @@
 #' @param pcx an integer specifying which component is on the x-axis (by default 1)
 #' @param pcy an integer specifying which component is on the y-axis (by default 2)
 #'
-#' @return Returns a list including,
-#' (1) Tsquared a data frame containing the T-squared statistic,
-#' (2) Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses,
-#' (3) cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level,
+#' @return
+#' Returns a list including:
+#' (1) Tsquared, a data frame containing the T-squared statistic.
+#' (2) Ellipse a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
+#' (3) cutoff.99pct an integer indicating the T-squared cutoff value at 99% confidence level.
 #' (4) cutoff.95pct an integer indicating the T-squared cutoff value at 95% confidence level.
 #'
-#' @author Christian L. Goueguel, christian.goueguel@gmail.com
+#' @author Christian L. Goueguel
+#' christian.goueguel@gmail.com
 #'
 #' @examples
 #' ## Principal components analysis (PCA)
