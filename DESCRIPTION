@@ -8,8 +8,8 @@ Authors@R:
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
 Description: Computes Hotelling’s T2 statistic jointly for all PCA/PLS components. 
-For bivariate data, provides value of semi-minor (a) and semi-major (b) axes for drawing Hotelling's T2 ellipse 
-at 95 % and 99% confidence levels.
+For bivariate data, provides the value of semi-minor (a) and semi-major (b) axes for drawing Hotelling's T2 ellipse 
+at 95% and 99% confidence levels.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
