@@ -12,14 +12,7 @@ bivariate scatter plot, at 95% and 99% confidence levels.
 
 ## Installation
 
-You can install the released version of HotellingEllipse from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("HotellingEllipse")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of HotellingEllipse from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -28,22 +21,22 @@ devtools::install_github("ChristianGoueguel/HotellingEllipse")
 
 ## Example
 
-Example with principal component analysis (PCA) from laser-induced
-breakdown spectroscopy (LIBS) spectra:
+As an example, using `FactoMineR::PCA()` we first perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `data("LIBS_spec")` and extract the PCA scores. Then, from `HotellingEllipse()` we calculate the Hotelling T-squared statistic for the first two principal components, as well as the values of the semi-axes parameters for drawing the confidence ellipse. And finally, using `ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores scatter plot and the corresponding Hotelling's T-squared ellipses at 99% and 95% confidence levels.
 
+Step 1. Load the packages
 ``` r
 library(HotellingEllipse)
 library(tidyverse)
 devtools::load_all()
 ```
 
-Load LIBS dataset into R session.
+Step 2. Load LIBS dataset into R session
 
 ``` r
 data("LIBS_spec")
 ```
 
-Perform principal component analysis.
+Step 3. Perform principal component analysis
 
 ``` r
 set.seed(123)
@@ -52,7 +45,7 @@ pca_mod <- LIBS_spec %>%
   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 ```
 
-Extract PCA scores.
+Step 4. Extract PCA scores
 
 ``` r
 pca_scores <- pca_mod %>%
@@ -75,8 +68,7 @@ pca_scores <- pca_mod %>%
 #> # … with 161 more rows
 ```
 
-Now we can calculate Hotelling’s T-squared statistic for the first two
-components with the parameters of the axis of the confidence ellipse.
+Step 5. Run `HotellingEllipse()` for the first two principal components (k = 2)
 
 ``` r
 res_Tsq <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
@@ -96,26 +88,27 @@ str(res_Tsq)
 #>  $ cutoff.95pct: num 6.14
 ```
 
-Retrieve ellipse parameters at 99% confidence level.
+Retrieve ellipse parameters at 99% confidence level
 
 ``` r
 a1 <- pluck(res_Tsq, "Ellipse", "a1")
 b1 <- pluck(res_Tsq, "Ellipse", "b1")
 ```
 
-Retrieve ellipse parameters at 95% confidence level.
+Retrieve ellipse parameters at 95% confidence level
 
 ``` r
 a2 <- pluck(res_Tsq, "Ellipse", "a2")
 b2 <- pluck(res_Tsq, "Ellipse", "b2")
 ```
 
-Retrieve Hotelling’s T-squared statistic.
+Retrieve Hotelling’s T-squared statistic
 
 ``` r
 T2 <- pluck(res_Tsq, "Tsquared", "statistic")
 ```
 
+Step 6. Plot the PCA scores with the corresponding Hotelling's T-squared ellipses
 ``` r
 pca_scores %>%
   ggplot(aes(x=Dim.1, y=Dim.2)) +
