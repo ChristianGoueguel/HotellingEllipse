@@ -80,8 +80,8 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
   if(k == 2) {
     # 99% and 95% confidence limit for T-squared
-    Tsq_limit1 <- (k*(n-1)/(n-k))*stats::qf(p = 0.99, df1 = k, df2 = (n-k))
-    Tsq_limit2 <- (k*(n-1)/(n-k))*stats::qf(p = 0.95, df1 = k, df2 = (n-k))
+    Tsq_limit1 <- (as.numeric(k)*(n-1)/(n-as.numeric(k)))*stats::qf(p = 0.99, df1 = as.numeric(k), df2 = (n-as.numeric(k)))
+    Tsq_limit2 <- (as.numeric(k)*(n-1)/(n-as.numeric(k)))*stats::qf(p = 0.95, df1 = as.numeric(k), df2 = (n-as.numeric(k)))
 
     # Hotelling’s T-squared ellipse axis parameters
     a_limit1 <- as.numeric(sqrt(Tsq_limit1*stats::var(data[pcx])))
