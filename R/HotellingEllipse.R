@@ -40,10 +40,6 @@
 #'
 HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
-  k <- as.numeric(k)
-  pcx <- as.numeric(pcx)
-  pcy <- as.numeric(pcy)
-
   if (length(data) == 0) {
     stop("Seems you forgot to provide data values.")
   }
@@ -76,7 +72,7 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   )
 
   # Hotelling’s T-squared statistic
-  Tsq <- tibble::tibble(statistic = ((n-k)/(k*(n-1)))*MDsq)
+  Tsq <- tibble::tibble(statistic = ((n-as.numeric(k))/(as.numeric(k)*(n-1)))*MDsq)
 
   if(k > 2) {
     return(Tsq)
