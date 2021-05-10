@@ -47,51 +47,54 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   }
 
   if (is.data.frame(data) == FALSE | tibble::is_tibble(data) == FALSE) {
-    stop("Input data must be a data.frame, tbl_df, tbl")
+    stop("Data must be of class data.frame, tbl_df, or tbl")
   }
 
   if (pcx == 0 | pcy == 0) {
-    stop("Please provide PC axis.")
+    stop("No component is provided either in pcx or pcy, or both.")
   }
 
   if(pcx == pcy) {
-    stop("Please provide PC of different axis")
+    stop("Please provide two different components in pcx and pcy.")
   }
 
   if (k < 2) {
-    stop("k (nomber of PCs) must be at least equal to 2.")
+    stop("k must be at least equal to 2.")
   }
 
-  # sample size
-  n <- nrow(data)
-
-  # Squared Mahalanobis distance
-  MDsq <- stats::mahalanobis(
-    x = as.matrix(data),
-    center = colMeans(as.matrix(data)),
-    cov = stats::cov(as.matrix(data)),
-    inverted = FALSE
-  )
-
-  # Hotelling’s T-squared statistic
-  Tsq <- tibble::tibble(statistic = ((n-as.numeric(k))/(as.numeric(k)*(n-1)))*MDsq)
-
-  if(k > 2) {
-    return(Tsq)
+  if (k > ncol(data)) {
+    stop("k exceeds the number of component in the data.")
   }
 
-  if(k == 2) {
-    # 99% and 95% confidence limit for T-squared
-    Tsq_limit1 <- (as.numeric(k)*(n-1)/(n-as.numeric(k)))*stats::qf(p = 0.99, df1 = as.numeric(k), df2 = (n-as.numeric(k)))
-    Tsq_limit2 <- (as.numeric(k)*(n-1)/(n-as.numeric(k)))*stats::qf(p = 0.95, df1 = as.numeric(k), df2 = (n-as.numeric(k)))
+  if(k >= 2) {
+    # sample size
+    n <- nrow(data)
 
-    # Hotelling’s T-squared ellipse axis parameters
+    # number of principal component
+    A <- as.numeric(k)
+
+    # Squared Mahalanobis distance
+    MDsq <- stats::mahalanobis(
+      x = as.matrix(data),
+      center = colMeans(as.matrix(data)),
+      cov = stats::cov(as.matrix(data)),
+      inverted = FALSE
+    )
+
+    # Hotelling’s T-squared statistic
+    Tsq <- tibble::tibble(statistic = ((n-A)/(A*(n-1)))*MDsq)
+
+    # 99% and 95% confidence limit for Hotelling’s T-squared
+    Tsq_limit1 <- (A*(n-1)/(n-A))*stats::qf(p = 0.99, df1 = A, df2 = (n-A))
+    Tsq_limit2 <- (A*(n-1)/(n-A))*stats::qf(p = 0.95, df1 = A, df2 = (n-A))
+
+    # Hotelling’s T-squared ellipse semi-axes parameters
     a_limit1 <- as.numeric(sqrt(Tsq_limit1*stats::var(data[pcx])))
     a_limit2 <- as.numeric(sqrt(Tsq_limit2*stats::var(data[pcx])))
     b_limit1 <- as.numeric(sqrt(Tsq_limit1*stats::var(data[pcy])))
     b_limit2 <- as.numeric(sqrt(Tsq_limit2*stats::var(data[pcy])))
 
-    axisvals <- tibble::tibble(
+    axis_param <- tibble::tibble(
       a1 = a_limit1,
       b1 = b_limit1,
       a2 = a_limit2,
@@ -100,11 +103,10 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
     res_list <- list(
       "Tsquared" = Tsq,
-      "Ellipse" = axisvals,
+      "Ellipse" = axis_param,
       "cutoff.99pct" = Tsq_limit1,
       "cutoff.95pct" = Tsq_limit2
     )
-
     return(res_list)
   }
 

@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The HotellingEllipse package computes the Hotelling’s T-squared
-Statistic and provides the confidence ellipse axis parameters for a
+The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>
+Statistic and provides the confidence ellipse semi-axes parameters for a
 bivariate scatter plot, at 95% and 99% confidence levels.
 
 ## Installation
@@ -28,8 +28,17 @@ devtools::install_github("ChristianGoueguel/HotellingEllipse")
 
 ## Example
 
-Example with principal component analysis (PCA) from laser-induced
-breakdown spectroscopy (LIBS) spectra:
+As an example, using `FactoMineR::PCA()` we first perform the Principal
+Component Analysis (PCA) from a LIBS spectral dataset
+`data("LIBS_spec")` and extract the PCA scores. Then, from
+`HotellingEllipse()` we calculate the Hotelling T<sup>2</sup> statistic
+for the first two principal components, as well as the values of the
+semi-axis parameters for drawing the confidence ellipse. And finally,
+using `ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores
+scatter plot and the corresponding Hotelling’s T<sup>2</sup> ellipses at
+99% and 95% confidence levels.
+
+**Step 1.** Load the packages.
 
 ``` r
 library(HotellingEllipse)
@@ -37,13 +46,13 @@ library(tidyverse)
 devtools::load_all()
 ```
 
-Load LIBS dataset into R session.
+**Step 2.** Load LIBS dataset into R session.
 
 ``` r
 data("LIBS_spec")
 ```
 
-Perform principal component analysis.
+**Step 3.** Perform principal component analysis.
 
 ``` r
 set.seed(123)
@@ -52,7 +61,7 @@ pca_mod <- LIBS_spec %>%
   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 ```
 
-Extract PCA scores.
+**Step 4.** Extract PCA scores.
 
 ``` r
 pca_scores <- pca_mod %>%
@@ -75,25 +84,28 @@ pca_scores <- pca_mod %>%
 #> # … with 161 more rows
 ```
 
-Now we can calculate Hotelling’s T-squared statistic for the first two
-components with the parameters of the axis of the confidence ellipse.
+**Step 5.** Run `HotellingEllipse()` for the first three principal
+components (k = 3). Also, we want to compute the parameters of the
+ellipses semiminor and semimajor axes when the first principal
+component, PC1 (pcx = 1), is on the *x*-axis and, the second principal
+component, PC2 (pcy = 2), is on the *y*-axis.
 
 ``` r
-res_Tsq <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+res_Tsq <- HotellingEllipse(data = pca_scores, k = 3, pcx = 1, pcy = 2)
 ```
 
 ``` r
 str(res_Tsq)
 #> List of 4
 #>  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...
+#>   ..$ statistic: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
 #>  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a1: num 319536
-#>   ..$ b1: num 91816
-#>   ..$ a2: num 256487
-#>   ..$ b2: num 73699
-#>  $ cutoff.99pct: num 9.52
-#>  $ cutoff.95pct: num 6.14
+#>   ..$ a1: num 356318
+#>   ..$ b1: num 102385
+#>   ..$ a2: num 294169
+#>   ..$ b2: num 84527
+#>  $ cutoff.99pct: num 11.8
+#>  $ cutoff.95pct: num 8.07
 ```
 
 Retrieve ellipse parameters at 99% confidence level.
@@ -110,22 +122,50 @@ a2 <- pluck(res_Tsq, "Ellipse", "a2")
 b2 <- pluck(res_Tsq, "Ellipse", "b2")
 ```
 
-Retrieve Hotelling’s T-squared statistic.
+Retrieve Hotelling’s T<sup>2</sup> statistic.
 
 ``` r
 T2 <- pluck(res_Tsq, "Tsquared", "statistic")
 ```
 
+**Step 6.** Plot PC1 *vs.* PC2 scatterplot of the PCA scores for all
+observations, with the corresponding Hotelling’s T<sup>2</sup> ellipses.
+Points inside the two elliptical regions are within the 99% and 95%
+confidence limits for T<sup>2</sup>.
+
 ``` r
 pca_scores %>%
-  ggplot(aes(x=Dim.1, y=Dim.2)) +
-  ggforce::geom_ellipse(aes(x0=0, y0=0, a=a1, b=b1, angle=0), size=.5, linetype="dotted") + 
-  ggforce::geom_ellipse(aes(x0=0, y0=0, a=a2, b=b2, angle=0), size=.5, linetype="dashed") +
-  geom_point(aes(fill=T2), alpha=1, shape=21, size=3, color="black") +
-  scale_fill_viridis_c(option="viridis") +
-  geom_hline(yintercept=0, linetype="solid", color="black", size=.2) +
-  geom_vline(xintercept=0,linetype="solid", color="black", size=.2) +
-  labs(x="t1", y="t2", fill="T2 stats")
+  ggplot(aes(x = Dim.1, y = Dim.2)) +
+  ggforce::geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
+  ggforce::geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed") +
+  geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
+  scale_fill_viridis_c(option = "viridis") +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  labs(x = "PC1", y = "PC2", fill = "T2 stats") +
+  theme_bw()
 ```
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+
+The easiest way to analyze and interpret Hotelling’s T<sup>2</sup> for
+more than two principal components, is to plot Observations *vs.*
+Hotelling’s T<sup>2</sup> where the confidence limits are plotted as a
+line. Thus, observations below the two lines are within the
+T<sup>2</sup> limits.
+
+``` r
+tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
+  ggplot(aes(x = obs, y = T2)) +
+  geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
+  geom_line() +
+  scale_fill_viridis_c(option = "viridis") +
+  geom_hline(yintercept = pluck(res_Tsq, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
+  geom_hline(yintercept = pluck(res_Tsq, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
+  annotate("text", x = 160, y = 12.3, label = "99% limit", color = "darkred") +
+  annotate("text", x = 160, y = 8.5, label = "95% limit", color = "darkblue") +
+  labs(x = "Observations", y = "Hotelling's T-squared", fill = "T2 stats") +
+  theme_bw()
+```
+
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
