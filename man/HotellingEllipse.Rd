@@ -2,7 +2,7 @@
 % Please edit documentation in R/HotellingEllipse.R
 \name{HotellingEllipse}
 \alias{HotellingEllipse}
-\title{Hotelling's T-squared Statistic and Confidence Ellipse}
+\title{Hotelling's T-squared Ellipse}
 \usage{
 HotellingEllipse(data, k = 2, pcx = 1, pcy = 2)
 }
@@ -27,6 +27,9 @@ Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
 The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
 It shows the statistical limits computed using Hotelling T-squared distribution at 95\% and 99\% confidence levels.
 }
+\details{
+Hotelling's T-squared Statistic and Confidence Ellipse
+}
 \examples{
 ## Principal components analysis (PCA)
 library(magrittr)
@@ -41,10 +44,8 @@ pca_scores <- pca_mod \%>\%
    tibble::as_tibble()
 
 ## Compute Hotelling T-squared statistic and ellipse parameters
-devtools::install_github("ChristianGoueguel/HotellingEllipse")
 library(HotellingEllipse)
 T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
-
 }
 \author{
 Christian L. Goueguel,
