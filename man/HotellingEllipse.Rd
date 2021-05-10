@@ -41,6 +41,8 @@ pca_scores <- pca_mod \%>\%
    tibble::as_tibble()
 
 ## Compute Hotelling T-squared statistic and ellipse parameters
+devtools::install_github("ChristianGoueguel/HotellingEllipse")
+library(HotellingEllipse)
 T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 
 }
