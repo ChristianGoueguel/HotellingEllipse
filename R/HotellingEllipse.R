@@ -107,3 +107,4 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   }
 
 }
+"HotellingEllipse"
