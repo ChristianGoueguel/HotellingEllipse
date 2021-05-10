@@ -1,4 +1,4 @@
-#' Hotelling's T-squared Statistic and Ellipse
+#' Hotelling's T-squared Statistic and Confidence Ellipse
 #'
 #' @description
 #' Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
@@ -17,7 +17,7 @@
 #' (3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99% confidence level.
 #' (4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95% confidence level.
 #'
-#' @author Christian L. Goueguel
+#' @author Christian L. Goueguel,
 #' christian.goueguel@gmail.com
 #'
 #' @examples
@@ -34,7 +34,6 @@
 #'    tibble::as_tibble()
 #'
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
-#' library(HotellingEllipse)
 #' T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 #'
 HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/HotellingEllipse.R
 \name{HotellingEllipse}
 \alias{HotellingEllipse}
-\title{Hotelling's T-squared Statistic and Ellipse}
+\title{Hotelling's T-squared Statistic and Confidence Ellipse}
 \usage{
 HotellingEllipse(data, k = 2, pcx = 1, pcy = 2)
 }
@@ -41,11 +41,10 @@ pca_scores <- pca_mod \%>\%
    tibble::as_tibble()
 
 ## Compute Hotelling T-squared statistic and ellipse parameters
-library(HotellingEllipse)
 T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 
 }
 \author{
-Christian L. Goueguel
+Christian L. Goueguel,
 christian.goueguel@gmail.com
 }
