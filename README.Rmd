@@ -115,7 +115,7 @@ pca_scores %>%
   theme_bw()
 ```
 
-The easiest way to analyze and interpret Hotelling's T$^2$ for more than two principal components, is to plot Observations *vs.* Hotelling's T$^2$ where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits.
+**Note:** The easiest way to analyze and interpret Hotelling's T$^2$ for more than two principal components, is to plot Observations *vs.* Hotelling's T$^2$ where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits.
 
 ```{r}
 tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%

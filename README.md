@@ -148,11 +148,11 @@ pca_scores %>%
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
-The easiest way to analyze and interpret Hotelling’s T<sup>2</sup> for
-more than two principal components, is to plot Observations *vs.*
-Hotelling’s T<sup>2</sup> where the confidence limits are plotted as a
-line. Thus, observations below the two lines are within the
-T<sup>2</sup> limits.
+**Note:** The easiest way to analyze and interpret Hotelling’s
+T<sup>2</sup> for more than two principal components, is to plot
+Observations *vs.* Hotelling’s T<sup>2</sup> where the confidence limits
+are plotted as a line. Thus, observations below the two lines are within
+the T<sup>2</sup> limits.
 
 ``` r
 tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
