@@ -55,14 +55,14 @@ HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts
 
   # Number of points
   m <- as.numeric(pts)
-  p <- seq(0, 2 * pi, length = m)
+  p <- seq(0, 2*pi, length = m)
 
   # Confidence limit for Hotelling’s T-squared
   Tsq_limit <- stats::qf(p = alpha, df1 = 2, df2 = (n-2)) * (2*(n^(2)-1)/(n*(n-2)))
 
   # Coordinate points
-  rx <- as.numeric(sqrt(Tsq_limit*stats::var(data[pcx])))
-  ry <- as.numeric(sqrt(Tsq_limit*stats::var(data[pcy])))
+  rx <- as.numeric(sqrt(Tsq_limit*as.numeric(stats::var(data[pcx])) ))
+  ry <- as.numeric(sqrt(Tsq_limit*as.numeric(stats::var(data[pcy])) ))
 
   res.coord <- tibble::tibble(
     x = rx*cos(p) + mean(data[pcx]),
