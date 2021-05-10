@@ -164,3 +164,6 @@ tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+
+**Note:** Run the function `HotellingEllipseCoord()`, if you only want
+the ellipse coordinates.

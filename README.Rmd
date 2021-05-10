@@ -126,7 +126,7 @@ tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
   theme_bw()
 ```
 
-
+**Note:** Run the function `HotellingEllipseCoord()`, if you only want the ellipse coordinates.
 
 
 
