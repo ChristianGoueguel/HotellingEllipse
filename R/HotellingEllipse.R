@@ -60,6 +60,9 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     stop("k (nomber of PCs) must be at least equal to 2.")
   }
 
+  # sample size
+  n <- nrow(data)
+
   # Squared Mahalanobis distance
   MDsq <- stats::mahalanobis(
     x = as.matrix(data),
@@ -76,9 +79,6 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
   }
 
   if(k == 2) {
-    # sample size
-    n <- nrow(data)
-
     # 99% and 95% confidence limit for T-squared
     Tsq_limit1 <- (k*(n-1)/(n-k))*stats::qf(p = 0.99, df1 = k, df2 = (n-k))
     Tsq_limit2 <- (k*(n-1)/(n-k))*stats::qf(p = 0.95, df1 = k, df2 = (n-k))
