@@ -40,6 +40,10 @@
 #'
 HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
+  k <- as.numeric(k)
+  pcx <- as.numeric(pcx)
+  pcy <- as.numeric(pcy)
+
   if (length(data) == 0) {
     stop("Seems you forgot to provide data values.")
   }
