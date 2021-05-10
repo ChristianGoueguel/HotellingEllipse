@@ -65,8 +65,8 @@ HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts
   ry <- as.numeric(sqrt(Tsq_limit*as.numeric(stats::var(data[pcy])) ))
 
   res.coord <- tibble::tibble(
-    x = rx*cos(p) + mean(data[pcx]),
-    y = ry*sin(p) + mean(data[pcy])
+    x = rx*cos(p) + as.numeric(mean(data[pcx])),
+    y = ry*sin(p) + as.numeric(mean(data[pcy]))
     )
 
   return(res.coord)
