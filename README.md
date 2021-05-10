@@ -12,14 +12,8 @@ bivariate scatter plot, at 95% and 99% confidence levels.
 
 ## Installation
 
-You can install the released version of HotellingEllipse from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("HotellingEllipse")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install HotellingEllipse from [GitHub](https://github.com/)
+with:
 
 ``` r
 # install.packages("devtools")
@@ -162,8 +156,8 @@ tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = pluck(res_Tsq, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
   geom_hline(yintercept = pluck(res_Tsq, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
-  annotate("text", x = 160, y = 12.3, label = "99% limit", color = "darkred") +
-  annotate("text", x = 160, y = 8.5, label = "95% limit", color = "darkblue") +
+  annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
+  annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
   labs(x = "Observations", y = "Hotelling's T-squared", fill = "T2 stats") +
   theme_bw()
 ```

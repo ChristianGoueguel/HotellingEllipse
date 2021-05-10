@@ -22,13 +22,7 @@ The HotellingEllipse package computes the Hotelling’s T$^2$ Statistic and prov
 
 ## Installation
 
-You can install the released version of HotellingEllipse from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("HotellingEllipse")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install HotellingEllipse from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -102,7 +96,7 @@ T2 <- pluck(res_Tsq, "Tsquared", "statistic")
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot of the PCA scores for all observations, with the corresponding Hotelling's T$^2$ ellipses. Points inside the two elliptical regions are within the 99% and 95% confidence limits for T$^2$.
 
-```{r}
+```{r fig.height=3, fig.width=5}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
   ggforce::geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
@@ -117,7 +111,7 @@ pca_scores %>%
 
 **Note:** The easiest way to analyze and interpret Hotelling's T$^2$ for more than two principal components, is to plot Observations *vs.* Hotelling's T$^2$ where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits.
 
-```{r}
+```{r fig.height=3, fig.width=5}
 tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
   ggplot(aes(x = obs, y = T2)) +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
@@ -125,8 +119,8 @@ tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = pluck(res_Tsq, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
   geom_hline(yintercept = pluck(res_Tsq, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
-  annotate("text", x = 160, y = 12.3, label = "99% limit", color = "darkred") +
-  annotate("text", x = 160, y = 8.5, label = "95% limit", color = "darkblue") +
+  annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
+  annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
   labs(x = "Observations", y = "Hotelling's T-squared", fill = "T2 stats") +
   theme_bw()
 ```
