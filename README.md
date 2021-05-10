@@ -122,10 +122,10 @@ Retrieve Hotelling’s T<sup>2</sup> statistic.
 T2 <- pluck(res_Tsq, "Tsquared", "statistic")
 ```
 
-**Step 6.** Plot PC1 *vs.* PC2 scatterplot of the PCA scores for all
-observations, with the corresponding Hotelling’s T<sup>2</sup> ellipses.
-Points inside the two elliptical regions are within the 99% and 95%
-confidence limits for T<sup>2</sup>.
+**Step 6.** Plot PC1 *vs.* PC2 scatterplot of the PCA scores, with the
+corresponding Hotelling’s T<sup>2</sup> ellipses. Points inside the two
+elliptical regions are within the 99% and 95% confidence limits for
+T<sup>2</sup>.
 
 ``` r
 pca_scores %>%
@@ -146,7 +146,8 @@ pca_scores %>%
 T<sup>2</sup> for more than two principal components, is to plot
 Observations *vs.* Hotelling’s T<sup>2</sup> where the confidence limits
 are plotted as a line. Thus, observations below the two lines are within
-the T<sup>2</sup> limits.
+the T<sup>2</sup> limits. In this example, we used the first three
+principal components (i.e., k = 3).
 
 ``` r
 tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
@@ -158,7 +159,7 @@ tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
   geom_hline(yintercept = pluck(res_Tsq, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
   annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling's T-squared", fill = "T2 stats") +
+  labs(x = "Observations", y = "Hotelling's T-squared (3 PCs)", fill = "T2 stats") +
   theme_bw()
 ```
 
