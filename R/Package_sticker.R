@@ -30,7 +30,7 @@ p <- pca_scores %>%
   geom_vline(xintercept = 0, linetype = "solid", color = "white", size = .05)
 
 p <- p + theme_void() + theme_transparent()
-ggsave("~/Documents/Packages/HotellingEllipse/hexSticker.png")
+ggsave("~/Documents/Packages/HotellingEllipse/packageLogo.png")
 
 s <- sticker(
   p,
@@ -43,5 +43,5 @@ s <- sticker(
   s_height = 1,
   h_fill="#00154F",
   h_color="#F49F1C",
-  filename = "~/Documents/Packages/HotellingEllipse/hexSticker.png"
+  filename = "~/Documents/Packages/HotellingEllipse/packageLogo.png"
 )
