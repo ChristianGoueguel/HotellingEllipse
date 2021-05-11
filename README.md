@@ -7,8 +7,9 @@
 <!-- badges: end -->
 
 The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>
-Statistic and provides the confidence ellipse semi-axes parameters for a
-bivariate scatter plot, at 95% and 99% confidence levels.
+Statistic and provides the values of the confidence ellipse semi-minor
+semi-major axes for a bivariate scatterplot, at 95% and 99% confidence
+levels.
 
 ## Installation
 
@@ -27,10 +28,10 @@ Component Analysis (PCA) from a LIBS spectral dataset
 `data("LIBS_spec")` and extract the PCA scores. Then, from
 `HotellingEllipse()` we calculate the Hotelling T<sup>2</sup> statistic
 for the first two principal components, as well as the values of the
-semi-axis parameters for drawing the confidence ellipse. And finally,
-using `ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores
-scatter plot and the corresponding Hotelling’s T<sup>2</sup> ellipses at
-99% and 95% confidence levels.
+semi-axes for drawing the confidence ellipse. And finally, using
+`ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores scatter
+plot and the corresponding Hotelling’s T<sup>2</sup> ellipses at 99% and
+95% confidence levels.
 
 **Step 1.** Load the packages.
 

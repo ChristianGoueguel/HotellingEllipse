@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The HotellingEllipse package computes the Hotelling’s T$^2$ Statistic and provides the confidence ellipse semi-axes parameters for a bivariate scatter plot, at 95% and 99% confidence levels.
+The HotellingEllipse package computes the Hotelling’s T$^2$ Statistic and provides the values of the confidence ellipse semi-minor semi-major axes for a bivariate scatterplot, at 95% and 99% confidence levels.
 
 ## Installation
 
@@ -32,7 +32,7 @@ devtools::install_github("ChristianGoueguel/HotellingEllipse")
 ```
 ## Example
 
-As an example, using `FactoMineR::PCA()` we first perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `data("LIBS_spec")` and extract the PCA scores. Then, from `HotellingEllipse()` we calculate the Hotelling T$^2$ statistic for the first two principal components, as well as the values of the semi-axis parameters for drawing the confidence ellipse. And finally, using `ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores scatter plot and the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence levels.
+As an example, using `FactoMineR::PCA()` we first perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `data("LIBS_spec")` and extract the PCA scores. Then, from `HotellingEllipse()` we calculate the Hotelling T$^2$ statistic for the first two principal components, as well as the values of the semi-axes for drawing the confidence ellipse. And finally, using `ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores scatter plot and the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence levels.
 
 **Step 1.** Load the packages.
 
@@ -174,7 +174,7 @@ xy_coord_2 <-
 ```{r echo=FALSE}
 ggplot() +
   ggforce::geom_ellipse(data = xy_coord_2, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
-  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
+  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.3, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
