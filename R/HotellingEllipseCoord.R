@@ -8,7 +8,11 @@
 #' @param pts an integer indicating the number of points in the ellipse (by default 200)
 #'
 #' @return a data frame with x and y coordinates
+#'
 #' @export HotellingEllipseCoord
+#'
+#' @author Christian L. Goueguel,
+#' christian.goueguel@gmail.com
 #'
 #' @examples
 #' #' ## Principal components analysis (PCA)
@@ -25,6 +29,7 @@
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
 #' xy_coord <- HotellingEllipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+#'
 HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
 
   stopifnot(length(data) != 0)
@@ -70,3 +75,5 @@ HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts
   return(res.coord)
 
 }
+
+"HotellingEllipseCoord"
