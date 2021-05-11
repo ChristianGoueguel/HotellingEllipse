@@ -78,51 +78,51 @@ pca_scores <- pca_mod %>%
 #> # … with 161 more rows
 ```
 
-**Step 5.** Run `HotellingEllipse()` for the first three principal
-components (k = 3). Also, we want to compute the parameters of the
-ellipses semiminor and semimajor axes when the first principal
-component, PC1 (pcx = 1), is on the *x*-axis and, the second principal
-component, PC2 (pcy = 2), is on the *y*-axis.
+**Step 5.** Run `HotellingEllipse()` for the first two principal
+components (k = 2). We want to compute the principal axes of the
+ellipses (denoted **a** and **b**) when the first principal component,
+PC1 (pcx = 1), is on the *x*-axis and, the second principal component,
+PC2 (pcy = 2), is on the *y*-axis.
 
 ``` r
-res_Tsq <- HotellingEllipse(data = pca_scores, k = 3, pcx = 1, pcy = 2)
+res_2PCs <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ```
 
 ``` r
-str(res_Tsq)
+str(res_2PCs)
 #> List of 4
 #>  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ statistic: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
+#>   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...
 #>  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a1: num 356318
-#>   ..$ b1: num 102385
-#>   ..$ a2: num 294169
-#>   ..$ b2: num 84527
-#>  $ cutoff.99pct: num 11.8
-#>  $ cutoff.95pct: num 8.07
+#>   ..$ a1: num 319536
+#>   ..$ b1: num 91816
+#>   ..$ a2: num 256487
+#>   ..$ b2: num 73699
+#>  $ cutoff.99pct: num 9.52
+#>  $ cutoff.95pct: num 6.14
 ```
 
 Retrieve ellipse parameters at 99% confidence level.
 
 ``` r
-a1 <- pluck(res_Tsq, "Ellipse", "a1")
-b1 <- pluck(res_Tsq, "Ellipse", "b1")
+a1 <- pluck(res_2PCs, "Ellipse", "a1")
+b1 <- pluck(res_2PCs, "Ellipse", "b1")
 ```
 
 Retrieve ellipse parameters at 95% confidence level.
 
 ``` r
-a2 <- pluck(res_Tsq, "Ellipse", "a2")
-b2 <- pluck(res_Tsq, "Ellipse", "b2")
+a2 <- pluck(res_2PCs, "Ellipse", "a2")
+b2 <- pluck(res_2PCs, "Ellipse", "b2")
 ```
 
-Retrieve Hotelling’s T<sup>2</sup> statistic.
+Retrieve Hotelling’s T<sup>2</sup> statistic (for the first two PCs).
 
 ``` r
-T2 <- pluck(res_Tsq, "Tsquared", "statistic")
+T2 <- pluck(res_2PCs, "Tsquared", "statistic")
 ```
 
-**Step 6.** Plot PC1 *vs.* PC2 scatterplot of the PCA scores, with the
+**Step 6.** Plot PC1 *vs.* PC2 scores scatterplot, with the two
 corresponding Hotelling’s T<sup>2</sup> ellipses. Points inside the two
 elliptical regions are within the 99% and 95% confidence limits for
 T<sup>2</sup>.
@@ -136,34 +136,99 @@ pca_scores %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(x = "PC1", y = "PC2", fill = "T2 stats") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2 stats", caption = "Figure 1") +
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" height="90%" />
 
 **Note:** The easiest way to analyze and interpret Hotelling’s
 T<sup>2</sup> for more than two principal components, is to plot
 Observations *vs.* Hotelling’s T<sup>2</sup> where the confidence limits
 are plotted as a line. Thus, observations below the two lines are within
-the T<sup>2</sup> limits. In this example, we used the first three
-principal components (i.e., k = 3).
+the T<sup>2</sup> limits. In the example below, `HotellingEllipse()` is
+ran with the first three principal components (i.e., k = 3).
 
 ``` r
-tibble(T2 = T2, obs = 1:nrow(pca_scores)) %>%
+res_3PCs <- HotellingEllipse(data = pca_scores, k = 3, pcx = 1, pcy = 2)
+```
+
+``` r
+tibble(
+  T2 = pluck(res_3PCs, "Tsquared", "statistic"), 
+  obs = 1:nrow(pca_scores)
+  ) %>%
   ggplot(aes(x = obs, y = T2)) +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
   geom_line() +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = pluck(res_Tsq, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
-  geom_hline(yintercept = pluck(res_Tsq, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
+  geom_hline(yintercept = pluck(res_3PCs, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
+  geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
   annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling's T-squared (3 PCs)", fill = "T2 stats") +
+  labs(x = "Observations", y = "Hotelling's T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 2") +
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" height="90%" />
 
 **Note:** Run the function `HotellingEllipseCoord()`, if you only want
-the ellipse coordinates.
+the ellipse *x* and *y* coordinates. By default the confidence level
+`confi.limit` is set at 95%.
+
+``` r
+xy_coord <- HotellingEllipseCoord(
+    data = pca_scores, 
+    pcx = 1, 
+    pcy = 2, 
+    conf.limit = 0.95, 
+    pts = 200
+    ) %>%
+  print()
+#> # A tibble: 200 x 2
+#>          x        y
+#>      <dbl>    <dbl>
+#>  1 256487. 1.06e-12
+#>  2 256359. 2.33e+ 3
+#>  3 255975. 4.65e+ 3
+#>  4 255337. 6.97e+ 3
+#>  5 254444. 9.28e+ 3
+#>  6 253297. 1.16e+ 4
+#>  7 251898. 1.39e+ 4
+#>  8 250248. 1.62e+ 4
+#>  9 248348. 1.84e+ 4
+#> 10 246201. 2.07e+ 4
+#> # … with 190 more rows
+```
+
+``` r
+ggplot() +
+  ggforce::geom_ellipse(data = xy_coord, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
+  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
+  scale_fill_viridis_c(option = "viridis") +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2 stats", caption = "Figure 3") +
+  theme_bw()
+```
+
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
+
+Likewise, we can compute the ellipse *x* and *y* coordinates within the
+PC1-PC3 subspace.
+
+``` r
+xy_coord_2 <- 
+  HotellingEllipseCoord(
+    data = pca_scores, 
+    pcx = 1, 
+    pcy = 3, 
+    conf.limit = 0.95, 
+    pts = 200
+    )
+```
+
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%" />
+
+Please do not hesitate to contact me if you have any comments or
+suggestions.
