@@ -29,9 +29,9 @@ Component Analysis (PCA) from a LIBS spectral dataset
 `HotellingEllipse()` we calculate the Hotelling T<sup>2</sup> statistic
 for the first two principal components, as well as the values of the
 semi-axes for drawing the confidence ellipse. And finally, using
-`ggplot()` and `ggforce::geom_ellipse()` we plot the PCA scores scatter
-plot and the corresponding Hotelling’s T<sup>2</sup> ellipses at 99% and
-95% confidence levels.
+`ggplot()` and `ggforce::geom_ellipse()` we plot the scatterplot of PCA
+scores and the corresponding Hotelling’s T<sup>2</sup> ellipses at 99%
+and 95% confidence levels.
 
 **Step 1.** Load the packages.
 
@@ -82,8 +82,8 @@ pca_scores <- pca_mod %>%
 **Step 5.** Run `HotellingEllipse()` for the first two principal
 components (k = 2). We want to compute the principal axes of the
 ellipses (denoted **a** and **b**) when the first principal component,
-PC1 (pcx = 1), is on the *x*-axis and, the second principal component,
-PC2 (pcy = 2), is on the *y*-axis.
+PC1, is on the *x*-axis (pcx = 1) and, the second principal component,
+PC2, is on the *y*-axis (pcy = 2).
 
 ``` r
 res_2PCs <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
