@@ -75,5 +75,3 @@ HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts
   return(res.coord)
 
 }
-
-"HotellingEllipseCoord"
