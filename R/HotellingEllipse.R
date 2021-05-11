@@ -38,6 +38,7 @@
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
 #' T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+#'
 HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
 
   if (length(data) == 0) {
@@ -64,27 +65,30 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
     stop("k exceeds the number of component in the data.")
   }
 
-  if(k >= 2) {
-    # matrix of data
-    X <- as.matrix(data)
+  # matrix of data
+  X <- as.matrix(data)
 
-    # sample size
-    n <- nrow(X)
+  # sample size
+  n <- nrow(X)
 
-    # number of principal component
-    A <- as.numeric(k)
+  # number of principal component
+  A <- as.numeric(k)
 
-    # Squared Mahalanobis distance
-    MDsq <- stats::mahalanobis(
-      x = X,
-      center = colMeans(X),
-      cov = stats::cov(X),
-      inverted = FALSE
-    )
+  # Squared Mahalanobis distance
+  MDsq <- stats::mahalanobis(
+    x = X,
+    center = colMeans(X),
+    cov = stats::cov(X),
+    inverted = FALSE
+  )
 
+  if(k > 2) {
     # Hotelling’s T-squared statistic
-    Tsq <- tibble::tibble(statistic = ((n-A)/(A*(n-1)))*MDsq)
+    Tsq <- tibble::tibble(T2.statistic = ((n-A)/(A*(n-1)))*MDsq)
+    return(Tsq)
+    }
 
+  if(k == 2) {
     # 99% and 95% confidence limit for Hotelling’s T-squared
     Tsq_limit1 <- (A*(n-1)/(n-A))*stats::qf(p = 0.99, df1 = A, df2 = (n-A))
     Tsq_limit2 <- (A*(n-1)/(n-A))*stats::qf(p = 0.95, df1 = A, df2 = (n-A))
@@ -101,6 +105,9 @@ HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
       a2 = a_limit2,
       b2 = b_limit2
     )
+
+    # Hotelling’s T-squared statistic
+    Tsq <- tibble::tibble(statistic = ((n-2)/(2*(n-1)))*MDsq)
 
     res_list <- list(
       "Tsquared" = Tsq,
