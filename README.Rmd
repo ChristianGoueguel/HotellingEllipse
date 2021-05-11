@@ -114,7 +114,7 @@ pca_scores %>%
 **Note:** The easiest way to analyze and interpret Hotelling's T$^2$ for more than two principal components, is to plot Observations *vs.* Hotelling's T$^2$ where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits. In the example below, `HotellingEllipse()` is ran with the first three principal components (i.e., k = 3).
 
 ```{r}
-res_3PCs <- HotellingEllipse(data = pca_scores, k = 3, pcx = 1, pcy = 2)
+res_3PCs <- HotellingEllipse(data = pca_scores, k = 3)
 ```
 
 ```{r}

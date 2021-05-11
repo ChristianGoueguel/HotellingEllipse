@@ -150,7 +150,7 @@ the T<sup>2</sup> limits. In the example below, `HotellingEllipse()` is
 ran with the first three principal components (i.e., k = 3).
 
 ``` r
-res_3PCs <- HotellingEllipse(data = pca_scores, k = 3, pcx = 1, pcy = 2)
+res_3PCs <- HotellingEllipse(data = pca_scores, k = 3)
 ```
 
 ``` r
