@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-# HotellingEllipse <img src='man/figures/logo.png' align="right" height="139" />
+# HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
 
 <!-- badges: end -->
 
