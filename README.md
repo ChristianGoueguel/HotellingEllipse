@@ -7,9 +7,11 @@
 <!-- badges: end -->
 
 The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>
-Statistic and provides the values of the confidence ellipse semi-minor
-and semi-major axes for a bivariate scatterplot, at 95% and 99%
-confidence levels.
+statistic to compare multivariate data. For bivariate data, it provides
+the semi-minor and semi-major axes of a confidence ellipse at 95% and
+99% confidence intervals. The package also calculates the *x*-*y*
+coordinate points of Hotelling ellipse at user-defined confidence
+interval.
 
 ## Installation
 
@@ -23,15 +25,16 @@ remotes::install_github("ChristianGoueguel/HotellingEllipse")
 
 ## Example
 
-As an example, using `FactoMineR::PCA()` we first perform the Principal
-Component Analysis (PCA) from a LIBS spectral dataset `data("specData")`
-and extract the PCA scores. Then, from `ellipseParam()` we calculate the
-Hotelling T<sup>2</sup> statistic for the first two principal
-components, as well as the values of the semi-axes for drawing the
-confidence ellipse. And finally, using `ggplot2::ggplot()` and
-`ggforce::geom_ellipse()` we plot the scatterplot of PCA scores and the
-corresponding Hotelling’s T<sup>2</sup> ellipses at 99% and 95%
-confidence levels.
+Using `FactoMineR::PCA()` we first apply Principal Component Analysis
+(PCA) of a LIBS spectral dataset `data("specData")` and extract the PCA
+scores. Then, from `ellipseParam()` we calculate the Hotelling
+T<sup>2</sup> statistic for the first two principal components, and the
+values of the semi-major and semi-minor axes for drawing the confidence
+ellipse. And finally, using `ggplot2::ggplot()` and
+`ggforce::geom_ellipse()` we plot the scatterplot of PCA scores as well
+as the corresponding Hotelling’s T<sup>2</sup> ellipse which represents
+the confidence region for the joint variables at 99% and 95% confidence
+intervals.
 
 **Step 1.** Load the packages.
 
