@@ -8,8 +8,8 @@
 
 The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>
 Statistic and provides the values of the confidence ellipse semi-minor
-semi-major axes for a bivariate scatterplot, at 95% and 99% confidence
-levels.
+and semi-major axes for a bivariate scatterplot, at 95% and 99%
+confidence levels.
 
 ## Installation
 
@@ -29,29 +29,28 @@ Component Analysis (PCA) from a LIBS spectral dataset
 `HotellingEllipse()` we calculate the Hotelling T<sup>2</sup> statistic
 for the first two principal components, as well as the values of the
 semi-axes for drawing the confidence ellipse. And finally, using
-`ggplot()` and `ggforce::geom_ellipse()` we plot the scatterplot of PCA
-scores and the corresponding Hotelling’s T<sup>2</sup> ellipses at 99%
-and 95% confidence levels.
+`ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
+scatterplot of PCA scores and the corresponding Hotelling’s
+T<sup>2</sup> ellipses at 99% and 95% confidence levels.
 
 **Step 1.** Load the packages.
 
 ``` r
 library(HotellingEllipse)
 library(tidyverse)
-devtools::load_all()
 ```
 
 **Step 2.** Load LIBS dataset into R session.
 
 ``` r
-data("LIBS_spec")
+data("specData")
 ```
 
 **Step 3.** Perform principal component analysis.
 
 ``` r
 set.seed(123)
-pca_mod <- LIBS_spec %>%
+pca_mod <- specData %>%
   select(where(is.numeric)) %>%
   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 ```
@@ -79,14 +78,14 @@ pca_scores <- pca_mod %>%
 #> # … with 161 more rows
 ```
 
-**Step 5.** Run `HotellingEllipse()` for the first two principal
-components (k = 2). We want to compute the principal axes of the
-ellipses (denoted **a** and **b**) when the first principal component,
-PC1, is on the *x*-axis (pcx = 1) and, the second principal component,
-PC2, is on the *y*-axis (pcy = 2).
+**Step 5.** Run `ellipseParam()` for the first two principal components
+(k = 2). We want to compute the principal axes of the ellipses (denoted
+**a** and **b**) when the first principal component, PC1, is on the
+*x*-axis (pcx = 1) and, the second principal component, PC2, is on the
+*y*-axis (pcy = 2).
 
 ``` r
-res_2PCs <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ```
 
 ``` r
@@ -147,11 +146,11 @@ pca_scores %>%
 T<sup>2</sup> for more than two principal components, is to plot
 Observations *vs.* Hotelling’s T<sup>2</sup> where the confidence limits
 are plotted as a line. Thus, observations below the two lines are within
-the T<sup>2</sup> limits. In the example below, `HotellingEllipse()` is
-ran with the first three principal components (i.e., k = 3).
+the T<sup>2</sup> limits. In the example below, `ellipseParam()` is ran
+with the first three principal components (i.e., k = 3).
 
 ``` r
-res_3PCs <- HotellingEllipse(data = pca_scores, k = 3)
+res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ```
 
 ``` r
@@ -159,10 +158,10 @@ tibble(
   T2 = pluck(res_3PCs, "Tsquared", "statistic"), 
   obs = 1:nrow(pca_scores)
   ) %>%
-  ggplot(aes(x = obs, y = T2)) +
-  geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
-  geom_line() +
-  scale_fill_viridis_c(option = "viridis") +
+  ggplot() +
+  geom_point(aes(x = obs, y = T2, fill = T2), shape = 21, size = 3, color = "black") +
+  geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), size = .5) +
+  scale_fill_gradient(low = "black", high = "red", guide = "none") +
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
@@ -173,12 +172,12 @@ tibble(
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" height="90%" />
 
-**Note:** Run the function `HotellingEllipseCoord()`, if you only want
-the ellipse *x* and *y* coordinates. By default the confidence level
+**Note:** Run the function `ellipseCoord()`, if you only want the
+ellipse *x* and *y* coordinates. By default the confidence level
 `confi.limit` is set at 95%.
 
 ``` r
-xy_coord <- HotellingEllipseCoord(
+xy_coord <- ellipseCoord(
     data = pca_scores, 
     pcx = 1, 
     pcy = 2, 
@@ -220,7 +219,7 @@ PC1-PC3 subspace.
 
 ``` r
 xy_coord_2 <- 
-  HotellingEllipseCoord(
+  ellipseCoord(
     data = pca_scores, 
     pcx = 1, 
     pcy = 3, 
@@ -230,6 +229,3 @@ xy_coord_2 <-
 ```
 
 <img src="man/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%" />
-
-Please do not hesitate to contact me if you have any comments or
-suggestions.
