@@ -4,6 +4,9 @@
 # HotellingEllipse
 
 <!-- badges: start -->
+
+# HotellingEllipse <img src='man/figures/logo.png' align="right" height="139" />
+
 <!-- badges: end -->
 
 The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>
