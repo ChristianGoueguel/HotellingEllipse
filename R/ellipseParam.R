@@ -83,9 +83,19 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
   )
 
   if(k > 2) {
+    # 99% and 95% confidence limit for Hotelling’s T-squared
+    Tsq_limit1 <- (A*(n-1)/(n-A))*stats::qf(p = 0.99, df1 = A, df2 = (n-A))
+    Tsq_limit2 <- (A*(n-1)/(n-A))*stats::qf(p = 0.95, df1 = A, df2 = (n-A))
+
     # Hotelling’s T-squared statistic
-    Tsq <- tibble::tibble(T2.statistic = ((n-A)/(A*(n-1)))*MDsq)
-    return(Tsq)
+    Tsq <- tibble::tibble(statistic = ((n-A)/(A*(n-1)))*MDsq)
+
+    res_list <- list(
+      "Tsquared" = Tsq,
+      "cutoff.99pct" = Tsq_limit1,
+      "cutoff.95pct" = Tsq_limit2
+    )
+    return(res_list)
     }
 
   if(k == 2) {
@@ -116,6 +126,5 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
       "cutoff.95pct" = Tsq_limit2
     )
     return(res_list)
+    }
   }
-
-}
