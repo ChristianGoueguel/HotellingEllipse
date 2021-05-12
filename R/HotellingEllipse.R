@@ -17,7 +17,7 @@
 #' (3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99% confidence level.
 #' (4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95% confidence level.
 #'
-#' @export HotellingEllipse
+#' @export ellipseParam
 #'
 #' @author Christian L. Goueguel,
 #' christian.goueguel@gmail.com
@@ -37,9 +37,9 @@
 #'
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
-#' T2 <- HotellingEllipse(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+#' T2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 #'
-HotellingEllipse <- function(data, k = 2, pcx = 1, pcy = 2) {
+ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
 
   if (length(data) == 0) {
     stop("Seems you forgot to provide data values.")
