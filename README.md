@@ -25,9 +25,9 @@ remotes::install_github("ChristianGoueguel/HotellingEllipse")
 
 ## Example
 
-Using `FactoMineR::PCA()` we first apply Principal Component Analysis
-(PCA) of a LIBS spectral dataset `data("specData")` and extract the PCA
-scores. Then, from `ellipseParam()` we calculate the Hotelling
+Using `FactoMineR::PCA()` we first perform Principal Component Analysis
+(PCA) from a LIBS spectral dataset `data("specData")` and extract the
+PCA scores. Then, from `ellipseParam()` we calculate the Hotelling
 T<sup>2</sup> statistic for the first two principal components, and the
 values of the semi-major and semi-minor axes for drawing the confidence
 ellipse. And finally, using `ggplot2::ggplot()` and
