@@ -13,25 +13,25 @@ confidence levels.
 
 ## Installation
 
-You can install HotellingEllipse from [GitHub](https://github.com/)
-with:
+You can install the released version of HotellingEllipse from
+[GitHub](https://github.com/):
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ChristianGoueguel/HotellingEllipse")
+# install.packages("remotes")
+remotes::install_github("ChristianGoueguel/HotellingEllipse")
 ```
 
 ## Example
 
 As an example, using `FactoMineR::PCA()` we first perform the Principal
-Component Analysis (PCA) from a LIBS spectral dataset
-`data("LIBS_spec")` and extract the PCA scores. Then, from
-`HotellingEllipse()` we calculate the Hotelling T<sup>2</sup> statistic
-for the first two principal components, as well as the values of the
-semi-axes for drawing the confidence ellipse. And finally, using
-`ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
-scatterplot of PCA scores and the corresponding Hotelling’s
-T<sup>2</sup> ellipses at 99% and 95% confidence levels.
+Component Analysis (PCA) from a LIBS spectral dataset `data("specData")`
+and extract the PCA scores. Then, from `ellipseParam()` we calculate the
+Hotelling T<sup>2</sup> statistic for the first two principal
+components, as well as the values of the semi-axes for drawing the
+confidence ellipse. And finally, using `ggplot2::ggplot()` and
+`ggforce::geom_ellipse()` we plot the scatterplot of PCA scores and the
+corresponding Hotelling’s T<sup>2</sup> ellipses at 99% and 95%
+confidence levels.
 
 **Step 1.** Load the packages.
 
@@ -122,10 +122,9 @@ Retrieve Hotelling’s T<sup>2</sup> statistic (for the first two PCs).
 T2 <- pluck(res_2PCs, "Tsquared", "statistic")
 ```
 
-**Step 6.** Plot PC1 *vs.* PC2 scores scatterplot, with the two
-corresponding Hotelling’s T<sup>2</sup> ellipses. Points inside the two
-elliptical regions are within the 99% and 95% confidence limits for
-T<sup>2</sup>.
+**Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
+Hotelling’s T<sup>2</sup> ellipses. Points inside the two elliptical
+regions are within the 99% and 95% confidence limits for T<sup>2</sup>.
 
 ``` r
 pca_scores %>%
@@ -172,9 +171,9 @@ tibble(
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" height="90%" />
 
-**Note:** Run the function `ellipseCoord()`, if you only want the
-ellipse *x* and *y* coordinates. By default the confidence level
-`confi.limit` is set at 95%.
+**Note:** Run the function `ellipseCoord()`, if you want the *x* and *y*
+coordinate points of the confidence ellipse instead. By default the
+confidence level `confi.limit` is set at 95%.
 
 ``` r
 xy_coord <- ellipseCoord(
