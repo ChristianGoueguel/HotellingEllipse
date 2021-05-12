@@ -12,5 +12,3 @@
 #'
 #' @examples
 #' data(specData)
-#'
-"specData"
