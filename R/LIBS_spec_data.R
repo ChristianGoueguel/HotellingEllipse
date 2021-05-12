@@ -12,4 +12,5 @@
 #'
 #' @examples
 #' data(specData)
-
+#'
+"specData"
