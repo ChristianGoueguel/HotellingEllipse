@@ -41,4 +41,9 @@ pca_scores <- pca_mod \%>\%
 ## Compute Hotelling T-squared statistic and ellipse parameters
 library(HotellingEllipse)
 xy_coord <- HotellingEllipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+
+}
+\author{
+Christian L. Goueguel,
+christian.goueguel@gmail.com
 }

@@ -9,7 +9,7 @@
 #'
 #' @return a data frame with x and y coordinates
 #'
-#' @export HotellingEllipseCoord
+#' @export ellipseCoord
 #'
 #' @author Christian L. Goueguel,
 #' christian.goueguel@gmail.com
@@ -28,9 +28,9 @@
 #'    tibble::as_tibble()
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
-#' xy_coord <- HotellingEllipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+#' xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 #'
-HotellingEllipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
+ellipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
 
   stopifnot(length(data) != 0)
   stopifnot(pcx != pcy)
