@@ -37,7 +37,9 @@ confidence levels.
 
 ``` r
 library(HotellingEllipse)
-library(tidyverse)
+library(dplyr)
+library(purrr)
+library(ggplot2)
 ```
 
 **Step 2.** Load LIBS dataset into R session.
@@ -153,7 +155,7 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ```
 
 ``` r
-tibble(
+tibble::tibble(
   T2 = pluck(res_3PCs, "Tsquared", "statistic"), 
   obs = 1:nrow(pca_scores)
   ) %>%
