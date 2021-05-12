@@ -26,7 +26,7 @@
 #' ## Principal components analysis (PCA)
 #' library(magrittr)
 #' set.seed(123)
-#' pca_mod <- LIBS_spec %>%
+#' pca_mod <- specData %>%
 #'   dplyr::select(where(is.numeric)) %>%
 #'   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 #'

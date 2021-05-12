@@ -15,10 +15,10 @@
 #' christian.goueguel@gmail.com
 #'
 #' @examples
-#' #' ## Principal components analysis (PCA)
+#' ## Principal components analysis (PCA)
 #' library(magrittr)
 #' set.seed(123)
-#' pca_mod <- LIBS_spec %>%
+#' pca_mod <- specData %>%
 #'   dplyr::select(where(is.numeric)) %>%
 #'   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 #'
@@ -26,6 +26,7 @@
 #' pca_scores <- pca_mod %>%
 #'    purrr::pluck("ind", "coord") %>%
 #'    tibble::as_tibble()
+#'
 #' ## Compute Hotelling T-squared statistic and ellipse parameters
 #' library(HotellingEllipse)
 #' xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
