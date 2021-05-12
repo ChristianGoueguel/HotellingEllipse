@@ -4,12 +4,12 @@
 #'
 #' @docType data
 #'
-#' @usage data(LIBS_spec)
+#' @usage data(specData)
 #'
 #'
 #' @keywords datasets
 #'
 #'
 #' @examples
-#' data(LIBS_spec)
-"LIBS_spec"
+#' data(specData)
+
