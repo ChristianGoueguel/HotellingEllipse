@@ -28,7 +28,6 @@ HotellingEllipse provides the Hotelling’s T$^2$ statistic, the semi-major axis
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-library(FactoMineR)
 library(dplyr)
 library(tibble)
 library(purrr)
@@ -52,7 +51,7 @@ In this example, we use `FactoMineR::PCA()` to perform the Principal Component A
 set.seed(123)
 pca_mod <- specData %>%
   select(where(is.numeric)) %>%
-  PCA(scale.unit = FALSE, graph = FALSE)
+  FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 ```
 
 ```{r}
