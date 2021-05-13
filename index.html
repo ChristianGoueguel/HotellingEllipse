@@ -140,20 +140,20 @@
 <span class="co">#&gt;  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...</span>
 <span class="co">#&gt;  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ a1: num 319536</span>
-<span class="co">#&gt;   ..$ b1: num 91816</span>
-<span class="co">#&gt;   ..$ a2: num 256487</span>
-<span class="co">#&gt;   ..$ b2: num 73699</span>
+<span class="co">#&gt;   ..$ a.99pct: num 319536</span>
+<span class="co">#&gt;   ..$ b.99pct: num 91816</span>
+<span class="co">#&gt;   ..$ a.95pct: num 256487</span>
+<span class="co">#&gt;   ..$ b.95pct: num 73699</span>
 <span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
 <span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
 <p>Semi axes of the ellipse at 99% confidence level.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a1"</span><span class="op">)</span>
-<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b1"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
+<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
 <p>Semi axes of the ellipse at 95% confidence level.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a2"</span><span class="op">)</span>
-<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b2"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
+<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
 <p>Hotelling’s T<sup>2</sup> statistic.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>

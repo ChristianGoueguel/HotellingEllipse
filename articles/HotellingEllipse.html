@@ -109,7 +109,7 @@ div.output pre { background-color:#FFFFFF; }
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 <span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+  <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op">%&gt;%</span>
   <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -134,7 +134,7 @@ div.output pre { background-color:#FFFFFF; }
 <div id="hotelling-ellipse-semi-axes" class="section level1">
 <h1 class="hasAnchor">
 <a href="#hotelling-ellipse-semi-axes" class="anchor"></a>Hotelling ellipse: semi axes</h1>
-<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. Note that if we want to compute the ellipse parameters, for instance within the PC1-PC3 subspace, we set the pcx and pcy inputs to 1 and 3, respectively.</p>
+<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the ellipse parameters for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -143,10 +143,10 @@ div.output pre { background-color:#FFFFFF; }
 <span class="co">#&gt;  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...</span>
 <span class="co">#&gt;  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ a1: num 319536</span>
-<span class="co">#&gt;   ..$ b1: num 91816</span>
-<span class="co">#&gt;   ..$ a2: num 256487</span>
-<span class="co">#&gt;   ..$ b2: num 73699</span>
+<span class="co">#&gt;   ..$ a.99pct: num 319536</span>
+<span class="co">#&gt;   ..$ b.99pct: num 91816</span>
+<span class="co">#&gt;   ..$ a.95pct: num 256487</span>
+<span class="co">#&gt;   ..$ b.95pct: num 73699</span>
 <span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
 <span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
 <p>We can extract parameters for further use:</p>
@@ -154,20 +154,20 @@ div.output pre { background-color:#FFFFFF; }
 <li>Semi axes of the ellipse at 99% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a1"</span><span class="op">)</span>
-<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b1"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
+<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Semi axes of the ellipse at 95% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a2"</span><span class="op">)</span>
-<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b2"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
+<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Hotelling’s T<span class="math inline">\(^2\)</span> statistic.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>
-<p>We can now plot the scatterplot of PCA scores along with the corresponding Hotelling’s T<span class="math inline">\(^2\)</span> ellipses at 99% and 95% confidence intervals.</p>
+<p>We can now plot the scatterplot of PCA scores along with the corresponding Hotelling’s T<span class="math inline">\(^2\)</span> ellipses at 99% and 95% confidence intervals. The confidence ellipses are plotted with <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html">ggforce::geom_ellipse</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">%&gt;%</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -199,7 +199,7 @@ div.output pre { background-color:#FFFFFF; }
 <span class="co">#&gt; tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ x: num [1:500] 256487 256466 256405 256304 256161 ...</span>
 <span class="co">#&gt;  $ y: num [1:500] -1.73e-12 7.93e+02 1.59e+03 2.38e+03 3.17e+03 ...</span></code></pre></div>
-<p>We can plot the confidence ellipse with <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html">ggforce::geom_ellipse</a></code>.</p>
+<p>We can plot the confidence ellipse.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">%&gt;%</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
