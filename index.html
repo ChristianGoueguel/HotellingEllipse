@@ -96,7 +96,7 @@
 <p>Below is an overview of how HotellingEllipse can help draw a confidence ellipse:</p>
 <ul>
 <li><p>using <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html">FactoMineR::PCA()</a></code> we first perform Principal Component Analysis (PCA) from a LIBS spectral dataset <code><a href="https://rdrr.io/r/utils/data.html">data("specData")</a></code> and extract the PCA scores.</p></li>
-<li><p>with <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> we get the T<sup>2</sup> statistic along with the values of the semi-minor and semi-major axes of the Hotelling ellipse.</p></li>
+<li><p>with <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> we get the T<sup>2</sup> statistic along with the values of the semi-minor and semi-major axes of the Hotelling ellipse. Whereas, <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code> provides the <em>x</em> and <em>y</em> coordinate points for drawing the Hotelling ellipse at user-defined confidence interval.</p></li>
 <li><p>using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2::ggplot()</a></code> and <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html">ggforce::geom_ellipse()</a></code> we plot the scatterplot of PCA scores as well as the corresponding Hotelling ellipse which represents the confidence region for the joint variables at 99% and 95% confidence intervals.</p></li>
 </ul>
 <p><strong>Step 1.</strong> Load the package.</p>
