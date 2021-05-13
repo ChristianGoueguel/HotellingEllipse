@@ -16,8 +16,12 @@ RoxygenNote: 7.1.1
 URL: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse
 BugReports: https://github.com/ChristianGoueguel/HotellingEllipse/issues
 Imports: 
+    dplyr,
     FactoMineR,
+    ggforce,
+    ggplot2,
     magrittr,
+    purrr,
     stats,
     tibble
 Depends: 
