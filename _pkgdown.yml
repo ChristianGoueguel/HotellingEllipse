@@ -11,3 +11,5 @@ template:
 
 development:
   mode: auto
+
+output_dir: docs
