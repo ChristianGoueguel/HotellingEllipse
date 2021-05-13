@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' ## Principal components analysis (PCA)
-#' library(magrittr)
+#' library(dplyr)
 #' set.seed(123)
 #' pca_mod <- specData %>%
 #'   dplyr::select(where(is.numeric)) %>%

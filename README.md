@@ -15,8 +15,7 @@ interval.
 
 ## Installation
 
-You can install the released version of HotellingEllipse from
-[GitHub](https://github.com/):
+You can install HotellingEllipse from [GitHub](https://github.com/):
 
 ``` r
 # install.packages("remotes")
