@@ -7,9 +7,5 @@
 \format{A data frame with 171 rows and 6670 variables.}
 \source{\url{https://doi.org/10.1039/C9JA00090A}}
 \usage{specData}
-\description{
-A dataset containing the LIBS spectra of 171 agricultural soils.
-
-A dataset containing the emission spectra of 171 soils measured in laboratory.
-}
+\description{A dataset containing the emission spectra of 171 soils measured in laboratory.}
 \keyword{datasets}
