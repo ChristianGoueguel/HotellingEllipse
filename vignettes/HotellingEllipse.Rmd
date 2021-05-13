@@ -20,133 +20,134 @@ knitr::opts_chunk$set(
 )
 ```
 
-HotellingEllipse package computes the Hotelling’s T-squared statistic. For bivariate data, it provides x-y coordinates and the principal axes (denoted **a** and **b**) for drawing confidence ellipse based on Hotelling's T-squared. Specifically, there are two functions available:
+HotellingEllipse provides the Hotelling’s T$^2$ statistic, the semi-major axis (denoted **a**), the semi-minor axis (denoted **b**) and, the *x*-*y* coordinate points for drawing a confidence ellipse based on Hotelling's T$^2$. Specifically, there are two functions available:
 
-  * `ellipseParam()`, computes the Hotelling’s T-squared statistic and the principal axes of the confidence ellipse at 99% and 95% confidence interval.
-  * `ellipseCoord()`, computes the *x* and *y* coordinate points of the confidence ellipse. The confidence interval is set at 95% by default. 
+  * `ellipseParam()`, is used to calculate the Hotelling’s T$^2$ statistic and the semi axes of an ellipse at 99% and 95% confidence intervals.
   
-# Usage
+  * `ellipseCoord()`, is used to get the x and y coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default. 
 
-As an example, we use `FactoMineR::PCA()` to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset and extract the PCA scores.
 
-```{r, message = FALSE, warning = FALSE}
-library(HotellingEllipse)
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(FactoMineR)
 library(dplyr)
+library(tibble)
 library(purrr)
 library(ggplot2)
+library(ggforce)
+```
+
+# Data
+
+```{r message=FALSE, warning=FALSE}
+library(HotellingEllipse)
 ```
 
 ```{r}
 data("specData")
 ```
 
+In this example, we use `FactoMineR::PCA()` to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `specData` and extract the PCA scores as a data frame `tibble::as_tibble()`. 
+
 ```{r}
 set.seed(123)
 pca_mod <- specData %>%
   select(where(is.numeric)) %>%
-  FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
+  PCA(scale.unit = FALSE, graph = FALSE)
 ```
 
 ```{r}
 pca_scores <- pca_mod %>%
-  purrr::pluck("ind", "coord") %>%
+  pluck("ind", "coord") %>%
   as_tibble()
 ```
 
-Then, using the function `ellipseParam()` we calculate the Hotelling's T$^2$ statistic for the first two principal components.
+```{r}
+pca_scores
+```
+
+# Hotelling ellipse: semi axes 
+
+To add a confidence ellipse, we use the function `ellipseParam()`. Note that if we want to compute the ellipse parameters, for instance within the PC1-PC3 subspace, we set the pcx and pcy inputs to 1 and 3, respectively.
 
 ```{r}
 res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ```
 
+```{r}
+str(res)
+```
+
 We can extract parameters for further use:
 
-Principal axes of the ellipse at 99% confidence level.
+  * Semi axes of the ellipse at 99% confidence level.
 
 ```{r}
-
 a1 <- pluck(res, "Ellipse", "a1")
 b1 <- pluck(res, "Ellipse", "b1")
 ```
 
-Principal axes of the ellipse at 95% confidence level.
+  * Semi axes of the ellipse at 95% confidence level.
 
 ```{r}
 a2 <- pluck(res, "Ellipse", "a2")
 b2 <- pluck(res, "Ellipse", "b2")
 ```
 
-Hotelling's T$^2$ statistic (for the first two PCs).
+  * Hotelling's T$^2$ statistic.
 
 ```{r}
 Tsq <- pluck(res, "Tsquared", "statistic")
 ```
 
-Using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the scatterplot of PCA scores and the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence levels.
+We can now plot the scatterplot of PCA scores along with the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence intervals.
 
 ```{r, fig.align='center', fig.width=7, fig.height=5}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
-  ggforce::geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
-  ggforce::geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed") +
   geom_point(aes(fill = Tsq), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2 stats", caption = "Figure 1") +
+  labs(
+    title = "Scatterplot of PCA scores", 
+    subtitle = "PC1 vs. PC2", 
+    x = "PC1", 
+    y = "PC2", 
+    fill = "T2 stats", 
+    caption = "Figure 1"
+    ) +
   theme_bw()
 ```
 
-Another way is to run the function `ellipseCoord()`, if you want the *x* and *y* coordinate points of the confidence ellipse.
+# Hotelling ellipse: x and y coordinate points
+
+Another way to add a confidence ellipse is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval `confi.limit` is set at 95% by default. Below, the *x*-*y* coordinate points are estimated for data projected into the PC1-PC3 subspace.
 
 ```{r}
-xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
+xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.95, pts = 500)
 ```
 
-Then plot the confidence ellipse, using `ggforce::geom_ellipse`. 
+```{r}
+str(xy_coord)
+```
+
+We can plot the confidence ellipse with `ggforce::geom_ellipse`. 
 
 ```{r, fig.align='center', fig.width=7, fig.height=5}
-ggplot() +
-  ggforce::geom_ellipse(data = xy_coord, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
-  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = Tsq), shape = 21, size = 3, color = "black") +
-  scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2 stats", caption = "Figure 2") +
-  theme_bw()
-```
-
-For more than two principal components, the easiest way is to plot Observations *vs.* Hotelling's T$^2$ where the confidence limits are plotted as a line. For example, below, `ellipseParam()` is ran with the first three principal components.
-
-```{r}
-res1 <- ellipseParam(data = pca_scores, k = 3)
-```
-
-```{r}
-limit1 <- pluck(res1, "cutoff.99pct")
-limit2 <- pluck(res1, "cutoff.95pct")
-```
-
-```{r, fig.align='center', fig.width=7, fig.height=5}
-tibble::tibble(
-  Tsq = pluck(res1, "Tsquared", "statistic"), 
-  obs = 1:nrow(pca_scores)
-  ) %>%
+pca_scores %>%
   ggplot() +
-  geom_point(aes(x = obs, y = Tsq, fill = Tsq), shape = 21, size = 3, color = "black") +
-  geom_segment(aes(x = obs, y = Tsq, xend = obs, yend = 0), size = .5) +
-  scale_fill_gradient(low = "black", high = "red", guide = "none") +
-  geom_hline(yintercept = limit1, linetype = "dashed", color = "darkred", size = .5) +
-  geom_hline(yintercept = limit2, linetype = "dashed", color = "darkblue", size = .5) +
-  annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
-  annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling's T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 3") +
+  geom_point(aes(x = Dim.1, y = Dim.3), shape = 21, size = 4, fill = "gold", color = "black") +
+  geom_ellipse(data = xy_coord, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  labs(
+    title = "Scatterplot of PCA scores", 
+    subtitle = "PC1 vs. PC3", 
+    x = "PC1", 
+    y = "PC3", 
+    caption = "Figure 2"
+    ) +
   theme_bw()
 ```
-
-
-
-
-
-
-
