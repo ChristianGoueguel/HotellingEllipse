@@ -100,10 +100,10 @@ str(res_2PCs)
 #>  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
 #>   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...
 #>  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a1: num 319536
-#>   ..$ b1: num 91816
-#>   ..$ a2: num 256487
-#>   ..$ b2: num 73699
+#>   ..$ a.99pct: num 319536
+#>   ..$ b.99pct: num 91816
+#>   ..$ a.95pct: num 256487
+#>   ..$ b.95pct: num 73699
 #>  $ cutoff.99pct: num 9.52
 #>  $ cutoff.95pct: num 6.14
 ```
@@ -111,15 +111,15 @@ str(res_2PCs)
 Semi axes of the ellipse at 99% confidence level.
 
 ``` r
-a1 <- pluck(res_2PCs, "Ellipse", "a1")
-b1 <- pluck(res_2PCs, "Ellipse", "b1")
+a1 <- pluck(res_2PCs, "Ellipse", "a.99pct")
+b1 <- pluck(res_2PCs, "Ellipse", "b.99pct")
 ```
 
 Semi axes of the ellipse at 95% confidence level.
 
 ``` r
-a2 <- pluck(res_2PCs, "Ellipse", "a2")
-b2 <- pluck(res_2PCs, "Ellipse", "b2")
+a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
+b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
 Hotelling’s T<sup>2</sup> statistic.

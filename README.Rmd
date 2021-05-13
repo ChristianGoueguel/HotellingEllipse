@@ -93,15 +93,15 @@ str(res_2PCs)
 Semi axes of the ellipse at 99% confidence level.
 
 ```{r}
-a1 <- pluck(res_2PCs, "Ellipse", "a1")
-b1 <- pluck(res_2PCs, "Ellipse", "b1")
+a1 <- pluck(res_2PCs, "Ellipse", "a.99pct")
+b1 <- pluck(res_2PCs, "Ellipse", "b.99pct")
 ```
 
 Semi axes of the ellipse at 95% confidence level.
 
 ```{r}
-a2 <- pluck(res_2PCs, "Ellipse", "a2")
-b2 <- pluck(res_2PCs, "Ellipse", "b2")
+a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
+b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
 Hotelling's T$^2$ statistic.

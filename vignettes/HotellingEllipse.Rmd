@@ -29,6 +29,7 @@ HotellingEllipse provides the Hotelling’s T$^2$ statistic, the semi-major axis
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(dplyr)
+library(FactoMineR)
 library(tibble)
 library(purrr)
 library(ggplot2)
@@ -51,7 +52,7 @@ In this example, we use `FactoMineR::PCA()` to perform the Principal Component A
 set.seed(123)
 pca_mod <- specData %>%
   select(where(is.numeric)) %>%
-  FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
+  PCA(scale.unit = FALSE, graph = FALSE)
 ```
 
 ```{r}
@@ -66,7 +67,7 @@ pca_scores
 
 # Hotelling ellipse: semi axes 
 
-To add a confidence ellipse, we use the function `ellipseParam()`. Note that if we want to compute the ellipse parameters, for instance within the PC1-PC3 subspace, we set the pcx and pcy inputs to 1 and 3, respectively.
+To add a confidence ellipse, we use the function `ellipseParam()`. We want to compute the ellipse parameters for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.
 
 ```{r}
 res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
@@ -81,15 +82,15 @@ We can extract parameters for further use:
   * Semi axes of the ellipse at 99% confidence level.
 
 ```{r}
-a1 <- pluck(res, "Ellipse", "a1")
-b1 <- pluck(res, "Ellipse", "b1")
+a1 <- pluck(res, "Ellipse", "a.99pct")
+b1 <- pluck(res, "Ellipse", "b.99pct")
 ```
 
   * Semi axes of the ellipse at 95% confidence level.
 
 ```{r}
-a2 <- pluck(res, "Ellipse", "a2")
-b2 <- pluck(res, "Ellipse", "b2")
+a2 <- pluck(res, "Ellipse", "a.95pct")
+b2 <- pluck(res, "Ellipse", "b.95pct")
 ```
 
   * Hotelling's T$^2$ statistic.
@@ -98,7 +99,7 @@ b2 <- pluck(res, "Ellipse", "b2")
 Tsq <- pluck(res, "Tsquared", "statistic")
 ```
 
-We can now plot the scatterplot of PCA scores along with the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence intervals.
+We can now plot the scatterplot of PCA scores along with the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence intervals. The confidence ellipses are plotted with `ggforce::geom_ellipse`. 
 
 ```{r, fig.align='center', fig.width=7, fig.height=5}
 pca_scores %>%
@@ -132,7 +133,7 @@ xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.95,
 str(xy_coord)
 ```
 
-We can plot the confidence ellipse with `ggforce::geom_ellipse`. 
+We can plot the confidence ellipse. 
 
 ```{r, fig.align='center', fig.width=7, fig.height=5}
 pca_scores %>%

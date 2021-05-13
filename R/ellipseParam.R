@@ -110,10 +110,10 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
     b_limit2 <- sqrt(Tsq_limit2*stats::var(X[, pcy]))
 
     axis_param <- tibble::tibble(
-      a1 = a_limit1,
-      b1 = b_limit1,
-      a2 = a_limit2,
-      b2 = b_limit2
+      a.99pct = a_limit1,
+      b.99pct = b_limit1,
+      a.95pct = a_limit2,
+      b.95pct = b_limit2
     )
 
     # Hotelling’s T-squared statistic
@@ -128,3 +128,4 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
     return(res_list)
     }
   }
+
