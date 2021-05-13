@@ -33,7 +33,9 @@ ellipse:
 
 -   with `ellipseParam()` we get the T<sup>2</sup> statistic along with
     the values of the semi-minor and semi-major axes of the Hotelling
-    ellipse.
+    ellipse. Whereas, `ellipseCoord()` provides the *x* and *y*
+    coordinate points for drawing the Hotelling ellipse at user-defined
+    confidence interval.
 
 -   using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
     scatterplot of PCA scores as well as the corresponding Hotelling

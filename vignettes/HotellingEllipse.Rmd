@@ -16,7 +16,8 @@ div.output pre { background-color:#FFFFFF; }
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.retina = 2
 )
 ```
 
@@ -24,7 +25,7 @@ HotellingEllipse provides the Hotelling’s T$^2$ statistic, the semi-major axis
 
   * `ellipseParam()`, is used to calculate the Hotelling’s T$^2$ statistic and the semi axes of an ellipse at 99% and 95% confidence intervals.
   
-  * `ellipseCoord()`, is used to get the x and y coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default. 
+  * `ellipseCoord()`, is used to get the *x* and *y* coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default. 
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
