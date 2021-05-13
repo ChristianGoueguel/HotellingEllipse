@@ -4,12 +4,10 @@ author:
   Christian L. Goueguel:
     href: christian.goueguel@gmail.com
 
-template:
-  bootstrap: 4
-  params:
-    ganalytics: UA-115082821-1
-
 development:
-  mode: auto
+  mode: release
 
-output_dir: docs
+destination: docs
+
+deploy:
+  install_metadata: true
