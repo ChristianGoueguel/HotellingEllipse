@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="HotellingEllipse">
 <meta property="og:description" content="HotellingEllipse">
-<meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
+<meta property="og:image" content="https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -88,98 +88,130 @@
 div.reviewer pre { background-color:#e3dece; }
 div.output pre { background-color:#FFFFFF; }
 </style>
-<p>HotellingEllipse package computes the Hotelling’s T-squared statistic. For bivariate data, it provides x-y coordinates and the principal axes (denoted <strong>a</strong> and <strong>b</strong>) for drawing confidence ellipse based on Hotelling’s T-squared. Specifically, there are two functions available:</p>
+<p>HotellingEllipse provides the Hotelling’s T<span class="math inline">\(^2\)</span> statistic, the semi-major axis (denoted <strong>a</strong>), the semi-minor axis (denoted <strong>b</strong>) and, the <em>x</em>-<em>y</em> coordinate points for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
 <ul>
-<li>
-<code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, computes the Hotelling’s T-squared statistic and the principal axes of the confidence ellipse at 99% and 95% confidence interval.</li>
-<li>
-<code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, computes the <em>x</em> and <em>y</em> coordinate points of the confidence ellipse. The confidence interval is set at 95% by default.</li>
+<li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> statistic and the semi axes of an ellipse at 99% and 95% confidence intervals.</p></li>
+<li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the x and y coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default.</p></li>
 </ul>
-<div id="usage" class="section level1">
+<div id="data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h1>
-<p>As an example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset and extract the PCA scores.</p>
+<a href="#data" class="anchor" aria-hidden="true"></a>Data</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org" class="external-link">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
+<p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 <span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+  <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>Then, using the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code> we calculate the Hotelling’s T<span class="math inline">\(^2\)</span> statistic for the first two principal components.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p>We can extract parameters for further use:</p>
-<p>Principal axes of the ellipse at 99% confidence level.</p>
+<code class="sourceCode R"><span class="va">pca_scores</span>
+<span class="co">#&gt; # A tibble: 171 x 5</span>
+<span class="co">#&gt;      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5</span>
+<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 144168. -36399.   2228.   -670.  13805.</span>
+<span class="co">#&gt;  2 118520. -31465.  16300. -20686. -13872.</span>
+<span class="co">#&gt;  3  90303. -28356.  31340. -60615.  15157.</span>
+<span class="co">#&gt;  4 107107. -38209.  24897. -60366.  19449.</span>
+<span class="co">#&gt;  5  74350.  -2148.  29814.  -8351.    494.</span>
+<span class="co">#&gt;  6  97511. -17932.  22254. -15406.  -4195.</span>
+<span class="co">#&gt;  7  82142.  19297. -34299. -12498.   -648.</span>
+<span class="co">#&gt;  8  76261.  16566. -34382. -16293.    137.</span>
+<span class="co">#&gt;  9  73705.  31091. -22577. -17182.   2438.</span>
+<span class="co">#&gt; 10  68042.  25124. -26063. -19389.   6051.</span>
+<span class="co">#&gt; # … with 161 more rows</span></code></pre></div>
+</div>
+<div id="hotelling-ellipse-semi-axes" class="section level1">
+<h1 class="hasAnchor">
+<a href="#hotelling-ellipse-semi-axes" class="anchor" aria-hidden="true"></a>Hotelling ellipse: semi axes</h1>
+<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. Note that if we want to compute the ellipse parameters, for instance within the PC1-PC3 subspace, we set the pcx and pcy inputs to 1 and 3, respectively.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a1"</span><span class="op">)</span>
-<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b1"</span><span class="op">)</span></code></pre></div>
-<p>Principal axes of the ellipse at 95% confidence level.</p>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a2"</span><span class="op">)</span>
-<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b2"</span><span class="op">)</span></code></pre></div>
-<p>Hotelling’s T<span class="math inline">\(^2\)</span> statistic (for the first two PCs).</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+<span class="co">#&gt; List of 4</span>
+<span class="co">#&gt;  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...</span>
+<span class="co">#&gt;  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ a1: num 319536</span>
+<span class="co">#&gt;   ..$ b1: num 91816</span>
+<span class="co">#&gt;   ..$ a2: num 256487</span>
+<span class="co">#&gt;   ..$ b2: num 73699</span>
+<span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
+<span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
+<p>We can extract parameters for further use:</p>
+<ul>
+<li>Semi axes of the ellipse at 99% confidence level.</li>
+</ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>
-<p>Using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> and <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">ggforce::geom_ellipse()</a></code> we plot the scatterplot of PCA scores and the corresponding Hotelling’s T<span class="math inline">\(^2\)</span> ellipses at 99% and 95% confidence levels.</p>
+<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a1"</span><span class="op">)</span>
+<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b1"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Semi axes of the ellipse at 95% confidence level.</li>
+</ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggforce</span><span class="fu">::</span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">geom_ellipse</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggforce</span><span class="fu">::</span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">geom_ellipse</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 1"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Another way is to run the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, if you want the <em>x</em> and <em>y</em> coordinate points of the confidence ellipse.</p>
+<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a2"</span><span class="op">)</span>
+<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b2"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Hotelling’s T<span class="math inline">\(^2\)</span> statistic.</li>
+</ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
-<p>Then plot the confidence ellipse, using <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">ggforce::geom_ellipse</a></code>.</p>
+<code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>
+<p>We can now plot the scatterplot of PCA scores along with the corresponding Hotelling’s T<span class="math inline">\(^2\)</span> ellipses at 99% and 95% confidence intervals.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggforce</span><span class="fu">::</span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">geom_ellipse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">xy_coord</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="va">x</span>, y0 <span class="op">=</span> <span class="va">y</span>, a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span>, fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 2"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>For more than two principal components, the easiest way is to plot Observations <em>vs.</em> Hotelling’s T<span class="math inline">\(^2\)</span> where the confidence limits are plotted as a line. For example, below, <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code> is ran with the first three principal components.</p>
+<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, 
+    subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, 
+    x <span class="op">=</span> <span class="st">"PC1"</span>, 
+    y <span class="op">=</span> <span class="st">"PC2"</span>, 
+    fill <span class="op">=</span> <span class="st">"T2 stats"</span>, 
+    caption <span class="op">=</span> <span class="st">"Figure 1"</span>
+    <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
+</div>
+<div id="hotelling-ellipse-x-and-y-coordinate-points" class="section level1">
+<h1 class="hasAnchor">
+<a href="#hotelling-ellipse-x-and-y-coordinate-points" class="anchor" aria-hidden="true"></a>Hotelling ellipse: x and y coordinate points</h1>
+<p>Another way to add a confidence ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinate points are estimated for data projected into the PC1-PC3 subspace.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">limit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"cutoff.99pct"</span><span class="op">)</span>
-<span class="va">limit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"cutoff.95pct"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
+<span class="co">#&gt; tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ x: num [1:500] 256487 256466 256405 256304 256161 ...</span>
+<span class="co">#&gt;  $ y: num [1:500] -1.73e-12 7.93e+02 1.59e+03 2.38e+03 3.17e+03 ...</span></code></pre></div>
+<p>We can plot the confidence ellipse with <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">ggforce::geom_ellipse</a></code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
-  Tsq <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span>, 
-  obs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">obs</span>, y <span class="op">=</span> <span class="va">Tsq</span>, fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">obs</span>, y <span class="op">=</span> <span class="va">Tsq</span>, xend <span class="op">=</span> <span class="va">obs</span>, yend <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"black"</span>, high <span class="op">=</span> <span class="st">"red"</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">limit1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"darkred"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">limit2</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"darkblue"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">160</span>, y <span class="op">=</span> <span class="fl">12.4</span>, label <span class="op">=</span> <span class="st">"99% limit"</span>, color <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">160</span>, y <span class="op">=</span> <span class="fl">8.6</span>, label <span class="op">=</span> <span class="st">"95% limit"</span>, color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Observations"</span>, y <span class="op">=</span> <span class="st">"Hotelling's T-squared (3 PCs)"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 3"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.3</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">4</span>, fill <span class="op">=</span> <span class="st">"gold"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_ellipse</span><span class="op">(</span>data <span class="op">=</span> <span class="va">xy_coord</span>, <span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="va">x</span>, y0 <span class="op">=</span> <span class="va">y</span>, a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, 
+    subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, 
+    x <span class="op">=</span> <span class="st">"PC1"</span>, 
+    y <span class="op">=</span> <span class="st">"PC3"</span>, 
+    caption <span class="op">=</span> <span class="st">"Figure 2"</span>
+    <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
   </div>
 
@@ -200,7 +232,7 @@ div.output pre { background-color:#FFFFFF; }
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
