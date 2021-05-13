@@ -4,6 +4,7 @@
 
 # HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
 
+[![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
 <!-- badges: end -->
 
 The HotellingEllipse package computes the Hotelling’s T<sup>2</sup>

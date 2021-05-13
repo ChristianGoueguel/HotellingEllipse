@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 # HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
+[![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
 <!-- badges: end -->
 
 The HotellingEllipse package computes the Hotelling’s T$^2$ statistic to compare multivariate data. For bivariate data, it provides the semi-minor and semi-major axes of a confidence ellipse at 95% and 99% confidence intervals. The package also calculates the *x*-*y* coordinate points of Hotelling ellipse at user-defined confidence interval.
