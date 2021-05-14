@@ -1,5 +1,5 @@
 Package: HotellingEllipse
-Title: Hotelling’s T2 Statistic and Confidence Ellipse
+Title: Hotelling T-squared Statistic and Confidence Ellipse
 Version: 0.1.0
 Authors@R: 
     person(given = "Christian L.",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
-Description: Computes Hotelling's T-squared statistic. Provides x-y coordinates or the semi-minor and semi-major axes for drawing Hotelling ellipse.
+Description: Hotelling T-squared statistic, x-y coordinate points and, semi-minor and semi-major axes for drawing Hotelling ellipse.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
