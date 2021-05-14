@@ -114,6 +114,16 @@ Hotelling's T$^2$ statistic.
 T2 <- pluck(res_2PCs, "Tsquared", "statistic")
 ```
 
+Another way to add a confidence ellipse is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval `confi.limit` is set at 95% by default.
+
+```{r}
+coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
+```
+
+```{r}
+str(coord_2PCs)
+```
+
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding Hotelling's T$^2$ ellipses. Points inside the two elliptical regions are within the 99% and 95% confidence limits for T$^2$.
 
 ```{r}

@@ -134,6 +134,22 @@ Hotelling’s T<sup>2</sup> statistic.
 T2 <- pluck(res_2PCs, "Tsquared", "statistic")
 ```
 
+Another way to add a confidence ellipse is to use the function
+`ellipseCoord()`. This function provides the *x* and *y* coordinate
+points of the confidence ellipse at user-defined confidence interval.
+The confidence interval `confi.limit` is set at 95% by default.
+
+``` r
+coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
+```
+
+``` r
+str(coord_2PCs)
+#> tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)
+#>  $ x: num [1:500] 256487 256466 256405 256304 256161 ...
+#>  $ y: num [1:500] 7.20e-12 9.28e+02 1.86e+03 2.78e+03 3.71e+03 ...
+```
+
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
 Hotelling’s T<sup>2</sup> ellipses. Points inside the two elliptical
 regions are within the 99% and 95% confidence limits for T<sup>2</sup>.
@@ -151,7 +167,7 @@ pca_scores %>%
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%" />
 
 **Note:** The easiest way to analyze and interpret Hotelling’s
 T<sup>2</sup> for more than two principal components, is to plot
@@ -190,4 +206,4 @@ tibble(
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%" />
