@@ -100,9 +100,7 @@ b2 <- pluck(res, "Ellipse", "b.95pct")
 Tsq <- pluck(res, "Tsquared", "statistic")
 ```
 
-We can now plot the scatterplot of PCA scores along with the corresponding Hotelling's T$^2$ ellipses at 99% and 95% confidence intervals. The confidence ellipses are plotted with `ggforce::geom_ellipse`. 
-
-```{r, fig.align='center', fig.width=7, fig.height=5}
+```{r eval=FALSE, fig.align='center', fig.height=5, fig.width=7, include=FALSE}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
   geom_point(aes(fill = Tsq), shape = 21, size = 3, color = "black") +
@@ -134,9 +132,7 @@ xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.95,
 str(xy_coord)
 ```
 
-We can plot the confidence ellipse. 
-
-```{r, fig.align='center', fig.width=7, fig.height=5}
+```{r eval=FALSE, fig.align='center', fig.height=5, fig.width=7, include=FALSE}
 pca_scores %>%
   ggplot() +
   geom_point(aes(x = Dim.1, y = Dim.3), shape = 21, size = 4, fill = "gold", color = "black") +
