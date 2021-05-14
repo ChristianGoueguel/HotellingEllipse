@@ -13,33 +13,41 @@ pca_scores <- pca_mod %>%
   purrr::pluck("ind", "coord") %>%
   tibble::as_tibble()
 
-res_t2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
-xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+test_that("ellipseParam and ellipseCoord functions: k equal to 2", {
 
+  res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+  xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 
-test_that("inputs conditions", {
-  expect_condition(ellipseParam(data = pca_scores, pcx = 1, pcy = 1), "Please provide two different components in pcx and pcy.")
-  expect_condition(ellipseParam(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
-  expect_condition(ellipseCoord(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
-  expect_condition(ellipseParam(data = pca_scores, k = 1), "k must be at least equal to 2.")
-  expect_condition(ellipseParam(data = pca_scores, k = ncol(pca_scores)+1), "k exceeds the number of component in the data.")
-  expect_condition(ellipseCoord(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
-  expect_condition(ellipseCoord(data = pca_scores, conf.limit = 2), "Confidence level should be between 0 and 1")
-})
-
-test_that("ellipseParam and ellipseCoord functions", {
-  expect_type(res_t2, "list")
+  expect_error(ellipseParam(data = pca_scores, pcx = 1, pcy = 1), "Please provide two different components in pcx and pcy.")
+  expect_error(ellipseParam(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
+  expect_error(ellipseCoord(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
+  expect_error(ellipseParam(data = pca_scores, k = 1), "k must be at least equal to 2.")
+  expect_error(ellipseParam(data = pca_scores, k = ncol(pca_scores)+1), "k exceeds the number of component in the data.")
+  expect_error(ellipseCoord(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
+  expect_error(ellipseCoord(data = pca_scores, conf.limit = 2), "Confidence level should be between 0 and 1")
+  expect_type(res, "list")
   expect_type(xy_coord, "list")
-  expect_named(res_t2, c("Tsquared", "Ellipse", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
+  expect_named(res, c("Tsquared", "Ellipse", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
   expect_named(xy_coord, c("x", "y"), ignore.order = TRUE, ignore.case = TRUE)
-  expect_output(str(res_t2), "$ a.99pct", fixed = TRUE)
-  expect_output(str(res_t2), "$ b.99pct", fixed = TRUE)
-  expect_output(str(res_t2), "$ a.95pct", fixed = TRUE)
-  expect_output(str(res_t2), "$ b.95pct", fixed = TRUE)
-  expect_equal(nrow(res_t2$Tsquared), nrow(pca_scores))
-
+  expect_output(str(res), "$ a.99pct", fixed = TRUE)
+  expect_output(str(res), "$ b.99pct", fixed = TRUE)
+  expect_output(str(res), "$ a.95pct", fixed = TRUE)
+  expect_output(str(res), "$ b.95pct", fixed = TRUE)
+  expect_equal(nrow(res$Tsquared), nrow(pca_scores))
   })
 
 
+test_that("ellipseParam function: k more than 2", {
+
+  res1 <- ellipseParam(data = pca_scores, k = 3, pcx = 1, pcy = 2)
+
+  expect_error(ellipseParam(data = pca_scores, pcx = 1, pcy = 1), "Please provide two different components in pcx and pcy.")
+  expect_error(ellipseParam(data = pca_scores, pcx = 0, pcy = 1), "No component is provided either in pcx or pcy, or both.")
+  expect_error(ellipseParam(data = pca_scores, k = 1), "k must be at least equal to 2.")
+  expect_error(ellipseParam(data = pca_scores, k = ncol(pca_scores)+1), "k exceeds the number of component in the data.")
+  expect_type(res1, "list")
+  expect_named(res1, c("Tsquared", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
+  expect_equal(nrow(res1$Tsquared), nrow(pca_scores))
+})
 
 
