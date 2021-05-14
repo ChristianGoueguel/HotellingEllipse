@@ -158,8 +158,16 @@
 <p>Hotelling’s T<sup>2</sup> statistic.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>
-<p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling’s T<sup>2</sup> ellipses. Points inside the two elliptical regions are within the 99% and 95% confidence limits for T<sup>2</sup>.</p>
+<p>Another way to add a confidence ellipse is to use the function <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">coord_2PCs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">coord_2PCs</span><span class="op">)</span>
+<span class="co">#&gt; tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ x: num [1:500] 256487 256466 256405 256304 256161 ...</span>
+<span class="co">#&gt;  $ y: num [1:500] 7.20e-12 9.28e+02 1.86e+03 2.78e+03 3.71e+03 ...</span></code></pre></div>
+<p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling’s T<sup>2</sup> ellipses. Points inside the two elliptical regions are within the 99% and 95% confidence limits for T<sup>2</sup>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">%&gt;%</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">T2</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
@@ -170,18 +178,18 @@
   <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 1"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="90%" height="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%"></p>
 <p><strong>Note:</strong> The easiest way to analyze and interpret Hotelling’s T<sup>2</sup> for more than two principal components, is to plot Observations <em>vs.</em> Hotelling’s T<sup>2</sup> where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T<sup>2</sup> limits. For example, below, <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> is used with the first three principal components (<strong>k = 3</strong>).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res_3PCs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res_3PCs</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ statistic: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...</span>
 <span class="co">#&gt;  $ cutoff.99pct: num 11.8</span>
 <span class="co">#&gt;  $ cutoff.95pct: num 8.07</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>
   T2 <span class="op">=</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_3PCs</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span>, 
   obs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span>
@@ -196,7 +204,7 @@
   <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">160</span>, y <span class="op">=</span> <span class="fl">8.6</span>, label <span class="op">=</span> <span class="st">"95% limit"</span>, color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Observations"</span>, y <span class="op">=</span> <span class="st">"Hotelling's T-squared (3 PCs)"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 2"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%"></p>
 </div>
 </div>
   </div>
