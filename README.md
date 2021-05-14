@@ -6,9 +6,10 @@
 
 [![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
 [![codecov](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg?token=99T5QAZDZ4)](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
 <!-- badges: end -->
 
 HotellingEllipse computes the Hotelling’s T<sup>2</sup> statistic to
