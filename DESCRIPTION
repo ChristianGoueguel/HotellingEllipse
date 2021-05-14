@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
-Description: Computes Hotelling’s T-squared statistic jointly for PCA, ICA or, PLS components. It provides x-y coordinates or the value of the principal axes for drawing Hotelling's T-squared ellipse.
+Description: Computes Hotelling's T-squared statistic. Provides x-y coordinates or the semi-minor and semi-major axes for drawing Hotelling ellipse.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
