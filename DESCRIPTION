@@ -1,5 +1,5 @@
 Package: HotellingEllipse
-Title: Hotelling T squared Statistic and Confidence Ellipse
+Title: Hotelling T-Squared Statistic and Confidence Ellipse
 Version: 0.1.0
 Authors@R: 
     person(given = "Christian L.",
