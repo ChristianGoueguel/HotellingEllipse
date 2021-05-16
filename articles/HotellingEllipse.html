@@ -143,9 +143,9 @@ div.output pre { background-color:#FFFFFF; }
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...</span>
-<span class="co">#&gt;  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...</span>
+<span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ a.99pct: num 319536</span>
 <span class="co">#&gt;   ..$ b.99pct: num 91816</span>
 <span class="co">#&gt;   ..$ a.95pct: num 256487</span>
@@ -179,7 +179,7 @@ div.output pre { background-color:#FFFFFF; }
 <code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
-<span class="co">#&gt; tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ x: num [1:500] 256487 256466 256405 256304 256161 ...</span>
 <span class="co">#&gt;  $ y: num [1:500] -1.73e-12 7.93e+02 1.59e+03 2.38e+03 3.17e+03 ...</span></code></pre></div>
 </div>
