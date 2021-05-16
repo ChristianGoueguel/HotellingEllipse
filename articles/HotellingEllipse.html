@@ -95,10 +95,10 @@
 div.reviewer pre { background-color:#e3dece; }
 div.output pre { background-color:#FFFFFF; }
 </style>
-<p>HotellingEllipse provides the Hotelling’s T<span class="math inline">\(^2\)</span> statistic, the semi-major axis (denoted <strong>a</strong>), the semi-minor axis (denoted <strong>b</strong>) and, the <em>x</em>-<em>y</em> coordinate points for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
+<p>The HotellingEllipse package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. HotellingEllipse computes the Hotelling’s T<span class="math inline">\(^2\)</span> value, the semi-minor axis (denoted <strong>a</strong>), the semi-major axis (denoted <strong>b</strong>) along with the <em>x</em>-<em>y</em> coordinates for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
 <ul>
-<li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> statistic and the semi axes of an ellipse at 99% and 95% confidence intervals.</p></li>
-<li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the <em>x</em> and <em>y</em> coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default.</p></li>
+<li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> and the semi-axes of an ellipse at 99% and 95% confidence intervals.</p></li>
+<li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the <em>x</em> and <em>y</em> coordinates of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default.</p></li>
 </ul>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
@@ -136,8 +136,8 @@ div.output pre { background-color:#FFFFFF; }
 </div>
 <div id="hotelling-ellipse-semi-axes" class="section level1">
 <h1 class="hasAnchor">
-<a href="#hotelling-ellipse-semi-axes" class="anchor"></a>Hotelling ellipse: semi axes</h1>
-<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the ellipse parameters for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.</p>
+<a href="#hotelling-ellipse-semi-axes" class="anchor"></a>Hotelling ellipse: semi-axes</h1>
+<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -154,27 +154,27 @@ div.output pre { background-color:#FFFFFF; }
 <span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
 <p>We can extract parameters for further use:</p>
 <ul>
-<li>Semi axes of the ellipse at 99% confidence level.</li>
+<li>Semi-axes of the ellipse at 99% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
 <span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
 <ul>
-<li>Semi axes of the ellipse at 95% confidence level.</li>
+<li>Semi-axes of the ellipse at 95% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
 <span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
 <ul>
-<li>Hotelling’s T<span class="math inline">\(^2\)</span> statistic.</li>
+<li>Hotelling’s T<span class="math inline">\(^2\)</span> value.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquared"</span>, <span class="st">"statistic"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="hotelling-ellipse-x-and-y-coordinate-points" class="section level1">
+<div id="hotelling-ellipse-x-and-y-coordinates" class="section level1">
 <h1 class="hasAnchor">
-<a href="#hotelling-ellipse-x-and-y-coordinate-points" class="anchor"></a>Hotelling ellipse: x and y coordinate points</h1>
-<p>Another way to add a confidence ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinate points are estimated for data projected into the PC1-PC3 subspace.</p>
+<a href="#hotelling-ellipse-x-and-y-coordinates" class="anchor"></a>Hotelling ellipse: x and y coordinates</h1>
+<p>Another way to add Hotelling ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinates are estimated based on data projected into the PC1-PC3 subspace.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">

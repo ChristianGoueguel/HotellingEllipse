@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hotelling's T-squared Ellipse — ellipseParam • HotellingEllipse</title>
+<title>Hotelling Ellipse Semi-Axes — ellipseParam • HotellingEllipse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,9 @@
 
 
 
-<meta property="og:title" content="Hotelling's T-squared Ellipse — ellipseParam" />
-<meta property="og:description" content="Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
-The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
-It shows the statistical limits computed using Hotelling T-squared distribution at 95% and 99% confidence levels." />
+<meta property="og:title" content="Hotelling Ellipse Semi-Axes — ellipseParam" />
+<meta property="og:description" content="Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99% and 95% confidence intervals.
+The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates." />
 <meta property="og:image" content="https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/logo.png" />
 
 
@@ -124,15 +123,14 @@ It shows the statistical limits computed using Hotelling T-squared distribution 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Hotelling's T-squared Ellipse</h1>
+    <h1>Hotelling Ellipse Semi-Axes</h1>
     <small class="dont-index">Source: <a href='https://github.com/ChristianGoueguel/HotellingEllipse/blob/master/R/ellipseParam.R'><code>R/ellipseParam.R</code></a></small>
     <div class="hidden name"><code>ellipseParam.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
-The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
-It shows the statistical limits computed using Hotelling T-squared distribution at 95% and 99% confidence levels.</p>
+    <p>Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99% and 95% confidence intervals.
+The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ellipseParam</span><span class='op'>(</span><span class='va'>data</span>, k <span class='op'>=</span> <span class='fl'>2</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
@@ -161,13 +159,13 @@ It shows the statistical limits computed using Hotelling T-squared distribution 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a list including:
-(1) Tsquared, a data frame containing the T-squared statistic.
-(2) Ellipse, a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
-(3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99% confidence level.
-(4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95% confidence level.</p>
+(1) Tsquare, a data frame containing the T-square value.
+(2) Ellipse, a data frame containing the length of the semi-minor and semi-major axes.
+(3) cutoff.99pct, an integer indicating the T-square cutoff at 99% confidence level.
+(4) cutoff.95pct, an integer indicating the T-square cutoff at 95% confidence level.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Hotelling's T-squared Statistic and Confidence Ellipse</p>
+    <p>Hotelling’s T-square and Confidence Ellipse</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Christian L. Goueguel,
@@ -186,7 +184,7 @@ christian.goueguel@gmail.com</p>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='st'>"ind"</span>, <span class='st'>"coord"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
    <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='co'>## Compute Hotelling T-squared statistic and ellipse parameters</span>
+<span class='co'>## Compute Hotelling’s T-square and ellipse parameters</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://pkgdown.r-lib.org'>HotellingEllipse</a></span><span class='op'>)</span>
 <span class='va'>T2</span> <span class='op'>&lt;-</span> <span class='fu'>ellipseParam</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>pca_scores</span>, k <span class='op'>=</span> <span class='fl'>2</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
