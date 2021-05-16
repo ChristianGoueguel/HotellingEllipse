@@ -1,10 +1,9 @@
-#' Hotelling's T-squared Statistic and Confidence Ellipse
+#' Hotelling’s T-square and Confidence Ellipse
 #'
 #' @description
-#' Computes axis parameters of Hotelling ellipse for a bivariate scatter plot.
+#' Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99% and 95% confidence intervals.
 #' The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
-#' It shows the statistical limits computed using Hotelling T-squared distribution at 95% and 99% confidence levels.
-#' @title Hotelling's T-squared Ellipse
+#' @title Hotelling Ellipse Semi-Axes
 #' @param data a data frame or tibble of scores coordinates
 #' @param k number of components (by default 2)
 #' @param pcx an integer specifying which component is on the x-axis (by default 1)
@@ -12,10 +11,10 @@
 #'
 #' @return
 #' Returns a list including:
-#' (1) Tsquared, a data frame containing the T-squared statistic.
-#' (2) Ellipse, a data frame containing the major and minor semi-axis values for both Hotelling T-squared ellipses.
-#' (3) cutoff.99pct, an integer indicating the T-squared cutoff value at 99% confidence level.
-#' (4) cutoff.95pct, an integer indicating the T-squared cutoff value at 95% confidence level.
+#' (1) Tsquare, a data frame containing the T-square value.
+#' (2) Ellipse, a data frame containing the length of the semi-minor and semi-major axes.
+#' (3) cutoff.99pct, an integer indicating the T-square cutoff at 99% confidence level.
+#' (4) cutoff.95pct, an integer indicating the T-square cutoff at 95% confidence level.
 #'
 #' @export ellipseParam
 #'
@@ -35,7 +34,7 @@
 #'    purrr::pluck("ind", "coord") %>%
 #'    tibble::as_tibble()
 #'
-#' ## Compute Hotelling T-squared statistic and ellipse parameters
+#' ## Compute Hotelling’s T-square and ellipse parameters
 #' library(HotellingEllipse)
 #' T2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 #'
@@ -83,15 +82,15 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
   )
 
   if(k > 2) {
-    # 99% and 95% confidence limit for Hotelling’s T-squared
+    # 99% and 95% confidence limit
     Tsq_limit1 <- (A*(n-1)/(n-A))*stats::qf(p = 0.99, df1 = A, df2 = (n-A))
     Tsq_limit2 <- (A*(n-1)/(n-A))*stats::qf(p = 0.95, df1 = A, df2 = (n-A))
 
-    # Hotelling’s T-squared statistic
-    Tsq <- tibble::tibble(statistic = ((n-A)/(A*(n-1)))*MDsq)
+    # Hotelling’s T-square
+    Tsq <- tibble::tibble(value = ((n-A)/(A*(n-1)))*MDsq)
 
     res_list <- list(
-      "Tsquared" = Tsq,
+      "Tsquare" = Tsq,
       "cutoff.99pct" = Tsq_limit1,
       "cutoff.95pct" = Tsq_limit2
     )
@@ -99,11 +98,11 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
     }
 
   if(k == 2) {
-    # 99% and 95% confidence limit for Hotelling’s T-squared
+    # 99% and 95% confidence limit
     Tsq_limit1 <- (A*(n-1)/(n-A))*stats::qf(p = 0.99, df1 = A, df2 = (n-A))
     Tsq_limit2 <- (A*(n-1)/(n-A))*stats::qf(p = 0.95, df1 = A, df2 = (n-A))
 
-    # Hotelling’s T-squared ellipse semi-axes parameters
+    # Hotelling ellipse semi-axes
     a_limit1 <- sqrt(Tsq_limit1*stats::var(X[, pcx]))
     a_limit2 <- sqrt(Tsq_limit2*stats::var(X[, pcx]))
     b_limit1 <- sqrt(Tsq_limit1*stats::var(X[, pcy]))
@@ -116,11 +115,11 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
       b.95pct = b_limit2
     )
 
-    # Hotelling’s T-squared statistic
-    Tsq <- tibble::tibble(statistic = ((n-2)/(2*(n-1)))*MDsq)
+    # Hotelling’s T-square
+    Tsq <- tibble::tibble(value = ((n-2)/(2*(n-1)))*MDsq)
 
     res_list <- list(
-      "Tsquared" = Tsq,
+      "Tsquare" = Tsq,
       "Ellipse" = axis_param,
       "cutoff.99pct" = Tsq_limit1,
       "cutoff.95pct" = Tsq_limit2

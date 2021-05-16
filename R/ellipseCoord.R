@@ -1,6 +1,6 @@
-#' Coordinates for Hotelling's confidence ellipse
-#' @description This function produces coordinates values for plotting confidence ellipse.
-#' @title T-squared Confidence Ellipse Coordinates
+#' Coordinate points of Hotelling ellipse
+#' @description This function produces the x-y coordinates for plotting Hotelling ellipse.
+#' @title Hotelling Ellipse Coordinate Points
 #' @param data a data frame or tibble of scores coordinates
 #' @param pcx an integer specifying which component is on the x-axis (by default 1)
 #' @param pcy an integer specifying which component is on the y-axis (by default 2)
@@ -27,7 +27,7 @@
 #'    purrr::pluck("ind", "coord") %>%
 #'    tibble::as_tibble()
 #'
-#' ## Compute Hotelling T-squared statistic and ellipse parameters
+#' ## Compute Hotelling’s T-square and ellipse parameters
 #' library(HotellingEllipse)
 #' xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 #'
@@ -61,7 +61,7 @@ ellipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
   m <- as.numeric(pts)
   p <- seq(0, 2*pi, length = m)
 
-  # Confidence limit for Hotelling’s T-squared
+  # # Hotelling’s T-square limit
   Tsq_limit <- (2*(n-1)/(n-2))*stats::qf(p = alpha, df1 = 2, df2 = (n-2))
 
   # Coordinate points
