@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipseCoord.R
 \name{ellipseCoord}
 \alias{ellipseCoord}
-\title{T-squared Confidence Ellipse Coordinates}
+\title{Hotelling Ellipse Coordinate Points}
 \usage{
 ellipseCoord(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 }
@@ -21,10 +21,10 @@ ellipseCoord(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 a data frame with x and y coordinates
 }
 \description{
-This function produces coordinates values for plotting confidence ellipse.
+This function produces the x-y coordinates for plotting Hotelling ellipse.
 }
 \details{
-Coordinates for Hotelling's confidence ellipse
+Coordinate points of Hotelling ellipse
 }
 \examples{
 ## Principal components analysis (PCA)
@@ -39,7 +39,7 @@ pca_scores <- pca_mod \%>\%
    purrr::pluck("ind", "coord") \%>\%
    tibble::as_tibble()
 
-## Compute Hotelling T-squared statistic and ellipse parameters
+## Compute Hotelling’s T-square and ellipse parameters
 library(HotellingEllipse)
 xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 

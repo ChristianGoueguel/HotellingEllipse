@@ -9,11 +9,12 @@
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
 <!-- badges: end -->
 
-HotellingEllipse computes the Hotelling’s T<sup>2</sup> statistic to
-compare multivariate data. For bivariate data, it provides the
-semi-minor and semi-major axes of a confidence ellipse at 95% and 99%
-confidence intervals. The package also provides the *x*-*y* coordinate
-points of the Hotelling ellipse at user-defined confidence interval.
+HotellingEllipse is an R package aimed at computing Hotelling’s T-square
+value to compare multivariate datasets based on their PCA or PLS scores.
+For bivariate score scatterplot, the package provides the semi-minor and
+semi-major axes, a and b, for drawing Hotelling ellipse at 95% and 99%
+confidence intervals. The package also provides the *x*-*y* coordinates
+at user-defined confidence intervals.
 
 ## Installation
 
@@ -33,11 +34,10 @@ ellipse:
     Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
     extract the PCA scores.
 
--   with `ellipseParam()` we get the T<sup>2</sup> statistic along with
-    the values of the semi-minor and semi-major axes of the Hotelling
-    ellipse. Whereas, `ellipseCoord()` provides the *x* and *y*
-    coordinate points for drawing the Hotelling ellipse at user-defined
-    confidence interval.
+-   with `ellipseParam()` we get the T<sup>2</sup> value along with the
+    values of the semi-minor and semi-major axes. Whereas,
+    `ellipseCoord()` provides the *x* and *y* coordinates for drawing
+    the Hotelling ellipse at user-defined confidence interval.
 
 -   using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
     scatterplot of PCA scores as well as the corresponding Hotelling
@@ -89,10 +89,10 @@ pca_scores <- pca_mod %>%
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
-(**k = 2**). We want to compute the semi axes of the Hotelling ellipse
-(denoted **a** and **b**) when the first principal component, PC1, is on
-the *x*-axis (**pcx = 1**) and, the second principal component, PC2, is
-on the *y*-axis (**pcy = 2**).
+(**k = 2**). We want to compute the length of the semi-axes of the
+Hotelling ellipse (denoted **a** and **b**) when the first principal
+component, PC1, is on the *x*-axis (**pcx = 1**) and, the second
+principal component, PC2, is on the *y*-axis (**pcy = 2**).
 
 ``` r
 res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
@@ -101,8 +101,8 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ statistic: num [1:171] 2.28 2.65 8 8.63 1.05 ...
+#>  $ Tsquare     : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...
 #>  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)
 #>   ..$ a.99pct: num 319536
 #>   ..$ b.99pct: num 91816
@@ -129,13 +129,14 @@ b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 Hotelling’s T<sup>2</sup> statistic.
 
 ``` r
-T2 <- pluck(res_2PCs, "Tsquared", "statistic")
+T2 <- pluck(res_2PCs, "Tsquare", "value")
 ```
 
-Another way to add a confidence ellipse is to use the function
-`ellipseCoord()`. This function provides the *x* and *y* coordinate
-points of the confidence ellipse at user-defined confidence interval.
-The confidence interval `confi.limit` is set at 95% by default.
+Another way to add Hotelling ellipse on the scatterplot of the scores is
+to use the function `ellipseCoord()`. This function provides the *x* and
+*y* coordinates of the confidence ellipse at user-defined confidence
+interval. The confidence interval `confi.limit` is set at 95% by
+default.
 
 ``` r
 coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
@@ -149,8 +150,8 @@ str(coord_2PCs)
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
-Hotelling’s T<sup>2</sup> ellipses. Points inside the two elliptical
-regions are within the 99% and 95% confidence limits for T<sup>2</sup>.
+Hotelling ellipse. Points inside the two elliptical regions are within
+the 99% and 95% confidence limits for T<sup>2</sup>.
 
 ``` r
 pca_scores %>%
@@ -181,15 +182,15 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquared    : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ statistic: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
+#>  $ Tsquare     : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
 #>  $ cutoff.99pct: num 11.8
 #>  $ cutoff.95pct: num 8.07
 ```
 
 ``` r
 tibble(
-  T2 = pluck(res_3PCs, "Tsquared", "statistic"), 
+  T2 = pluck(res_3PCs, "Tsquare", "value"), 
   obs = 1:nrow(pca_scores)
   ) %>%
   ggplot() +
@@ -200,7 +201,7 @@ tibble(
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
   annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling's T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 2") +
+  labs(x = "Observations", y = "Hotelling’s T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 2") +
   theme_bw()
 ```
 

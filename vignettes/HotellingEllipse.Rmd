@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-HotellingEllipse provides the Hotelling’s T$^2$ statistic, the semi-major axis (denoted **a**), the semi-minor axis (denoted **b**) and, the *x*-*y* coordinate points for drawing a confidence ellipse based on Hotelling's T$^2$. Specifically, there are two functions available:
+The HotellingEllipse package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. HotellingEllipse computes the Hotelling’s T$^2$ value, the semi-minor axis (denoted **a**), the semi-major axis (denoted **b**) along with the *x*-*y* coordinates for drawing a confidence ellipse based on Hotelling’s T$^2$. Specifically, there are two functions available:
 
-  * `ellipseParam()`, is used to calculate the Hotelling’s T$^2$ statistic and the semi axes of an ellipse at 99% and 95% confidence intervals.
+  * `ellipseParam()`, is used to calculate the Hotelling’s T$^2$ and the semi-axes of an ellipse at 99% and 95% confidence intervals.
   
-  * `ellipseCoord()`, is used to get the *x* and *y* coordinate points of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default. 
+  * `ellipseCoord()`, is used to get the *x* and *y* coordinates of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default. 
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -66,9 +66,9 @@ pca_scores <- pca_mod %>%
 pca_scores
 ```
 
-# Hotelling ellipse: semi axes 
+# Hotelling ellipse: semi-axes 
 
-To add a confidence ellipse, we use the function `ellipseParam()`. We want to compute the ellipse parameters for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.
+To add a confidence ellipse, we use the function `ellipseParam()`. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.
 
 ```{r}
 res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
@@ -80,24 +80,24 @@ str(res)
 
 We can extract parameters for further use:
 
-  * Semi axes of the ellipse at 99% confidence level.
+  * Semi-axes of the ellipse at 99% confidence level.
 
 ```{r}
 a1 <- pluck(res, "Ellipse", "a.99pct")
 b1 <- pluck(res, "Ellipse", "b.99pct")
 ```
 
-  * Semi axes of the ellipse at 95% confidence level.
+  * Semi-axes of the ellipse at 95% confidence level.
 
 ```{r}
 a2 <- pluck(res, "Ellipse", "a.95pct")
 b2 <- pluck(res, "Ellipse", "b.95pct")
 ```
 
-  * Hotelling's T$^2$ statistic.
+  * Hotelling’s T$^2$ value.
 
 ```{r}
-Tsq <- pluck(res, "Tsquared", "statistic")
+Tsq <- pluck(res, "Tsquare", "value")
 ```
 
 ```{r eval=FALSE, fig.align='center', fig.height=5, fig.width=7, include=FALSE}
@@ -120,9 +120,9 @@ pca_scores %>%
   theme_bw()
 ```
 
-# Hotelling ellipse: x and y coordinate points
+# Hotelling ellipse: x and y coordinates
 
-Another way to add a confidence ellipse is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinate points of the confidence ellipse at user-defined confidence interval. The confidence interval `confi.limit` is set at 95% by default. Below, the *x*-*y* coordinate points are estimated for data projected into the PC1-PC3 subspace.
+Another way to add Hotelling ellipse is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval `confi.limit` is set at 95% by default. Below, the *x*-*y* coordinates are estimated based on data projected into the PC1-PC3 subspace.
 
 ```{r}
 xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.95, pts = 500)

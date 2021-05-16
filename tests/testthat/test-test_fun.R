@@ -34,13 +34,13 @@ test_that("ellipseParam and ellipseCoord functions: k equal to 2", {
   expect_error(ellipseCoord(data = pca_scores, conf.limit = 2), "Confidence level should be between 0 and 1")
   expect_type(res, "list")
   expect_type(xy_coord, "list")
-  expect_named(res, c("Tsquared", "Ellipse", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
+  expect_named(res, c("Tsquare", "Ellipse", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
   expect_named(xy_coord, c("x", "y"), ignore.order = TRUE, ignore.case = TRUE)
   expect_output(str(res), "$ a.99pct", fixed = TRUE)
   expect_output(str(res), "$ b.99pct", fixed = TRUE)
   expect_output(str(res), "$ a.95pct", fixed = TRUE)
   expect_output(str(res), "$ b.95pct", fixed = TRUE)
-  expect_equal(nrow(res$Tsquared), nrow(pca_scores))
+  expect_equal(nrow(res$Tsquare), nrow(pca_scores))
   })
 
 
@@ -53,8 +53,8 @@ test_that("ellipseParam function: k more than 2", {
   expect_error(ellipseParam(data = pca_scores, k = 1), "k must be at least equal to 2.")
   expect_error(ellipseParam(data = pca_scores, k = ncol(pca_scores)+1), "k exceeds the number of component in the data.")
   expect_type(res1, "list")
-  expect_named(res1, c("Tsquared", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
-  expect_equal(nrow(res1$Tsquared), nrow(pca_scores))
+  expect_named(res1, c("Tsquare", "cutoff.99pct", "cutoff.95pct"), ignore.order = TRUE, ignore.case = TRUE)
+  expect_equal(nrow(res1$Tsquare), nrow(pca_scores))
 })
 
 
