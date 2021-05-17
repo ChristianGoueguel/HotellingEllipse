@@ -145,15 +145,21 @@
 <span class="co">#&gt;   ..$ b.95pct: num 73699</span>
 <span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
 <span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
-<p>Semi axes of the ellipse at 99% confidence level.</p>
+<ul>
+<li>Semi-axes of the ellipse at 99% confidence level.</li>
+</ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
 <span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
-<p>Semi axes of the ellipse at 95% confidence level.</p>
+<ul>
+<li>Semi-axes of the ellipse at 95% confidence level.</li>
+</ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
 <span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
-<p>Hotelling’s T<sup>2</sup> statistic.</p>
+<ul>
+<li>Hotelling’s T<sup>2</sup>.</li>
+</ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
 <p>Another way to add Hotelling ellipse on the scatterplot of the scores is to use the function <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default.</p>
@@ -174,7 +180,7 @@
   <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 1"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2"</span>, caption <span class="op">=</span> <span class="st">"Figure 1"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%"></p>
 <p><strong>Note:</strong> The easiest way to analyze and interpret Hotelling’s T<sup>2</sup> for more than two principal components, is to plot Observations <em>vs.</em> Hotelling’s T<sup>2</sup> where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T<sup>2</sup> limits. For example, below, <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> is used with the first three principal components (<strong>k = 3</strong>).</p>
@@ -239,7 +245,8 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/ChristianGoueguel/HotellingEllipse/actions" class="external-link"><img src="https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/ChristianGoueguel/HotellingEllipse" class="external-link"><img src="https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg?token=99T5QAZDZ4" alt="codecov"></a></li>
-<li><a href="https://cran.r-project.org/package=HotellingEllipse" class="external-link"><img src="https://www.r-pkg.org/badges/version/HotellingEllipse" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://CRAN.R-project.org/package=HotellingEllipse" class="external-link"><img src="https://www.r-pkg.org/badges/version/HotellingEllipse" alt="CRAN status"></a></li>
 </ul>
 </div>
 

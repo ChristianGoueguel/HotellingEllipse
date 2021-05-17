@@ -6,7 +6,10 @@
 
 [![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
 [![codecov](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg?token=99T5QAZDZ4)](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
 <!-- badges: end -->
 
 HotellingEllipse is an R package aimed at computing Hotelling’s T-square
@@ -112,21 +115,21 @@ str(res_2PCs)
 #>  $ cutoff.95pct: num 6.14
 ```
 
-Semi axes of the ellipse at 99% confidence level.
+-   Semi-axes of the ellipse at 99% confidence level.
 
 ``` r
 a1 <- pluck(res_2PCs, "Ellipse", "a.99pct")
 b1 <- pluck(res_2PCs, "Ellipse", "b.99pct")
 ```
 
-Semi axes of the ellipse at 95% confidence level.
+-   Semi-axes of the ellipse at 95% confidence level.
 
 ``` r
 a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
 b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
-Hotelling’s T<sup>2</sup> statistic.
+-   Hotelling’s T<sup>2</sup>.
 
 ``` r
 T2 <- pluck(res_2PCs, "Tsquare", "value")
@@ -162,7 +165,7 @@ pca_scores %>%
   geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2 stats", caption = "Figure 1") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1") +
   theme_bw()
 ```
 
