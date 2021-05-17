@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hotelling Ellipse Coordinate Points — ellipseCoord • HotellingEllipse</title>
+<title>Coordinate Points Of Hotelling Ellipse — ellipseCoord • HotellingEllipse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Hotelling Ellipse Coordinate Points — ellipseCoord" />
-<meta property="og:description" content="This function produces the x-y coordinates for plotting Hotelling ellipse." />
+<meta property="og:title" content="Coordinate Points Of Hotelling Ellipse — ellipseCoord" />
+<meta property="og:description" content="Get the x and y coordinates of Hotelling ellipse." />
 <meta property="og:image" content="https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HotellingEllipse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -122,13 +122,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Hotelling Ellipse Coordinate Points</h1>
+    <h1>Coordinate Points Of Hotelling Ellipse</h1>
     <small class="dont-index">Source: <a href='https://github.com/ChristianGoueguel/HotellingEllipse/blob/master/R/ellipseCoord.R'><code>R/ellipseCoord.R</code></a></small>
     <div class="hidden name"><code>ellipseCoord.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function produces the x-y coordinates for plotting Hotelling ellipse.</p>
+    <p>Get the x and y coordinates of Hotelling ellipse.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ellipseCoord</span><span class='op'>(</span><span class='va'>data</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span>, conf.limit <span class='op'>=</span> <span class='fl'>0.95</span>, pts <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span></pre>
@@ -138,7 +138,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>a data frame or tibble of scores coordinates</p></td>
+      <td><p>a data frame or tibble of PCA/PLS scores</p></td>
     </tr>
     <tr>
       <th>pcx</th>
@@ -154,16 +154,13 @@
     </tr>
     <tr>
       <th>pts</th>
-      <td><p>an integer indicating the number of points in the ellipse (by default 200)</p></td>
+      <td><p>an integer indicating the number of points of Hotelling ellipse (by default 200)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data frame with x and y coordinates</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Coordinate points of Hotelling ellipse</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Christian L. Goueguel,
@@ -187,8 +184,8 @@ christian.goueguel@gmail.com</p>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='st'>"ind"</span>, <span class='st'>"coord"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
    <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='co'>## Compute Hotelling’s T-square and ellipse parameters</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://pkgdown.r-lib.org'>HotellingEllipse</a></span><span class='op'>)</span>
+<span class='co'>## Get Hotelling ellipse coordinate points</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ChristianGoueguel/HotellingEllipse'>HotellingEllipse</a></span><span class='op'>)</span>
 <span class='va'>xy_coord</span> <span class='op'>&lt;-</span> <span class='fu'>ellipseCoord</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>pca_scores</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span>, conf.limit <span class='op'>=</span> <span class='fl'>0.95</span>, pts <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>
 
 </div></pre>
