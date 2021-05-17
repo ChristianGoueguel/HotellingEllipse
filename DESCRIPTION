@@ -1,19 +1,19 @@
 Package: HotellingEllipse
 Title: Hotelling T-Square and Confidence Ellipse
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Christian L.",
            family = "Goueguel",
            role = c("aut", "cre"),
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
-Description: The HotellingEllipse package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. The package calculates the Hotelling's T-square value and provides the x-y coordinates of the Hotelling ellipse in addition to the length of the semi-minor and semi-major axes (a and b).
+Description: Functions to compute the semi-axes lengths and coordinate points of Hotelling ellipse. Bro and Smilde (2014) <doi:10.1039/c3ay41907j>. Brereton (2016) <doi:10.1002/cem.2763>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-URL: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse
+URL: https://github.com/ChristianGoueguel/HotellingEllipse
 BugReports: https://github.com/ChristianGoueguel/HotellingEllipse/issues
 Imports: 
     dplyr,
