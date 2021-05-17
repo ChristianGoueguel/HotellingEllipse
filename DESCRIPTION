@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
-Description: Functions to compute the semi-axes lengths and coordinate points of Hotelling ellipse. Bro and Smilde (2014) <doi:10.1039/c3ay41907j>. Brereton (2016) <doi:10.1002/cem.2763>.
+Description: Functions to compute the semi-axes lengths and coordinate points of Hotelling ellipse. Bro and Smilde (2014) <DOI:10.1039/c3ay41907j>. Brereton (2016) <DOI:10.1002/cem.2763>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

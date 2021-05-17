@@ -1,11 +1,12 @@
-#' Coordinate points of Hotelling ellipse
-#' @description This function produces the x-y coordinates for plotting Hotelling ellipse.
-#' @title Hotelling Ellipse Coordinate Points
-#' @param data a data frame or tibble of scores coordinates
+#' @title Coordinate Points Of Hotelling Ellipse
+#'
+#' @description Get the x and y coordinates of Hotelling ellipse.
+#'
+#' @param data a data frame or tibble of PCA/PLS scores
 #' @param pcx an integer specifying which component is on the x-axis (by default 1)
 #' @param pcy an integer specifying which component is on the y-axis (by default 2)
 #' @param conf.limit an integer specifying the confidence level (by default 0.95)
-#' @param pts an integer indicating the number of points in the ellipse (by default 200)
+#' @param pts an integer indicating the number of points of Hotelling ellipse (by default 200)
 #'
 #' @return a data frame with x and y coordinates
 #'
@@ -27,7 +28,7 @@
 #'    purrr::pluck("ind", "coord") %>%
 #'    tibble::as_tibble()
 #'
-#' ## Compute Hotelling’s T-square and ellipse parameters
+#' ## Get Hotelling ellipse coordinate points
 #' library(HotellingEllipse)
 #' xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 #'

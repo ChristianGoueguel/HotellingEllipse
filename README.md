@@ -12,12 +12,10 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
 <!-- badges: end -->
 
-HotellingEllipse is an R package aimed at computing Hotelling’s T-square
-value to compare multivariate datasets based on their PCA or PLS scores.
-For bivariate score scatterplot, the package provides the semi-minor and
-semi-major axes, a and b, for drawing Hotelling ellipse at 95% and 99%
-confidence intervals. The package also provides the *x*-*y* coordinates
-at user-defined confidence intervals.
+HotellingEllipse computes the lengths of the semi-minor and semi-major
+axes for plotting Hotelling ellipse at 95% and 99% confidence intervals.
+The package also provides the *x*-*y* coordinates at user-defined
+confidence intervals.
 
 ## Installation
 

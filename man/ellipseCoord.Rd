@@ -2,12 +2,12 @@
 % Please edit documentation in R/ellipseCoord.R
 \name{ellipseCoord}
 \alias{ellipseCoord}
-\title{Hotelling Ellipse Coordinate Points}
+\title{Coordinate Points Of Hotelling Ellipse}
 \usage{
 ellipseCoord(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 }
 \arguments{
-\item{data}{a data frame or tibble of scores coordinates}
+\item{data}{a data frame or tibble of PCA/PLS scores}
 
 \item{pcx}{an integer specifying which component is on the x-axis (by default 1)}
 
@@ -15,16 +15,13 @@ ellipseCoord(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 
 \item{conf.limit}{an integer specifying the confidence level (by default 0.95)}
 
-\item{pts}{an integer indicating the number of points in the ellipse (by default 200)}
+\item{pts}{an integer indicating the number of points of Hotelling ellipse (by default 200)}
 }
 \value{
 a data frame with x and y coordinates
 }
 \description{
-This function produces the x-y coordinates for plotting Hotelling ellipse.
-}
-\details{
-Coordinate points of Hotelling ellipse
+Get the x and y coordinates of Hotelling ellipse.
 }
 \examples{
 ## Principal components analysis (PCA)
@@ -39,7 +36,7 @@ pca_scores <- pca_mod \%>\%
    purrr::pluck("ind", "coord") \%>\%
    tibble::as_tibble()
 
-## Compute Hotelling’s T-square and ellipse parameters
+## Get Hotelling ellipse coordinate points
 library(HotellingEllipse)
 xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 

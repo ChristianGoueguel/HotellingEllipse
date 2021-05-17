@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hotelling Ellipse Semi-Axes — ellipseParam • HotellingEllipse</title>
+<title>Lengths Of The Semi-Axes Of Hotelling Ellipse — ellipseParam • HotellingEllipse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Hotelling Ellipse Semi-Axes — ellipseParam" />
-<meta property="og:description" content="Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99% and 95% confidence intervals.
-The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates." />
+<meta property="og:title" content="Lengths Of The Semi-Axes Of Hotelling Ellipse — ellipseParam" />
+<meta property="og:description" content="Compute the lengths of the semi-axes of Hotelling ellipse." />
 <meta property="og:image" content="https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/logo.png" />
 
 
@@ -92,7 +91,7 @@ The function is created to be used with principal components analysis (PCA) or p
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HotellingEllipse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -128,14 +127,13 @@ The function is created to be used with principal components analysis (PCA) or p
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Hotelling Ellipse Semi-Axes</h1>
+    <h1>Lengths Of The Semi-Axes Of Hotelling Ellipse</h1>
     <small class="dont-index">Source: <a href='https://github.com/ChristianGoueguel/HotellingEllipse/blob/master/R/ellipseParam.R'><code>R/ellipseParam.R</code></a></small>
     <div class="hidden name"><code>ellipseParam.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99% and 95% confidence intervals.
-The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.</p>
+    <p>Compute the lengths of the semi-axes of Hotelling ellipse.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ellipseParam</span><span class='op'>(</span><span class='va'>data</span>, k <span class='op'>=</span> <span class='fl'>2</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
@@ -145,7 +143,7 @@ The function is created to be used with principal components analysis (PCA) or p
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>a data frame or tibble of scores coordinates</p></td>
+      <td><p>a data frame or tibble of PCA/PLS scores</p></td>
     </tr>
     <tr>
       <th>k</th>
@@ -164,13 +162,10 @@ The function is created to be used with principal components analysis (PCA) or p
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a list including:
-(1) Tsquare, a data frame containing the T-square value.
-(2) Ellipse, a data frame containing the length of the semi-minor and semi-major axes.
+(1) Tsquare, a data frame containing Hotelling T2-value.
+(2) Ellipse, a data frame containing the lengths of the semi-minor and semi-major axes.
 (3) cutoff.99pct, an integer indicating the T-square cutoff at 99% confidence level.
 (4) cutoff.95pct, an integer indicating the T-square cutoff at 95% confidence level.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Hotelling’s T-square and Confidence Ellipse</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Christian L. Goueguel,
@@ -189,8 +184,8 @@ christian.goueguel@gmail.com</p>
 <span class='r-in'>   <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='st'>"ind"</span>, <span class='st'>"coord"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>   <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'>## Compute Hotelling’s T-square and ellipse parameters</span></span>
-<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://pkgdown.r-lib.org'>HotellingEllipse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Get Hotelling T2-value and the lengths of the ellipse semi-axes</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ChristianGoueguel/HotellingEllipse'>HotellingEllipse</a></span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>T2</span> <span class='op'>&lt;-</span> <span class='fu'>ellipseParam</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>pca_scores</span>, k <span class='op'>=</span> <span class='fl'>2</span>, pcx <span class='op'>=</span> <span class='fl'>1</span>, pcy <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 </pre>

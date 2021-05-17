@@ -2,12 +2,12 @@
 % Please edit documentation in R/ellipseParam.R
 \name{ellipseParam}
 \alias{ellipseParam}
-\title{Hotelling Ellipse Semi-Axes}
+\title{Lengths Of The Semi-Axes Of Hotelling Ellipse}
 \usage{
 ellipseParam(data, k = 2, pcx = 1, pcy = 2)
 }
 \arguments{
-\item{data}{a data frame or tibble of scores coordinates}
+\item{data}{a data frame or tibble of PCA/PLS scores}
 
 \item{k}{number of components (by default 2)}
 
@@ -17,17 +17,13 @@ ellipseParam(data, k = 2, pcx = 1, pcy = 2)
 }
 \value{
 Returns a list including:
-(1) Tsquare, a data frame containing the T-square value.
-(2) Ellipse, a data frame containing the length of the semi-minor and semi-major axes.
+(1) Tsquare, a data frame containing Hotelling T2-value.
+(2) Ellipse, a data frame containing the lengths of the semi-minor and semi-major axes.
 (3) cutoff.99pct, an integer indicating the T-square cutoff at 99\% confidence level.
 (4) cutoff.95pct, an integer indicating the T-square cutoff at 95\% confidence level.
 }
 \description{
-Computes semi-minor and semi-major axes for drawing Hotelling ellipse at 99\% and 95\% confidence intervals.
-The function is created to be used with principal components analysis (PCA) or partial least squares (PLS) scores coordinates.
-}
-\details{
-Hotelling’s T-square and Confidence Ellipse
+Compute the lengths of the semi-axes of Hotelling ellipse.
 }
 \examples{
 ## Principal components analysis (PCA)
@@ -42,7 +38,7 @@ pca_scores <- pca_mod \%>\%
    purrr::pluck("ind", "coord") \%>\%
    tibble::as_tibble()
 
-## Compute Hotelling’s T-square and ellipse parameters
+## Get Hotelling T2-value and the lengths of the ellipse semi-axes
 library(HotellingEllipse)
 T2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 
