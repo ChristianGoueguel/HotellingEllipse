@@ -19,7 +19,13 @@ confidence intervals.
 
 ## Installation
 
-Install the development version from [GitHub](https://github.com/) with:
+Install `HotellingEllipse` from CRAN:
+
+``` r
+install.packages("HotellingEllipse")
+```
+
+Install the development version from GitHub:
 
 ``` r
 # install.packages("remotes")
