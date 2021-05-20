@@ -12,7 +12,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
 <!-- badges: end -->
 
-HotellingEllipse computes the lengths of the semi-minor and semi-major
+`HotellingEllipse` computes the lengths of the semi-minor and semi-major
 axes for plotting Hotelling ellipse at 95% and 99% confidence intervals.
 The package also provides the *x*-*y* coordinates at user-defined
 confidence intervals.
@@ -22,7 +22,7 @@ confidence intervals.
 Install `HotellingEllipse` from CRAN:
 
 ``` r
-install.packages("HotellingEllipse")
+install.packages("HotellingEllipe")
 ```
 
 Install the development version from GitHub:
@@ -34,8 +34,8 @@ remotes::install_github("ChristianGoueguel/HotellingEllipse")
 
 ## Usage
 
-Below is an overview of how HotellingEllipse can help draw a confidence
-ellipse:
+Below is an overview of how `HotellingEllipse` can help draw a
+confidence ellipse:
 
 -   using `FactoMineR::PCA()` we first perform Principal Component
     Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
@@ -163,14 +163,14 @@ the 99% and 95% confidence limits for T<sup>2</sup>.
 ``` r
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed", fill = "white") +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1") +
-  theme_bw()
+  theme_grey()
 ```
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%" />
