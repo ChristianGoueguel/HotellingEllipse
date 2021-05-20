@@ -142,7 +142,7 @@ T2 <- pluck(res_2PCs, "Tsquare", "value")
 Another way to add Hotelling ellipse on the scatterplot of the scores is
 to use the function `ellipseCoord()`. This function provides the *x* and
 *y* coordinates of the confidence ellipse at user-defined confidence
-interval. The confidence interval `confi.limit` is set at 95% by
+interval. The confidence interval `conf.limit` is set at 95% by
 default.
 
 ``` r
