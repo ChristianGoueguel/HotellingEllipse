@@ -169,18 +169,31 @@ pca_scores %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling's T2 ellipse obtained\n using the ellipseParam function") +
   theme_grey()
 ```
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%" />
 
+``` r
+ggplot() +
+  geom_ellipse(data = coord_2PCs, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
+  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
+  scale_fill_viridis_c(option = "viridis") +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
+  theme_grey()
+```
+
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
+
 **Note:** The easiest way to analyze and interpret Hotelling’s
 T<sup>2</sup> for more than two principal components, is to plot
-Observations *vs.* Hotelling’s T<sup>2</sup> where the confidence limits
-are plotted as a line. Thus, observations below the two lines are within
-the T<sup>2</sup> limits. For example, below, `ellipseParam()` is used
-with the first three principal components (**k = 3**).
+Hotelling’s T<sup>2</sup> *vs.* Observations, where the confidence
+limits are plotted as a line. Thus, observations below the two lines are
+within the T<sup>2</sup> limits. For example, below, `ellipseParam()` is
+used with the first three principal components (**k = 3**).
 
 ``` r
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
@@ -208,8 +221,8 @@ tibble(
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
   annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling’s T-square (3 PCs)", fill = "T2 stats", caption = "Figure 2") +
+  labs(x = "Observations", y = "Hotelling’s T-square (3 PCs)", fill = "T2 stats", caption = "Figure 3: Hotelling’s T2-value vs. Observations") +
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="90%" height="90%" />
