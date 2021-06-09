@@ -22,7 +22,7 @@ confidence intervals.
 Install `HotellingEllipse` from CRAN:
 
 ``` r
-install.packages("HotellingEllipe")
+install.packages("HotellingEllipse")
 ```
 
 Install the development version from GitHub:
