@@ -22,7 +22,7 @@ confidence intervals.
 Install `HotellingEllipse` from CRAN:
 
 ``` r
-install.packages("HotellingEllipse")
+install.packages("HotellingEllipe")
 ```
 
 Install the development version from GitHub:
@@ -79,7 +79,7 @@ pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
   as_tibble() %>%
   print()
-#> # A tibble: 171 x 5
+#> # A tibble: 171 × 5
 #>      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5
 #>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
 #>  1 144168. -36399.   2228.   -670.  13805.
@@ -108,9 +108,9 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquare     : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
 #>   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...
-#>  $ Ellipse     : tibble[,4] [1 × 4] (S3: tbl_df/tbl/data.frame)
+#>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
 #>   ..$ a.99pct: num 319536
 #>   ..$ b.99pct: num 91816
 #>   ..$ a.95pct: num 256487
@@ -142,7 +142,7 @@ T2 <- pluck(res_2PCs, "Tsquare", "value")
 Another way to add Hotelling ellipse on the scatterplot of the scores is
 to use the function `ellipseCoord()`. This function provides the *x* and
 *y* coordinates of the confidence ellipse at user-defined confidence
-interval. The confidence interval `conf.limit` is set at 95% by
+interval. The confidence interval `confi.limit` is set at 95% by
 default.
 
 ``` r
@@ -151,7 +151,7 @@ coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.9
 
 ``` r
 str(coord_2PCs)
-#> tibble[,2] [500 × 2] (S3: tbl_df/tbl/data.frame)
+#> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
 #>  $ x: num [1:500] 256487 256466 256405 256304 256161 ...
 #>  $ y: num [1:500] 7.20e-12 9.28e+02 1.86e+03 2.78e+03 3.71e+03 ...
 ```
@@ -202,7 +202,7 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquare     : tibble[,1] [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
 #>   ..$ value: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
 #>  $ cutoff.99pct: num 11.8
 #>  $ cutoff.95pct: num 8.07
@@ -221,7 +221,7 @@ tibble(
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
   annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
   annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling’s T-square (3 PCs)", caption = "Figure 3: Hotelling’s T2-value vs. Observations") +
+  labs(x = "Observations", y = "Hotelling’s T-square (3 PCs)", fill = "T2 stats", caption = "Figure 3: Hotelling’s T2-value vs. Observations") +
   theme_bw()
 ```
 
