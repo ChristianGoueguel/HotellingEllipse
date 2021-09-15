@@ -43,7 +43,7 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
     stop("Seems you forgot to provide data values.")
   }
 
-  if (is.data.frame(data) == FALSE | tibble::is_tibble(data) == FALSE) {
+  if (is.data.frame(data) == FALSE & tibble::is_tibble(data) == FALSE) {
     stop("Data must be of class data.frame, tbl_df, or tbl")
   }
 

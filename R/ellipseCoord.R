@@ -37,7 +37,7 @@ ellipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
   stopifnot(length(data) != 0)
   stopifnot(pcx != pcy)
 
-  if (is.data.frame(data) == FALSE | tibble::is_tibble(data) == FALSE) {
+  if (is.data.frame(data) == FALSE & tibble::is_tibble(data) == FALSE) {
     stop("Data must be of class data.frame, tbl_df, or tbl")
   }
 
