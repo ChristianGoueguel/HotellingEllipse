@@ -80,18 +80,18 @@ pca_scores <- pca_mod %>%
   as_tibble() %>%
   print()
 #> # A tibble: 171 × 5
-#>      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 144168. -36399.   2228.   -670.  13805.
-#>  2 118520. -31465.  16300. -20686. -13872.
-#>  3  90303. -28356.  31340. -60615.  15157.
-#>  4 107107. -38209.  24897. -60366.  19449.
-#>  5  74350.  -2148.  29814.  -8351.    494.
-#>  6  97511. -17932.  22254. -15406.  -4195.
-#>  7  82142.  19297. -34299. -12498.   -648.
-#>  8  76261.  16566. -34382. -16293.    137.
-#>  9  73705.  31091. -22577. -17182.   2438.
-#> 10  68042.  25124. -26063. -19389.   6051.
+#>      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5
+#>      <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+#>  1  15021.  -6664. -23800.  -2683. -30125. 
+#>  2  37205. -16640. -14882.   8566. -16900. 
+#>  3 110366. -49158.  37954. -11079.   2600. 
+#>  4  10708.  49123.  18879.  -5441. -14921. 
+#>  5 117379. -31128. -16638. -20459. -14914. 
+#>  6  80742.  19654.  34261. -12216.    -38.0
+#>  7  48867.  16538.   5662. -11706.   5465. 
+#>  8 122792. -23301. -13664.  -8704.   2929. 
+#>  9  97123. -17820. -13429.  -5519.   6973. 
+#> 10  61216. -12005. -16953.   1905.   2814. 
 #> # … with 161 more rows
 ```
 
@@ -109,12 +109,12 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 str(res_2PCs)
 #> List of 4
 #>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...
+#>   ..$ value: num [1:171] 3.29 1.39 3.27 2.37 2.77 ...
 #>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 319536
-#>   ..$ b.99pct: num 91816
-#>   ..$ a.95pct: num 256487
-#>   ..$ b.95pct: num 73699
+#>   ..$ a.99pct: num 312205
+#>   ..$ b.99pct: num 91666
+#>   ..$ a.95pct: num 250602
+#>   ..$ b.95pct: num 73579
 #>  $ cutoff.99pct: num 9.52
 #>  $ cutoff.95pct: num 6.14
 ```
@@ -152,8 +152,8 @@ coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.9
 ``` r
 str(coord_2PCs)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 256487 256466 256405 256304 256161 ...
-#>  $ y: num [1:500] 7.20e-12 9.28e+02 1.86e+03 2.78e+03 3.71e+03 ...
+#>  $ x: num [1:500] 250602 250582 250523 250423 250284 ...
+#>  $ y: num [1:500] 9.40e-12 9.26e+02 1.85e+03 2.78e+03 3.70e+03 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -192,8 +192,8 @@ ggplot() +
 T<sup>2</sup> for more than two principal components, is to plot
 Hotelling’s T<sup>2</sup> *vs.* Observations, where the confidence
 limits are plotted as a line. Thus, observations below the two lines are
-within the T<sup>2</sup> limits. For example, below, `ellipseParam()` is
-used with the first three principal components (**k = 3**).
+within the T<sup>2</sup> limits. For example, `ellipseParam()` is used
+with the first three principal components (**k = 3**).
 
 ``` r
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
@@ -203,7 +203,7 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 str(res_3PCs)
 #> List of 3
 #>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
+#>   ..$ value: num [1:171] 2.179 0.922 2.167 1.573 1.836 ...
 #>  $ cutoff.99pct: num 11.8
 #>  $ cutoff.95pct: num 8.07
 ```

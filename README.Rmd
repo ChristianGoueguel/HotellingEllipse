@@ -157,7 +157,7 @@ ggplot() +
 ```
 
 
-**Note:** The easiest way to analyze and interpret Hotelling’s T$^2$ for more than two principal components, is to plot Hotelling’s T$^2$ *vs.* Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits. For example, below, `ellipseParam()` is used with the first three principal components (**k = 3**).
+**Note:** The easiest way to analyze and interpret Hotelling’s T$^2$ for more than two principal components, is to plot Hotelling’s T$^2$ *vs.* Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits. For example, `ellipseParam()` is used with the first three principal components (**k = 3**).
 
 ```{r}
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
