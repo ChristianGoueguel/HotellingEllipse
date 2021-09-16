@@ -119,20 +119,20 @@ div.output pre { background-color:#FFFFFF; }
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span>
-<span class="co">#&gt; # A tibble: 171 × 5</span>
-<span class="co">#&gt;      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5</span>
-<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  15021.  -6664. -23800.  -2683. -30125. </span>
-<span class="co">#&gt;  2  37205. -16640. -14882.   8566. -16900. </span>
-<span class="co">#&gt;  3 110366. -49158.  37954. -11079.   2600. </span>
-<span class="co">#&gt;  4  10708.  49123.  18879.  -5441. -14921. </span>
-<span class="co">#&gt;  5 117379. -31128. -16638. -20459. -14914. </span>
-<span class="co">#&gt;  6  80742.  19654.  34261. -12216.    -38.0</span>
-<span class="co">#&gt;  7  48867.  16538.   5662. -11706.   5465. </span>
-<span class="co">#&gt;  8 122792. -23301. -13664.  -8704.   2929. </span>
-<span class="co">#&gt;  9  97123. -17820. -13429.  -5519.   6973. </span>
-<span class="co">#&gt; 10  61216. -12005. -16953.   1905.   2814. </span>
-<span class="co">#&gt; # … with 161 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 100 × 5</span>
+<span class="co">#&gt;      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5</span>
+<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 -35818. -25670.  -1410. -18987. -27824.</span>
+<span class="co">#&gt;  2 -12142. -25112. -10597.  -6783. -17026.</span>
+<span class="co">#&gt;  3  80218.   2544. -27594. -19345.   3397.</span>
+<span class="co">#&gt;  4 -55409.  40806. -14685. -11184. -15158.</span>
+<span class="co">#&gt;  5  66703. -11798.  26979.   6451. -18152.</span>
+<span class="co">#&gt;  6  21652.  46396. -11037.    467.  -3676.</span>
+<span class="co">#&gt;  7 -10316.  19311.   -545. -13258.   3631.</span>
+<span class="co">#&gt;  8  66331.  -4200.  21980.  23341.  -1542.</span>
+<span class="co">#&gt;  9  41474.  -7211.  13901.  11204.   3586.</span>
+<span class="co">#&gt; 10   6716. -15011.   3620.   3784.    241.</span>
+<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
 </div>
 <div id="hotelling-ellipse-semi-axes" class="section level1">
 <h1 class="hasAnchor">
@@ -143,15 +143,15 @@ div.output pre { background-color:#FFFFFF; }
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ value: num [1:171] 3.29 1.39 3.27 2.37 2.77 ...</span>
+<span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ value: num [1:100] 3.46 1.4 2.74 2.68 2.64 ...</span>
 <span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ a.99pct: num 312205</span>
-<span class="co">#&gt;   ..$ b.99pct: num 91666</span>
-<span class="co">#&gt;   ..$ a.95pct: num 250602</span>
-<span class="co">#&gt;   ..$ b.95pct: num 73579</span>
-<span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
-<span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
+<span class="co">#&gt;   ..$ a.99pct: num 154988</span>
+<span class="co">#&gt;   ..$ b.99pct: num 89990</span>
+<span class="co">#&gt;   ..$ a.95pct: num 123969</span>
+<span class="co">#&gt;   ..$ b.95pct: num 71980</span>
+<span class="co">#&gt;  $ cutoff.99pct: num 9.76</span>
+<span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></code></pre></div>
 <p>We can extract parameters for further use:</p>
 <ul>
 <li>Semi-axes of the ellipse at 99% confidence level.</li>
@@ -180,8 +180,8 @@ div.output pre { background-color:#FFFFFF; }
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
 <span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ x: num [1:500] 250602 250582 250523 250423 250284 ...</span>
-<span class="co">#&gt;  $ y: num [1:500] 9.25e-12 7.94e+02 1.59e+03 2.38e+03 3.18e+03 ...</span></code></pre></div>
+<span class="co">#&gt;  $ x: num [1:500] 123969 123959 123930 123881 123812 ...</span>
+<span class="co">#&gt;  $ y: num [1:500] 6.92e-12 7.25e+02 1.45e+03 2.17e+03 2.90e+03 ...</span></code></pre></div>
 </div>
   </div>
 
