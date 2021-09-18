@@ -79,20 +79,20 @@ pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
   as_tibble() %>%
   print()
-#> # A tibble: 100 × 5
-#>      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 -35818. -25670.  -1410. -18987. -27824.
-#>  2 -12142. -25112. -10597.  -6783. -17026.
-#>  3  80218.   2544. -27594. -19345.   3397.
-#>  4 -55409.  40806. -14685. -11184. -15158.
-#>  5  66703. -11798.  26979.   6451. -18152.
-#>  6  21652.  46396. -11037.    467.  -3676.
-#>  7 -10316.  19311.   -545. -13258.   3631.
-#>  8  66331.  -4200.  21980.  23341.  -1542.
-#>  9  41474.  -7211.  13901.  11204.   3586.
-#> 10   6716. -15011.   3620.   3784.    241.
-#> # … with 90 more rows
+#> # A tibble: 171 × 5
+#>      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5
+#>      <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+#>  1  15021.  -6664. -23800.  -2683. -30125. 
+#>  2  37205. -16640. -14882.   8566. -16900. 
+#>  3 110366. -49158.  37954. -11080.   2600. 
+#>  4  10708.  49123.  18879.  -5441. -14921. 
+#>  5 117379. -31128. -16638. -20459. -14914. 
+#>  6  80742.  19654.  34261. -12216.    -38.0
+#>  7  48867.  16539.   5662. -11706.   5465. 
+#>  8 122792. -23301. -13664.  -8704.   2929. 
+#>  9  97123. -17820. -13429.  -5519.   6973. 
+#> 10  61216. -12005. -16953.   1905.   2814. 
+#> # … with 161 more rows
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
@@ -108,15 +108,15 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:100] 3.46 1.4 2.74 2.68 2.64 ...
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 3.29 1.39 3.27 2.37 2.77 ...
 #>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 154988
-#>   ..$ b.99pct: num 89990
-#>   ..$ a.95pct: num 123969
-#>   ..$ b.95pct: num 71980
-#>  $ cutoff.99pct: num 9.76
-#>  $ cutoff.95pct: num 6.24
+#>   ..$ a.99pct: num 312205
+#>   ..$ b.99pct: num 91666
+#>   ..$ a.95pct: num 250602
+#>   ..$ b.95pct: num 73579
+#>  $ cutoff.99pct: num 9.52
+#>  $ cutoff.95pct: num 6.14
 ```
 
 -   Semi-axes of the ellipse at 99% confidence level.
@@ -152,8 +152,8 @@ coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.9
 ``` r
 str(coord_2PCs)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 123969 123959 123930 123881 123812 ...
-#>  $ y: num [1:500] -5.74e-12 9.06e+02 1.81e+03 2.72e+03 3.62e+03 ...
+#>  $ x: num [1:500] 250602 250582 250523 250424 250285 ...
+#>  $ y: num [1:500] -2.29e-12 9.26e+02 1.85e+03 2.78e+03 3.70e+03 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -173,7 +173,7 @@ pca_scores %>%
   theme_grey()
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%" />
 
 ``` r
 ggplot() +
@@ -186,7 +186,7 @@ ggplot() +
   theme_grey()
 ```
 
-<img src="man/figures/README-unnamed-chunk-16-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
 
 **Note:** The easiest way to analyze and interpret Hotelling’s
 T<sup>2</sup> for more than two principal components, is to plot
@@ -202,10 +202,10 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:100] 2.283 0.921 1.806 1.767 1.743 ...
-#>  $ cutoff.99pct: num 12.2
-#>  $ cutoff.95pct: num 8.26
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 2.179 0.922 2.167 1.573 1.836 ...
+#>  $ cutoff.99pct: num 11.8
+#>  $ cutoff.95pct: num 8.07
 ```
 
 ``` r
@@ -225,4 +225,4 @@ tibble(
   theme_bw()
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="90%" height="90%" />
