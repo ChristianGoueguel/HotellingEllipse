@@ -15,6 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, include = FALSE}
+Sys.setenv(RSTUDIO_PANDOC="/Applications/RStudio.app/Contents/MacOS/pandoc")
+```
+
+
 <!-- badges: start -->
 # HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
 [![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
