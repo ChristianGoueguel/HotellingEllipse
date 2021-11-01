@@ -110,12 +110,12 @@ div.output pre { background-color:#FFFFFF; }
 <p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
-<span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op">%&gt;%</span>
-  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span>
