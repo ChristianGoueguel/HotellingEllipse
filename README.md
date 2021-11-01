@@ -80,20 +80,20 @@ pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
   as_tibble() %>%
   print()
-#> # A tibble: 171 × 5
-#>      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5
-#>      <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#>  1  15021.  -6664. -23800.  -2683. -30125. 
-#>  2  37205. -16640. -14882.   8566. -16900. 
-#>  3 110366. -49158.  37954. -11080.   2600. 
-#>  4  10708.  49123.  18879.  -5441. -14921. 
-#>  5 117379. -31128. -16638. -20459. -14914. 
-#>  6  80742.  19654.  34261. -12216.    -38.0
-#>  7  48867.  16539.   5662. -11706.   5465. 
-#>  8 122792. -23301. -13664.  -8704.   2929. 
-#>  9  97123. -17820. -13429.  -5519.   6973. 
-#> 10  61216. -12005. -16953.   1905.   2814. 
-#> # … with 161 more rows
+#> # A tibble: 171 x 5
+#>      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5
+#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 144168. -36399.   2228.   -670.  13805.
+#>  2 118520. -31465.  16300. -20686. -13872.
+#>  3  90303. -28356.  31340. -60615.  15157.
+#>  4 107107. -38209.  24897. -60366.  19449.
+#>  5  74350.  -2148.  29814.  -8351.    494.
+#>  6  97511. -17932.  22254. -15406.  -4195.
+#>  7  82142.  19297. -34299. -12498.   -648.
+#>  8  76261.  16566. -34382. -16293.    137.
+#>  9  73705.  31091. -22577. -17182.   2438.
+#> 10  68042.  25124. -26063. -19389.   6051.
+#> # ... with 161 more rows
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
@@ -109,13 +109,13 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 3.29 1.39 3.27 2.37 2.77 ...
-#>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 312205
-#>   ..$ b.99pct: num 91666
-#>   ..$ a.95pct: num 250602
-#>   ..$ b.95pct: num 73579
+#>  $ Tsquare     : tibble [171 x 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...
+#>  $ Ellipse     : tibble [1 x 4] (S3: tbl_df/tbl/data.frame)
+#>   ..$ a.99pct: num 319536
+#>   ..$ b.99pct: num 91816
+#>   ..$ a.95pct: num 256487
+#>   ..$ b.95pct: num 73699
 #>  $ cutoff.99pct: num 9.52
 #>  $ cutoff.95pct: num 6.14
 ```
@@ -143,18 +143,19 @@ T2 <- pluck(res_2PCs, "Tsquare", "value")
 Another way to add Hotelling ellipse on the scatterplot of the scores is
 to use the function `ellipseCoord()`. This function provides the *x* and
 *y* coordinates of the confidence ellipse at user-defined confidence
-interval. The confidence interval `confi.limit` is set at 95% by
-default.
+interval. The confidence interval `conf.limit` is set at 95% by default.
 
 ``` r
-coord_2PCs <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
+coord_2PCs_99 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.99, pts = 500)
+coord_2PCs_95 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
+coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.90, pts = 500)
 ```
 
 ``` r
-str(coord_2PCs)
-#> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 250602 250582 250523 250424 250285 ...
-#>  $ y: num [1:500] -2.29e-12 9.26e+02 1.85e+03 2.78e+03 3.70e+03 ...
+str(coord_2PCs_99)
+#> tibble [500 x 2] (S3: tbl_df/tbl/data.frame)
+#>  $ x: num [1:500] 319536 319510 319434 319308 319131 ...
+#>  $ y: num [1:500] 7.20e-12 1.16e+03 2.31e+03 3.47e+03 4.62e+03 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -176,15 +177,20 @@ pca_scores %>%
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" height="90%" />
 
+Or at the confidence limits set at 99, 95 and 90%.
+
 ``` r
 ggplot() +
-  geom_ellipse(data = coord_2PCs, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, linetype = "dashed") +
+  geom_ellipse(data = coord_2PCs_99, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "black", linetype = "dashed") +
+  geom_ellipse(data = coord_2PCs_95, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "darkred", linetype = "dotted") +
+  geom_ellipse(data = coord_2PCs_90, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "darkblue", linetype = "dotted") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
-  theme_grey()
+  theme_bw() +
+  theme(panel.grid = element_blank())
 ```
 
 <img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
@@ -203,8 +209,8 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 2.179 0.922 2.167 1.573 1.836 ...
+#>  $ Tsquare     : tibble [171 x 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
 #>  $ cutoff.99pct: num 11.8
 #>  $ cutoff.95pct: num 8.07
 ```
