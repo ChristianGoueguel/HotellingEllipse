@@ -122,19 +122,19 @@ b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 T2 <- pluck(res_2PCs, "Tsquare", "value")
 ```
 
-Another way to add Hotelling ellipse on the scatterplot of the scores is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval `conf.limit` is set at 95% by default.
+Another way to add Hotelling ellipse on the scatterplot of the scores is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval `conf.limit` is set at 95% by default. Here, PC1 is on the *x*-axis (**pcx = 1**) and, the third principal component, PC3, is on the *y*-axis (**pcy = 3**).
 
 ```{r}
-coord_2PCs_99 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.99, pts = 500)
-coord_2PCs_95 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 500)
-coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.90, pts = 500)
+coord_2PCs_99 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.99, pts = 500)
+coord_2PCs_95 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.95, pts = 500)
+coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.90, pts = 500)
 ```
 
 ```{r}
 str(coord_2PCs_99)
 ```
 
-**Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence limits for T$^2$.
+**Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for T$^2$.
 
 ```{r}
 pca_scores %>%
@@ -149,18 +149,18 @@ pca_scores %>%
   theme_grey()
 ```
 
-Or at the confidence limits set at 99, 95 and 90%.
+Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and 90%.
 
 ```{r}
 ggplot() +
   geom_ellipse(data = coord_2PCs_99, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "black", linetype = "dashed") +
   geom_ellipse(data = coord_2PCs_95, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "darkred", linetype = "dotted") +
   geom_ellipse(data = coord_2PCs_90, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "darkblue", linetype = "dotted") +
-  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
+  geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.3, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
   theme_bw() +
   theme(panel.grid = element_blank())
 ```
