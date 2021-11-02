@@ -186,9 +186,9 @@ Or at the confidence limits set at 99, 95 and 90%.
 
 ``` r
 ggplot() +
-  geom_ellipse(data = coord_2PCs_99, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "black", linetype = "dashed") +
-  geom_ellipse(data = coord_2PCs_95, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "darkred", linetype = "dotted") +
-  geom_ellipse(data = coord_2PCs_90, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .5, color = "darkblue", linetype = "dotted") +
+  geom_ellipse(data = coord_2PCs_99, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .8, color = "black", linetype = "dashed") +
+  geom_ellipse(data = coord_2PCs_95, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .8, color = "darkred", linetype = "dotted") +
+  geom_ellipse(data = coord_2PCs_90, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .8, color = "darkblue", linetype = "dotted") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.2, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
