@@ -1,25 +1,18 @@
 #' @title Lengths Of The Semi-Axes Of Hotelling Ellipse
-#'
-#' @description
-#' Compute the lengths of the semi-axes of Hotelling ellipse.
-#'
-#' @param data a data frame or tibble of PCA/PLS scores
-#' @param k number of components (by default 2)
-#' @param pcx an integer specifying which component is on the x-axis (by default 1)
-#' @param pcy an integer specifying which component is on the y-axis (by default 2)
-#'
+#' @description Compute the lengths of the semi-axes of Hotelling ellipse.
+#' @param data Data frame or tibble of PCA, PLS, or ICA scores, or from other feature projection methods.
+#' @param k Integer specifying the number of components (by default 2).
+#' @param pcx Integer specifying which component is on the x-axis (by default 1).
+#' @param pcy Integer specifying which component is on the y-axis (by default 2).
 #' @return
-#' Returns a list including:
-#' (1) Tsquare, a data frame containing Hotelling T2-value.
-#' (2) Ellipse, a data frame containing the lengths of the semi-minor and semi-major axes.
-#' (3) cutoff.99pct, an integer indicating the T-square cutoff at 99% confidence level.
-#' (4) cutoff.95pct, an integer indicating the T-square cutoff at 95% confidence level.
-#'
+#' Returns a list that includes:
+#'1. **Tsquare** Data frame containing Hotelling T2-value.
+#'2. **Ellipse** Data frame containing the lengths of the semi-minor and semi-major axes.
+#'3. **cutoff.99pct** Integer indicating the T-square cutoff at 99% confidence level.
+#'4. **cutoff.95pct** Integer indicating the T-square cutoff at 95% confidence level.
 #' @export ellipseParam
-#'
 #' @author Christian L. Goueguel,
 #' christian.goueguel@gmail.com
-#'
 #' @examples
 #' ## Principal components analysis (PCA)
 #' library(dplyr)
