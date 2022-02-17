@@ -62,22 +62,21 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
-<dd><p>a data frame or tibble of PCA/PLS scores</p></dd>
+<dd><p>Data frame or tibble of PCA, PLS, or ICA scores, or from other feature projection methods.</p></dd>
 <dt>k</dt>
-<dd><p>number of components (by default 2)</p></dd>
+<dd><p>Integer specifying the number of components (by default 2).</p></dd>
 <dt>pcx</dt>
-<dd><p>an integer specifying which component is on the x-axis (by default 1)</p></dd>
+<dd><p>Integer specifying which component is on the x-axis (by default 1).</p></dd>
 <dt>pcy</dt>
-<dd><p>an integer specifying which component is on the y-axis (by default 2)</p></dd>
+<dd><p>Integer specifying which component is on the y-axis (by default 2).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a list including:
-(1) Tsquare, a data frame containing Hotelling T2-value.
-(2) Ellipse, a data frame containing the lengths of the semi-minor and semi-major axes.
-(3) cutoff.99pct, an integer indicating the T-square cutoff at 99% confidence level.
-(4) cutoff.95pct, an integer indicating the T-square cutoff at 95% confidence level.</p>
-    </div>
+    <p>Returns a list that includes:</p><ol><li><p><strong>Tsquare</strong> Data frame containing Hotelling T2-value.</p></li>
+<li><p><strong>Ellipse</strong> Data frame containing the lengths of the semi-minor and semi-major axes.</p></li>
+<li><p><strong>cutoff.99pct</strong> Integer indicating the T-square cutoff at 99% confidence level.</p></li>
+<li><p><strong>cutoff.95pct</strong> Integer indicating the T-square cutoff at 95% confidence level.</p></li>
+</ol></div>
     <div id="author">
     <h2>Author</h2>
     <p>Christian L. Goueguel,
