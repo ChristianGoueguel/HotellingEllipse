@@ -1,5 +1,5 @@
 #' @title Coordinate Points Of Hotelling Ellipse
-#' @description Get the x and y coordinates of Hotelling ellipse.
+#' @description Get the *x* and *y* coordinates of Hotelling ellipse.
 #' @param data Data frame or tibble of PCA, PLS, and ICA scores, or from other feature projection methods.
 #' @param pcx Integer specifying which component is on the x-axis (by default 1).
 #' @param pcy Integer specifying which component is on the y-axis (by default 2).
