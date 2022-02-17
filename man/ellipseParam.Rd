@@ -7,20 +7,22 @@
 ellipseParam(data, k = 2, pcx = 1, pcy = 2)
 }
 \arguments{
-\item{data}{a data frame or tibble of PCA/PLS scores}
+\item{data}{Data frame or tibble of PCA, PLS, or ICA scores, or from other feature projection methods.}
 
-\item{k}{number of components (by default 2)}
+\item{k}{Integer specifying the number of components (by default 2).}
 
-\item{pcx}{an integer specifying which component is on the x-axis (by default 1)}
+\item{pcx}{Integer specifying which component is on the x-axis (by default 1).}
 
-\item{pcy}{an integer specifying which component is on the y-axis (by default 2)}
+\item{pcy}{Integer specifying which component is on the y-axis (by default 2).}
 }
 \value{
-Returns a list including:
-(1) Tsquare, a data frame containing Hotelling T2-value.
-(2) Ellipse, a data frame containing the lengths of the semi-minor and semi-major axes.
-(3) cutoff.99pct, an integer indicating the T-square cutoff at 99\% confidence level.
-(4) cutoff.95pct, an integer indicating the T-square cutoff at 95\% confidence level.
+Returns a list that includes:
+\enumerate{
+\item \strong{Tsquare} Data frame containing Hotelling T2-value.
+\item \strong{Ellipse} Data frame containing the lengths of the semi-minor and semi-major axes.
+\item \strong{cutoff.99pct} Integer indicating the T-square cutoff at 99\% confidence level.
+\item \strong{cutoff.95pct} Integer indicating the T-square cutoff at 95\% confidence level.
+}
 }
 \description{
 Compute the lengths of the semi-axes of Hotelling ellipse.
