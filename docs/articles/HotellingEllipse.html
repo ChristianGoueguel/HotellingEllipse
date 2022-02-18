@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,12 +47,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/HotellingEllipse.html">Get started</a>
 </li>
 <li>
@@ -62,7 +58,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ChristianGoueguel/HotellingEllipse/">
+  <a href="https://github.com/ChristianGoueguel/HotellingEllipse/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -77,14 +73,14 @@
 
       
 
-      </header><script src="HotellingEllipse_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>HotellingEllipse</h1>
-                        <h4 class="author">Christian L. Goueguel</h4>
+                        <h4 data-toc-skip class="author">Christian L. Goueguel</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/HotellingEllipse/blob/master/vignettes/HotellingEllipse.Rmd"><code>vignettes/HotellingEllipse.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/HotellingEllipse/blob/HEAD/vignettes/HotellingEllipse.Rmd" class="external-link"><code>vignettes/HotellingEllipse.Rmd</code></a></small>
       <div class="hidden name"><code>HotellingEllipse.Rmd</code></div>
 
     </div>
@@ -95,53 +91,53 @@
 div.reviewer pre { background-color:#e3dece; }
 div.output pre { background-color:#FFFFFF; }
 </style>
-<p>The HotellingEllipse package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. HotellingEllipse computes the Hotelling’s T<span class="math inline">\(^2\)</span> value, the semi-minor axis (denoted <strong>a</strong>), the semi-major axis (denoted <strong>b</strong>) along with the <em>x</em>-<em>y</em> coordinates for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
+<p>This package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. HotellingEllipse computes the Hotelling’s T<span class="math inline">\(^2\)</span> value, the semi-minor axis (denoted <strong>a</strong>), the semi-major axis (denoted <strong>b</strong>) along with the <em>x</em>-<em>y</em> coordinates for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
 <ul>
 <li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> and the semi-axes of an ellipse at 99% and 95% confidence intervals.</p></li>
 <li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the <em>x</em> and <em>y</em> coordinates of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default.</p></li>
 </ul>
-<div id="data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h1>
+<div class="section level2">
+<h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
-<p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">tibble::as_tibble()</a></code>.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
+<p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
-<span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+<span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op">%&gt;%</span>
-  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span>
-<span class="co">#&gt; # A tibble: 171 × 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 171 × 5</span></span>
 <span class="co">#&gt;      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5</span>
-<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  15021.  -6664. -23800.  -2683. -30125. </span>
-<span class="co">#&gt;  2  37205. -16640. -14882.   8566. -16900. </span>
-<span class="co">#&gt;  3 110366. -49158.  37954. -11080.   2600. </span>
-<span class="co">#&gt;  4  10708.  49123.  18879.  -5441. -14921. </span>
-<span class="co">#&gt;  5 117379. -31128. -16638. -20459. -14914. </span>
-<span class="co">#&gt;  6  80742.  19654.  34261. -12216.    -38.0</span>
-<span class="co">#&gt;  7  48867.  16539.   5662. -11706.   5465. </span>
-<span class="co">#&gt;  8 122792. -23301. -13664.  -8704.   2929. </span>
-<span class="co">#&gt;  9  97123. -17820. -13429.  -5519.   6973. </span>
-<span class="co">#&gt; 10  61216. -12005. -16953.   1905.   2814. </span>
-<span class="co">#&gt; # … with 161 more rows</span></code></pre></div>
+<span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">15</span>021.  -<span style="color: #BB0000; text-decoration: underline;">6</span><span style="color: #BB0000;">664.</span> -<span style="color: #BB0000; text-decoration: underline;">23</span><span style="color: #BB0000;">800.</span>  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">683.</span> -<span style="color: #BB0000; text-decoration: underline;">30</span><span style="color: #BB0000;">125.</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">37</span>205. -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">640.</span> -<span style="color: #BB0000; text-decoration: underline;">14</span><span style="color: #BB0000;">882.</span>   <span style="text-decoration: underline;">8</span>566. -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">900.</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">110</span>366. -<span style="color: #BB0000; text-decoration: underline;">49</span><span style="color: #BB0000;">158.</span>  <span style="text-decoration: underline;">37</span>954. -<span style="color: #BB0000; text-decoration: underline;">11</span><span style="color: #BB0000;">080.</span>   <span style="text-decoration: underline;">2</span>600. </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">10</span>708.  <span style="text-decoration: underline;">49</span>123.  <span style="text-decoration: underline;">18</span>879.  -<span style="color: #BB0000; text-decoration: underline;">5</span><span style="color: #BB0000;">441.</span> -<span style="color: #BB0000; text-decoration: underline;">14</span><span style="color: #BB0000;">921.</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">117</span>379. -<span style="color: #BB0000; text-decoration: underline;">31</span><span style="color: #BB0000;">128.</span> -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">638.</span> -<span style="color: #BB0000; text-decoration: underline;">20</span><span style="color: #BB0000;">459.</span> -<span style="color: #BB0000; text-decoration: underline;">14</span><span style="color: #BB0000;">914.</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">80</span>742.  <span style="text-decoration: underline;">19</span>654.  <span style="text-decoration: underline;">34</span>261. -<span style="color: #BB0000; text-decoration: underline;">12</span><span style="color: #BB0000;">216.</span>    -<span style="color: #BB0000;">38.0</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">48</span>867.  <span style="text-decoration: underline;">16</span>539.   <span style="text-decoration: underline;">5</span>662. -<span style="color: #BB0000; text-decoration: underline;">11</span><span style="color: #BB0000;">706.</span>   <span style="text-decoration: underline;">5</span>465. </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">122</span>792. -<span style="color: #BB0000; text-decoration: underline;">23</span><span style="color: #BB0000;">301.</span> -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">664.</span>  -<span style="color: #BB0000; text-decoration: underline;">8</span><span style="color: #BB0000;">704.</span>   <span style="text-decoration: underline;">2</span>929. </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">97</span>123. -<span style="color: #BB0000; text-decoration: underline;">17</span><span style="color: #BB0000;">820.</span> -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">429.</span>  -<span style="color: #BB0000; text-decoration: underline;">5</span><span style="color: #BB0000;">519.</span>   <span style="text-decoration: underline;">6</span>973. </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">61</span>216. -<span style="color: #BB0000; text-decoration: underline;">12</span><span style="color: #BB0000;">005.</span> -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">953.</span>   <span style="text-decoration: underline;">1</span>905.   <span style="text-decoration: underline;">2</span>814. </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 161 more rows</span></span></code></pre></div>
 </div>
-<div id="hotelling-ellipse-semi-axes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#hotelling-ellipse-semi-axes" class="anchor"></a>Hotelling ellipse: semi-axes</h1>
+<div class="section level2">
+<h2 id="hotelling-ellipse-semi-axes">Hotelling ellipse: semi-axes<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-semi-axes"></a>
+</h2>
 <p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ value: num [1:171] 3.29 1.39 3.27 2.37 2.77 ...</span>
@@ -171,14 +167,14 @@ div.output pre { background-color:#FFFFFF; }
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="hotelling-ellipse-x-and-y-coordinates" class="section level1">
-<h1 class="hasAnchor">
-<a href="#hotelling-ellipse-x-and-y-coordinates" class="anchor"></a>Hotelling ellipse: x and y coordinates</h1>
+<div class="section level2">
+<h2 id="hotelling-ellipse-x-and-y-coordinates">Hotelling ellipse: x and y coordinates<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-x-and-y-coordinates"></a>
+</h2>
 <p>Another way to add Hotelling ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinates are estimated based on data projected into the PC1-PC3 subspace.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
 <span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ x: num [1:500] 250602 250582 250523 250424 250285 ...</span>
 <span class="co">#&gt;  $ y: num [1:500] -5.73e-12 7.94e+02 1.59e+03 2.38e+03 3.18e+03 ...</span></code></pre></div>
@@ -196,11 +192,13 @@ div.output pre { background-color:#FFFFFF; }
 
 
       <footer><div class="copyright">
-  <p>Developed by Christian L. Goueguel.</p>
+  <p></p>
+<p>Developed by Christian L. Goueguel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -208,6 +206,8 @@ div.output pre { background-color:#FFFFFF; }
 
   
 
+
+  
 
   </body>
 </html>

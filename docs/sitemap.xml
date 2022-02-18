@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/404.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/articles/HotellingEllipse.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/authors.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/index.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/news/index.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference/ellipseCoord.html</loc>
@@ -10,12 +34,12 @@
     <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference/ellipseParam.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference/pipe.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference/specData.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/articles/HotellingEllipse.html</loc>
   </url>
 </urlset>
