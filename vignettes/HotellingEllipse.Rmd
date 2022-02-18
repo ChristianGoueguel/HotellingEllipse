@@ -4,7 +4,7 @@ author: "Christian L. Goueguel"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HotellingEllipse}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
