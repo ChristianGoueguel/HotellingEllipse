@@ -8,8 +8,8 @@
 #' Returns a list that includes:
 #'1. **Tsquare** Data frame containing Hotelling T2-value.
 #'2. **Ellipse** Data frame containing the lengths of the semi-minor and semi-major axes.
-#'3. **cutoff.99pct** Integer indicating the T-square cutoff at 99% confidence level.
-#'4. **cutoff.95pct** Integer indicating the T-square cutoff at 95% confidence level.
+#'3. **cutoff.99pct** Number corresponding to the T-square cutoff at 99% confidence level.
+#'4. **cutoff.95pct** Number corresponding to the T-square cutoff at 95% confidence level.
 #' @export ellipseParam
 #' @author Christian L. Goueguel,
 #' christian.goueguel@gmail.com
