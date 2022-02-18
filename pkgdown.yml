@@ -3,7 +3,7 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   HotellingEllipse: HotellingEllipse.html
-last_built: 2022-02-17T23:58Z
+last_built: 2022-02-18T00:10Z
 urls:
   reference: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference
   article: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/articles
