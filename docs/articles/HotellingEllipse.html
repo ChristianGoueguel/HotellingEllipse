@@ -87,10 +87,6 @@
 
     
     
-<style>
-div.reviewer pre { background-color:#e3dece; }
-div.output pre { background-color:#FFFFFF; }
-</style>
 <p>This package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. <code>HotellingEllipse</code> computes the Hotelling’s T<span class="math inline">\(^2\)</span> value, the semi-minor axis, the semi-major axis along with the <em>x</em>-<em>y</em> coordinate points for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
 <ul>
 <li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> and the semi-axes of an ellipse at 99% and 95% confidence intervals.</p></li>
@@ -103,6 +99,10 @@ div.output pre { background-color:#FFFFFF; }
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="principal-component-analysis">Principal component analysis<a class="anchor" aria-label="anchor" href="#principal-component-analysis"></a>
+</h2>
 <p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
