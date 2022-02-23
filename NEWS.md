@@ -1,3 +1,5 @@
+# HotellingEllipse 1.0.0
+
 # HotellingEllipse 0.1.1
 
 # HotellingEllipse 0.1.0
