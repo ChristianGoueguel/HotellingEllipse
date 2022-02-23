@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-# HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
+# HotellingEllipse <img src="man/figures/logo.png" align="right" height="159"/>
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
@@ -16,6 +16,7 @@ status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-p
 [![](https://cranlogs.r-pkg.org/badges/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 <!-- badges: end -->
 
 `HotellingEllipse` computes the lengths of the semi-minor and semi-major
@@ -85,20 +86,20 @@ pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
   as_tibble() %>%
   print()
-#> # A tibble: 171 x 5
-#>      Dim.1   Dim.2   Dim.3   Dim.4   Dim.5
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 144168. -36399.   2228.   -670.  13805.
-#>  2 118520. -31465.  16300. -20686. -13872.
-#>  3  90303. -28356.  31340. -60615.  15157.
-#>  4 107107. -38209.  24897. -60366.  19449.
-#>  5  74350.  -2148.  29814.  -8351.    494.
-#>  6  97511. -17932.  22254. -15406.  -4195.
-#>  7  82142.  19297. -34299. -12498.   -648.
-#>  8  76261.  16566. -34382. -16293.    137.
-#>  9  73705.  31091. -22577. -17182.   2438.
-#> 10  68042.  25124. -26063. -19389.   6051.
-#> # ... with 161 more rows
+#> # A tibble: 171 × 5
+#>      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5
+#>      <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+#>  1  14959.  -6726. -23825.  -2635. -30343. 
+#>  2  37177. -16610. -14912.   8591. -17120. 
+#>  3 109909. -48972.  38185. -11120.   2845. 
+#>  4  10815.  49283.  18459.  -5409. -15114. 
+#>  5 115992. -31406. -16042. -20505. -14349. 
+#>  6  80481.  19867.  34014. -12234.    -42.8
+#>  7  48511.  16542.   5560. -11718.   5443. 
+#>  8 121815. -23423. -13403.  -8714.   3183. 
+#>  9  96442. -17904. -13306.  -5513.   7043. 
+#> 10  60801. -12077. -16888.   1918.   2769. 
+#> # … with 161 more rows
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
@@ -114,13 +115,13 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquare     : tibble [171 x 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 2.28 2.65 8 8.63 1.05 ...
-#>  $ Ellipse     : tibble [1 x 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 319536
-#>   ..$ b.99pct: num 91816
-#>   ..$ a.95pct: num 256487
-#>   ..$ b.95pct: num 73699
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 3.34 1.42 3.29 2.39 2.71 ...
+#>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
+#>   ..$ a.99pct: num 310423
+#>   ..$ b.99pct: num 91576
+#>   ..$ a.95pct: num 249172
+#>   ..$ b.95pct: num 73506
 #>  $ cutoff.99pct: num 9.52
 #>  $ cutoff.95pct: num 6.14
 ```
@@ -160,9 +161,9 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 
 ``` r
 str(coord_2PCs_99)
-#> tibble [500 x 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 319536 319510 319434 319308 319131 ...
-#>  $ y: num [1:500] -1.73e-12 9.88e+02 1.98e+03 2.96e+03 3.95e+03 ...
+#> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
+#>  $ x: num [1:500] 310423 310398 310324 310201 310029 ...
+#>  $ y: num [1:500] -1.06e-11 9.87e+02 1.97e+03 2.96e+03 3.95e+03 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -217,8 +218,8 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquare     : tibble [171 x 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 1.51 1.757 5.299 5.722 0.697 ...
+#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:171] 2.215 0.941 2.18 1.586 1.798 ...
 #>  $ cutoff.99pct: num 11.8
 #>  $ cutoff.95pct: num 8.07
 ```

@@ -1,5 +1,8 @@
 ---
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,17 +19,28 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
-# HotellingEllipse <img src='man/figures/logo.png' align="right" height="159" />
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+# HotellingEllipse <img src="man/figures/logo.png" align="right" height="159"/>
+
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
 [![codecov](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg?token=99T5QAZDZ4)](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![CRAN status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
 [![](https://cranlogs.r-pkg.org/badges/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 <!-- badges: end -->
 
-`HotellingEllipse` computes the lengths of the semi-minor and semi-major axes for plotting Hotelling ellipse at 95% and 99% confidence intervals. The package also provides the *x*-*y* coordinates at user-defined confidence intervals.
+`HotellingEllipse` computes the lengths of the semi-minor and semi-major
+axes for plotting Hotelling ellipse at 95% and 99% confidence intervals.
+The package also provides the *x*-*y* coordinates at user-defined
+confidence intervals.
 
 ## Installation
 
@@ -42,16 +56,25 @@ Install the development version from GitHub:
 # install.packages("remotes")
 remotes::install_github("ChristianGoueguel/HotellingEllipse")
 ```
+
 ## Usage
 
-Below is an overview of how `HotellingEllipse` can help draw a confidence ellipse:
+Below is an overview of how `HotellingEllipse` can help draw a
+confidence ellipse:
 
-  * using `FactoMineR::PCA()` we first perform Principal Component Analysis (PCA) from a LIBS spectral dataset `data("specData")` and extract the PCA scores.
-  
-  * with `ellipseParam()` we get the T$^2$ value along with the values of the semi-minor and semi-major axes. Whereas, `ellipseCoord()` provides the *x* and *y* coordinates for drawing the Hotelling ellipse at user-defined confidence interval. 
-  
-  * using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the scatterplot of PCA scores as well as the corresponding Hotelling ellipse which represents the confidence region for the joint variables at 99% and 95% confidence intervals.
+-   using `FactoMineR::PCA()` we first perform Principal Component
+    Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
+    extract the PCA scores.
 
+-   with `ellipseParam()` we get the T$^2$ value along with the values
+    of the semi-minor and semi-major axes. Whereas, `ellipseCoord()`
+    provides the *x* and *y* coordinates for drawing the Hotelling
+    ellipse at user-defined confidence interval.
+
+-   using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
+    scatterplot of PCA scores as well as the corresponding Hotelling
+    ellipse which represents the confidence region for the joint
+    variables at 99% and 95% confidence intervals.
 
 **Step 1.** Load the package.
 
@@ -92,7 +115,11 @@ pca_scores <- pca_mod %>%
   print()
 ```
 
-**Step 5.** Run `ellipseParam()` for the first two principal components (**k = 2**). We want to compute the length of the semi-axes of the Hotelling ellipse (denoted **a** and **b**) when the first principal component, PC1, is on the *x*-axis (**pcx = 1**) and, the second principal component, PC2, is on the *y*-axis (**pcy = 2**).
+**Step 5.** Run `ellipseParam()` for the first two principal components
+(**k = 2**). We want to compute the length of the semi-axes of the
+Hotelling ellipse (denoted **a** and **b**) when the first principal
+component, PC1, is on the *x*-axis (**pcx = 1**) and, the second
+principal component, PC2, is on the *y*-axis (**pcy = 2**).
 
 ```{r}
 res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
@@ -102,27 +129,32 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 str(res_2PCs)
 ```
 
-  * Semi-axes of the ellipse at 99% confidence level.
+-   Semi-axes of the ellipse at 99% confidence level.
 
 ```{r}
 a1 <- pluck(res_2PCs, "Ellipse", "a.99pct")
 b1 <- pluck(res_2PCs, "Ellipse", "b.99pct")
 ```
 
-  * Semi-axes of the ellipse at 95% confidence level.
+-   Semi-axes of the ellipse at 95% confidence level.
 
 ```{r}
 a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
 b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
-  * Hotelling’s T$^2$.
+-   Hotelling’s T$^2$.
 
 ```{r}
 T2 <- pluck(res_2PCs, "Tsquare", "value")
 ```
 
-Another way to add Hotelling ellipse on the scatterplot of the scores is to use the function `ellipseCoord()`. This function provides the *x* and *y* coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval `conf.limit` is set at 95% by default. Here, PC1 is on the *x*-axis (**pcx = 1**) and, the third principal component, PC3, is on the *y*-axis (**pcy = 3**).
+Another way to add Hotelling ellipse on the scatterplot of the scores is
+to use the function `ellipseCoord()`. This function provides the *x* and
+*y* coordinates of the confidence ellipse at user-defined confidence
+interval. The confidence interval `conf.limit` is set at 95% by default.
+Here, PC1 is on the *x*-axis (**pcx = 1**) and, the third principal
+component, PC3, is on the *y*-axis (**pcy = 3**).
 
 ```{r}
 coord_2PCs_99 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 0.99, pts = 500)
@@ -134,7 +166,9 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 str(coord_2PCs_99)
 ```
 
-**Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for T$^2$.
+**Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
+Hotelling ellipse. Points inside the two elliptical regions are within
+the 99% and 95% confidence intervals for T$^2$.
 
 ```{r}
 pca_scores %>%
@@ -149,7 +183,8 @@ pca_scores %>%
   theme_grey()
 ```
 
-Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and 90%.
+Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and
+90%.
 
 ```{r}
 ggplot() +
@@ -165,8 +200,12 @@ ggplot() +
   theme(panel.grid = element_blank())
 ```
 
-
-**Note:** The easiest way to analyze and interpret Hotelling’s T$^2$ for more than two principal components, is to plot Hotelling’s T$^2$ *vs.* Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T$^2$ limits. For example, `ellipseParam()` is used with the first three principal components (**k = 3**).
+**Note:** The easiest way to analyze and interpret Hotelling’s T$^2$ for
+more than two principal components, is to plot Hotelling’s T$^2$ *vs.*
+Observations, where the confidence limits are plotted as a line. Thus,
+observations below the two lines are within the T$^2$ limits. For
+example, `ellipseParam()` is used with the first three principal
+components (**k = 3**).
 
 ```{r}
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
