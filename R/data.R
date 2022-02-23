@@ -5,3 +5,4 @@
 #' @format Data frame of 171 rows (soil samples) and 6670 columns (wavelengths).
 #' @source \doi{10.1039/C9JA00090A}
 "specData"
+
