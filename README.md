@@ -8,7 +8,8 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/ChristianGoueguel/HotellingEllipse/workflows/R-CMD-check/badge.svg)](https://github.com/ChristianGoueguel/HotellingEllipse/actions)
-[![codecov](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ChristianGoueguel/HotellingEllipse)
+[![Codecov test
+coverage](https://codecov.io/gh/ChristianGoueguel/HotellingEllipse/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ChristianGoueguel/HotellingEllipse?branch=master)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
