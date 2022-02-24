@@ -20,6 +20,12 @@ test_that("ellipseParam: input data", {
 })
 
 
+test_that("ellipseCoord: input data", {
+  pcscores <- tibble::tibble()
+  expect_error(ellipseParam(data = pcscores), "Seems you forgot to provide data values.")
+})
+
+
 test_that("ellipseParam and ellipseCoord functions: k equal to 2", {
 
   res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
