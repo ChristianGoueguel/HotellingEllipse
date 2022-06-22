@@ -4,14 +4,9 @@ author: "Christian L. Goueguel"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HotellingEllipse}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
-
-<style>
-div.reviewer pre { background-color:#e3dece; }
-div.output pre { background-color:#FFFFFF; }
-</style>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -46,6 +41,8 @@ library(HotellingEllipse)
 ```{r}
 data("specData")
 ```
+
+# Principal component analysis
 
 In this example, we use `FactoMineR::PCA()` to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `specData` and extract the PCA scores as a data frame `tibble::as_tibble()`. 
 
