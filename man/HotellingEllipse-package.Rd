@@ -6,9 +6,9 @@
 \alias{HotellingEllipse-package}
 \title{HotellingEllipse: Hotelling T-Square and Confidence Ellipse}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functions to compute the semi-axes lengths and coordinate points of Hotelling ellipse. Bro and Smilde (2014) <DOI:10.1039/c3ay41907j>. Brereton (2016) <DOI:10.1002/cem.2763>.
+Functions to compute the semi-axes lengths and coordinate points of Hotelling ellipse. Bro and Smilde (2014) \doi{10.1039/c3ay41907j}. Brereton (2016) \doi{10.1002/cem.2763}.
 }
 \seealso{
 Useful links:
