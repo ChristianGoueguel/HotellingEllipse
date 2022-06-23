@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. `HotellingEllipse` computes the Hotelling’s T$^2$ value, the semi-minor axis, the semi-major axis along with the *x*-*y* coordinate points for drawing a confidence ellipse based on Hotelling’s T$^2$. Specifically, there are two functions available:
+This package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. `HotreellingEllipse` computes the Hotelling’s T$^2$ value, the semi-minor axis, the semi-major axis along with the *x*-*y* coordinate points for drawing a confidence ellipse based on Hotelling’s T$^2$. Specifically, there are two functions available:
 
   * `ellipseParam()`, is used to calculate the Hotelling’s T$^2$ and the semi-axes of an ellipse at 99% and 95% confidence intervals.
   
