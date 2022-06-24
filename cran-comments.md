@@ -2,7 +2,6 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
-This version includes a correction of an error that occurs in the ellipseParam and ellipseCoord functions, when data is data.frame, instead of tibble, and minor improvement of the package documentation, and minor changes in the vignette (the difference between ellipseParam and ellipseCoord functions to draw Hotelling's ellipse is much clearer for users).
-
-Thanks
+* This is a resubmission. The size of the package has been reduced an is less than 5 MB.
+* Checking CRAN incoming feasibility ... NOTE.
+This NOTE (Message: 503) seems to come from an issue that has not been resolved yet.
