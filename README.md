@@ -49,10 +49,11 @@ confidence ellipse:
     Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
     extract the PCA scores.
 
--   with `ellipseParam()` we get the T<sup>2</sup> value along with the
-    values of the semi-minor and semi-major axes. Whereas,
-    `ellipseCoord()` provides the *x* and *y* coordinates for drawing
-    the Hotelling ellipse at user-defined confidence interval.
+-   with `ellipseParam()` we get the
+    T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
+    value along with the values of the semi-minor and semi-major axes.
+    Whereas, `ellipseCoord()` provides the *x* and *y* coordinates for
+    drawing the Hotelling ellipse at user-defined confidence interval.
 
 -   using `ggplot2::ggplot()` and `ggforce::geom_ellipse()` we plot the
     scatterplot of PCA scores as well as the corresponding Hotelling
@@ -65,7 +66,7 @@ confidence ellipse:
 library(HotellingEllipse)
 ```
 
-**Step 2.** Load LIBS dataset into R session.
+**Step 2.** Load LIBS dataset.
 
 ``` r
 data("specData")
@@ -87,20 +88,20 @@ pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
   as_tibble() %>%
   print()
-#> # A tibble: 171 × 5
-#>      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5
-#>      <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
-#>  1  14959.  -6726. -23825.  -2635. -30343. 
-#>  2  37177. -16610. -14912.   8591. -17120. 
-#>  3 109909. -48972.  38185. -11120.   2845. 
-#>  4  10815.  49283.  18459.  -5409. -15114. 
-#>  5 115992. -31406. -16042. -20505. -14349. 
-#>  6  80481.  19867.  34014. -12234.    -42.8
-#>  7  48511.  16542.   5560. -11718.   5443. 
-#>  8 121815. -23423. -13403.  -8714.   3183. 
-#>  9  96442. -17904. -13306.  -5513.   7043. 
-#> 10  60801. -12077. -16888.   1918.   2769. 
-#> # … with 161 more rows
+#> # A tibble: 100 × 5
+#>      Dim.1   Dim.2  Dim.3  Dim.4   Dim.5
+#>      <dbl>   <dbl>  <dbl>  <dbl>   <dbl>
+#>  1  17689. -20927.  2599. -1570. -3691. 
+#>  2   -775.   -806. -2700. -3263.   989. 
+#>  3  -2401.   -273. -1839. -2279.  -324. 
+#>  4   2862.   6557.  1465.  4453.   -49.7
+#>  5   6379.   3538. -3310.  1160.   496. 
+#>  6   8251.   2326.  3907. -2607. -1172. 
+#>  7 -13022.  -3948.  1698.  4685. -1222. 
+#>  8  -4671.   1999.  3042.  1516.   -75.7
+#>  9  -1460.    800. -2420. -3238.   477. 
+#> 10  19271.  -6668.  -413.  1615.  2149. 
+#> # … with 90 more rows
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
@@ -116,15 +117,15 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 ``` r
 str(res_2PCs)
 #> List of 4
-#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 3.34 1.42 3.29 2.39 2.71 ...
+#>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:100] 13.738 1.418 0.692 2.761 1.313 ...
 #>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 310423
-#>   ..$ b.99pct: num 91576
-#>   ..$ a.95pct: num 249172
-#>   ..$ b.95pct: num 73506
-#>  $ cutoff.99pct: num 9.52
-#>  $ cutoff.95pct: num 6.14
+#>   ..$ a.99pct: num 21419
+#>   ..$ b.99pct: num 16002
+#>   ..$ a.95pct: num 17132
+#>   ..$ b.95pct: num 12799
+#>  $ cutoff.99pct: num 9.76
+#>  $ cutoff.95pct: num 6.24
 ```
 
 -   Semi-axes of the ellipse at 99% confidence level.
@@ -141,7 +142,8 @@ a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
 b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
--   Hotelling’s T<sup>2</sup>.
+-   Hotelling’s
+    T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2").
 
 ``` r
 T2 <- pluck(res_2PCs, "Tsquare", "value")
@@ -163,13 +165,14 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 ``` r
 str(coord_2PCs_99)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 310423 310398 310324 310201 310029 ...
-#>  $ y: num [1:500] -1.06e-11 9.87e+02 1.97e+03 2.96e+03 3.95e+03 ...
+#>  $ x: num [1:500] 21419 21418 21412 21404 21392 ...
+#>  $ y: num [1:500] 8.73e-13 1.30e+02 2.59e+02 3.89e+02 5.19e+02 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
 Hotelling ellipse. Points inside the two elliptical regions are within
-the 99% and 95% confidence intervals for T<sup>2</sup>.
+the 99% and 95% confidence intervals for
+T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2").
 
 ``` r
 pca_scores %>%
@@ -206,11 +209,14 @@ ggplot() +
 <img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
 
 **Note:** The easiest way to analyze and interpret Hotelling’s
-T<sup>2</sup> for more than two principal components, is to plot
-Hotelling’s T<sup>2</sup> *vs.* Observations, where the confidence
-limits are plotted as a line. Thus, observations below the two lines are
-within the T<sup>2</sup> limits. For example, `ellipseParam()` is used
-with the first three principal components (**k = 3**).
+T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
+for more than two principal components, is to plot Hotelling’s
+T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
+*vs.* Observations, where the confidence limits are plotted as a line.
+Thus, observations below the two lines are within the
+T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
+limits. For example, `ellipseParam()` is used with the first three
+principal components (**k = 3**).
 
 ``` r
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
@@ -219,10 +225,10 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 ``` r
 str(res_3PCs)
 #> List of 3
-#>  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:171] 2.215 0.941 2.18 1.586 1.798 ...
-#>  $ cutoff.99pct: num 11.8
-#>  $ cutoff.95pct: num 8.07
+#>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
+#>   ..$ value: num [1:100] 9.066 0.936 0.456 1.822 0.866 ...
+#>  $ cutoff.99pct: num 12.2
+#>  $ cutoff.95pct: num 8.26
 ```
 
 ``` r
