@@ -97,13 +97,13 @@
 <p>Below is an overview of how <code>HotellingEllipse</code> can help draw a confidence ellipse:</p>
 <ul>
 <li><p>using <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> we first perform Principal Component Analysis (PCA) from a LIBS spectral dataset <code>data("specData")</code> and extract the PCA scores.</p></li>
-<li><p>with <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> we get the T<sup>2</sup> value along with the values of the semi-minor and semi-major axes. Whereas, <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code> provides the <em>x</em> and <em>y</em> coordinates for drawing the Hotelling ellipse at user-defined confidence interval.</p></li>
+<li><p>with <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> we get the T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”) value along with the values of the semi-minor and semi-major axes. Whereas, <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code> provides the <em>x</em> and <em>y</em> coordinates for drawing the Hotelling ellipse at user-defined confidence interval.</p></li>
 <li><p>using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> and <code><a href="https://ggforce.data-imaginist.com/reference/geom_ellipse.html" class="external-link">ggforce::geom_ellipse()</a></code> we plot the scatterplot of PCA scores as well as the corresponding Hotelling ellipse which represents the confidence region for the joint variables at 99% and 95% confidence intervals.</p></li>
 </ul>
 <p><strong>Step 1.</strong> Load the package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
-<p><strong>Step 2.</strong> Load LIBS dataset into R session.</p>
+<p><strong>Step 2.</strong> Load LIBS dataset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
 <p><strong>Step 3.</strong> Perform principal component analysis.</p>
@@ -118,35 +118,35 @@
   <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 171 × 5</span>
-<span class="co">#&gt;      Dim.1   Dim.2   Dim.3   Dim.4    Dim.5</span>
-<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  14959.  -6726. -23825.  -2635. -30343. </span>
-<span class="co">#&gt;  2  37177. -16610. -14912.   8591. -17120. </span>
-<span class="co">#&gt;  3 109909. -48972.  38185. -11120.   2845. </span>
-<span class="co">#&gt;  4  10815.  49283.  18459.  -5409. -15114. </span>
-<span class="co">#&gt;  5 115992. -31406. -16042. -20505. -14349. </span>
-<span class="co">#&gt;  6  80481.  19867.  34014. -12234.    -42.8</span>
-<span class="co">#&gt;  7  48511.  16542.   5560. -11718.   5443. </span>
-<span class="co">#&gt;  8 121815. -23423. -13403.  -8714.   3183. </span>
-<span class="co">#&gt;  9  96442. -17904. -13306.  -5513.   7043. </span>
-<span class="co">#&gt; 10  60801. -12077. -16888.   1918.   2769. </span>
-<span class="co">#&gt; # … with 161 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 100 × 5</span>
+<span class="co">#&gt;      Dim.1   Dim.2  Dim.3  Dim.4   Dim.5</span>
+<span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  17689. -20927.  2599. -1570. -3691. </span>
+<span class="co">#&gt;  2   -775.   -806. -2700. -3263.   989. </span>
+<span class="co">#&gt;  3  -2401.   -273. -1839. -2279.  -324. </span>
+<span class="co">#&gt;  4   2862.   6557.  1465.  4453.   -49.7</span>
+<span class="co">#&gt;  5   6379.   3538. -3310.  1160.   496. </span>
+<span class="co">#&gt;  6   8251.   2326.  3907. -2607. -1172. </span>
+<span class="co">#&gt;  7 -13022.  -3948.  1698.  4685. -1222. </span>
+<span class="co">#&gt;  8  -4671.   1999.  3042.  1516.   -75.7</span>
+<span class="co">#&gt;  9  -1460.    800. -2420. -3238.   477. </span>
+<span class="co">#&gt; 10  19271.  -6668.  -413.  1615.  2149. </span>
+<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
 <p><strong>Step 5.</strong> Run <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> for the first two principal components (<strong>k = 2</strong>). We want to compute the length of the semi-axes of the Hotelling ellipse (denoted <strong>a</strong> and <strong>b</strong>) when the first principal component, PC1, is on the <em>x</em>-axis (<strong>pcx = 1</strong>) and, the second principal component, PC2, is on the <em>y</em>-axis (<strong>pcy = 2</strong>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res_2PCs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res_2PCs</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ value: num [1:171] 3.34 1.42 3.29 2.39 2.71 ...</span>
+<span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ value: num [1:100] 13.738 1.418 0.692 2.761 1.313 ...</span>
 <span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ a.99pct: num 310423</span>
-<span class="co">#&gt;   ..$ b.99pct: num 91576</span>
-<span class="co">#&gt;   ..$ a.95pct: num 249172</span>
-<span class="co">#&gt;   ..$ b.95pct: num 73506</span>
-<span class="co">#&gt;  $ cutoff.99pct: num 9.52</span>
-<span class="co">#&gt;  $ cutoff.95pct: num 6.14</span></code></pre></div>
+<span class="co">#&gt;   ..$ a.99pct: num 21419</span>
+<span class="co">#&gt;   ..$ b.99pct: num 16002</span>
+<span class="co">#&gt;   ..$ a.95pct: num 17132</span>
+<span class="co">#&gt;   ..$ b.95pct: num 12799</span>
+<span class="co">#&gt;  $ cutoff.99pct: num 9.76</span>
+<span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></code></pre></div>
 <ul><li>Semi-axes of the ellipse at 99% confidence level.</li></ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
@@ -155,7 +155,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
 <span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
-<ul><li>Hotelling’s T<sup>2</sup>.</li></ul>
+<ul><li>Hotelling’s T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”).</li></ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_2PCs</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
 <p>Another way to add Hotelling ellipse on the scatterplot of the scores is to use the function <code><a href="reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>conf.limit</code> is set at 95% by default. Here, PC1 is on the <em>x</em>-axis (<strong>pcx = 1</strong>) and, the third principal component, PC3, is on the <em>y</em>-axis (<strong>pcy = 3</strong>).</p>
@@ -166,9 +166,9 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">coord_2PCs_99</span><span class="op">)</span>
 <span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ x: num [1:500] 310423 310398 310324 310201 310029 ...</span>
-<span class="co">#&gt;  $ y: num [1:500] -1.06e-11 9.87e+02 1.97e+03 2.96e+03 3.95e+03 ...</span></code></pre></div>
-<p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for T<sup>2</sup>.</p>
+<span class="co">#&gt;  $ x: num [1:500] 21419 21418 21412 21404 21392 ...</span>
+<span class="co">#&gt;  $ y: num [1:500] 8.73e-13 1.30e+02 2.59e+02 3.89e+02 5.19e+02 ...</span></code></pre></div>
+<p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -195,16 +195,16 @@
   <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%"></p>
-<p><strong>Note:</strong> The easiest way to analyze and interpret Hotelling’s T<sup>2</sup> for more than two principal components, is to plot Hotelling’s T<sup>2</sup><em>vs.</em> Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T<sup>2</sup> limits. For example, <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> is used with the first three principal components (<strong>k = 3</strong>).</p>
+<p><strong>Note:</strong> The easiest way to analyze and interpret Hotelling’s T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”) for more than two principal components, is to plot Hotelling’s T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”) <em>vs.</em> Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the T![^2](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5E2</a> “^2”) limits. For example, <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> is used with the first three principal components (<strong>k = 3</strong>).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res_3PCs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res_3PCs</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ Tsquare     : tibble [171 × 1] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ value: num [1:171] 2.215 0.941 2.18 1.586 1.798 ...</span>
-<span class="co">#&gt;  $ cutoff.99pct: num 11.8</span>
-<span class="co">#&gt;  $ cutoff.95pct: num 8.07</span></code></pre></div>
+<span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   ..$ value: num [1:100] 9.066 0.936 0.456 1.822 0.866 ...</span>
+<span class="co">#&gt;  $ cutoff.99pct: num 12.2</span>
+<span class="co">#&gt;  $ cutoff.95pct: num 8.26</span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>
   T2 <span class="op">=</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res_3PCs</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span>, 
