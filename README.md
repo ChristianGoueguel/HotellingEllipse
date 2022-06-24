@@ -49,9 +49,8 @@ confidence ellipse:
     Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
     extract the PCA scores.
 
--   with `ellipseParam()` we get the
-    T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
-    value along with the values of the semi-minor and semi-major axes.
+-   with `ellipseParam()` we get the Hotelling’s T-squared statistic
+    along with the values of the semi-minor and semi-major axes.
     Whereas, `ellipseCoord()` provides the *x* and *y* coordinates for
     drawing the Hotelling ellipse at user-defined confidence interval.
 
@@ -142,8 +141,7 @@ a2 <- pluck(res_2PCs, "Ellipse", "a.95pct")
 b2 <- pluck(res_2PCs, "Ellipse", "b.95pct")
 ```
 
--   Hotelling’s
-    T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2").
+-   Hotelling’s T-squared.
 
 ``` r
 T2 <- pluck(res_2PCs, "Tsquare", "value")
@@ -171,8 +169,7 @@ str(coord_2PCs_99)
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
 Hotelling ellipse. Points inside the two elliptical regions are within
-the 99% and 95% confidence intervals for
-T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2").
+the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 
 ``` r
 pca_scores %>%
@@ -208,15 +205,12 @@ ggplot() +
 
 <img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
 
-**Note:** The easiest way to analyze and interpret Hotelling’s
-T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
-for more than two principal components, is to plot Hotelling’s
-T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
+**Note:** The easiest way to analyze and interpret Hotelling’s T-squared
+for more than two principal components, is to plot Hotelling’s T-squared
 *vs.* Observations, where the confidence limits are plotted as a line.
-Thus, observations below the two lines are within the
-T![^2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5E2 "^2")
-limits. For example, `ellipseParam()` is used with the first three
-principal components (**k = 3**).
+Thus, observations below the two lines are within the Hotelling’s
+T-squared limits. For example, `ellipseParam()` is used with the first
+three principal components (**k = 3**).
 
 ``` r
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
@@ -242,9 +236,9 @@ tibble(
   scale_fill_gradient(low = "black", high = "red", guide = "none") +
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
   geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
-  annotate("text", x = 160, y = 12.4, label = "99% limit", color = "darkred") +
-  annotate("text", x = 160, y = 8.6, label = "95% limit", color = "darkblue") +
-  labs(x = "Observations", y = "Hotelling’s T-square (3 PCs)", fill = "T2 stats", caption = "Figure 3: Hotelling’s T2-value vs. Observations") +
+  annotate("text", x = 100, y = 13, label = "99% limit", color = "darkred") +
+  annotate("text", x = 100, y = 9, label = "95% limit", color = "darkblue") +
+  labs(x = "Observations", y = "Hotelling’s T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 3: Hotelling’s T-squared vs. Observations") +
   theme_bw()
 ```
 
