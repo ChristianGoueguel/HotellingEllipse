@@ -5,7 +5,7 @@
 \alias{specData}
 \title{LIBS spectra of 100 soil samples}
 \format{
-Data frame of 100 rows (soil samples) and 5652 columns (wavelengths).
+Data frame of 100 rows (soil samples) and 3152 columns (wavelengths).
 }
 \source{
 \doi{10.1039/C9JA00090A}
