@@ -56,23 +56,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ellipseParam</span><span class="op">(</span><span class="va">data</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ellipseParam</span><span class="op">(</span><span class="va">data</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>Data frame or tibble of PCA, PLS, or ICA scores, or from other feature projection methods.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Integer specifying the number of components (by default 2).</p></dd>
+
+
 <dt>pcx</dt>
 <dd><p>Integer specifying which component is on the x-axis (by default 1).</p></dd>
+
+
 <dt>pcy</dt>
 <dd><p>Integer specifying which component is on the y-axis (by default 2).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a list that includes:</p><ol><li><p><strong>Tsquare</strong> Data frame containing Hotelling T2-value.</p></li>
+    
+
+<p>Returns a list that includes:</p><ol><li><p><strong>Tsquare</strong> Data frame containing the T-squared statistic.</p></li>
 <li><p><strong>Ellipse</strong> Data frame containing the lengths of the semi-minor and semi-major axes.</p></li>
 <li><p><strong>cutoff.99pct</strong> Number corresponding to the T-square cutoff at 99% confidence level.</p></li>
 <li><p><strong>cutoff.95pct</strong> Number corresponding to the T-square cutoff at 95% confidence level.</p></li>
@@ -85,22 +94,22 @@ christian.goueguel@gmail.com</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Principal components analysis (PCA)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Extract PCA scores</span></span>
-<span class="r-in"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get Hotelling T2-value and the lengths of the ellipse semi-axes</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">ellipseParam</span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Principal components analysis (PCA)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Extract PCA scores</span></span></span>
+<span class="r-in"><span><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get Hotelling T2-value and the lengths of the ellipse semi-axes</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu">ellipseParam</span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -115,7 +124,7 @@ christian.goueguel@gmail.com</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -3,9 +3,9 @@
 \docType{data}
 \name{specData}
 \alias{specData}
-\title{LIBS spectra of 171 soil samples}
+\title{LIBS spectra of 100 soil samples}
 \format{
-Data frame of 171 rows (soil samples) and 6670 columns (wavelengths).
+Data frame of 100 rows (soil samples) and 5652 columns (wavelengths).
 }
 \source{
 \doi{10.1039/C9JA00090A}

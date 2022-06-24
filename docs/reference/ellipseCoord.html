@@ -56,25 +56,36 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ellipseCoord</span><span class="op">(</span><span class="va">data</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ellipseCoord</span><span class="op">(</span><span class="va">data</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>Data frame or tibble of PCA, PLS, and ICA scores, or from other feature projection methods.</p></dd>
+
+
 <dt>pcx</dt>
 <dd><p>Integer specifying which component is on the x-axis (by default 1).</p></dd>
+
+
 <dt>pcy</dt>
 <dd><p>Integer specifying which component is on the y-axis (by default 2).</p></dd>
+
+
 <dt>conf.limit</dt>
 <dd><p>Number between 0 and 1 specifying the confidence level (by default 0.95).</p></dd>
+
+
 <dt>pts</dt>
 <dd><p>Integer indicating the number of points for drawing the Hotelling ellipse (by default 200).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Data frame containing the <em>x</em> and <em>y</em> coordinate points of the Hotelling ellipse.</p>
+    
+
+<p>Data frame containing the <em>x</em> and <em>y</em> coordinate points of the Hotelling ellipse.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -84,8 +95,8 @@ christian.goueguel@gmail.com</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Principal components analysis (PCA)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Principal components analysis (PCA)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
@@ -94,20 +105,20 @@ christian.goueguel@gmail.com</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Extract PCA scores</span></span>
-<span class="r-in"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get Hotelling ellipse coordinate points</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu">ellipseCoord</span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">FactoMineR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">PCA</a></span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Extract PCA scores</span></span></span>
+<span class="r-in"><span><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get Hotelling ellipse coordinate points</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu">ellipseCoord</span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -122,7 +133,7 @@ christian.goueguel@gmail.com</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ ellipseParam(data, k = 2, pcx = 1, pcy = 2)
 \value{
 Returns a list that includes:
 \enumerate{
-\item \strong{Tsquare} Data frame containing Hotelling T2-value.
+\item \strong{Tsquare} Data frame containing the T-squared statistic.
 \item \strong{Ellipse} Data frame containing the lengths of the semi-minor and semi-major axes.
 \item \strong{cutoff.99pct} Number corresponding to the T-square cutoff at 99\% confidence level.
 \item \strong{cutoff.95pct} Number corresponding to the T-square cutoff at 95\% confidence level.

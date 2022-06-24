@@ -6,7 +6,7 @@
 #' @param pcy Integer specifying which component is on the y-axis (by default 2).
 #' @return
 #' Returns a list that includes:
-#'1. **Tsquare** Data frame containing Hotelling T2-value.
+#'1. **Tsquare** Data frame containing the T-squared statistic.
 #'2. **Ellipse** Data frame containing the lengths of the semi-minor and semi-major axes.
 #'3. **cutoff.99pct** Number corresponding to the T-square cutoff at 99% confidence level.
 #'4. **cutoff.95pct** Number corresponding to the T-square cutoff at 95% confidence level.
