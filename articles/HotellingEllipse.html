@@ -112,9 +112,8 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 5</span></span>
 <span class="co">#&gt;      Dim.1    Dim.2  Dim.3   Dim.4 Dim.5</span>
 <span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -133,39 +132,58 @@
 <div class="section level2">
 <h2 id="hotelling-ellipse-semi-axes">Hotelling ellipse: semi-axes<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-semi-axes"></a>
 </h2>
-<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.</p>
+<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC3 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 3.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ value: num [1:100] 13.8 2.08 1.06 2.82 1.4 ...</span>
 <span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;   ..$ a.99pct: num 19369</span>
-<span class="co">#&gt;   ..$ b.99pct: num 10800</span>
+<span class="co">#&gt;   ..$ b.99pct: num 8416</span>
 <span class="co">#&gt;   ..$ a.95pct: num 15492</span>
-<span class="co">#&gt;   ..$ b.95pct: num 8639</span>
+<span class="co">#&gt;   ..$ b.95pct: num 6732</span>
 <span class="co">#&gt;  $ cutoff.99pct: num 9.76</span>
 <span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></code></pre></div>
 <p>We can extract parameters for further use:</p>
 <ul>
 <li>Semi-axes of the ellipse at 99% confidence level.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
 <span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Semi-axes of the ellipse at 95% confidence level.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
 <span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Hotelling’s T<span class="math inline">\(^2\)</span> value.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, 
+    subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, 
+    x <span class="op">=</span> <span class="st">"PC1"</span>, 
+    y <span class="op">=</span> <span class="st">"PC3"</span>, 
+    fill <span class="op">=</span> <span class="st">"T2 stats"</span>, 
+    caption <span class="op">=</span> <span class="st">"Figure 1"</span>
+    <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="hotelling-ellipse-x-and-y-coordinates">Hotelling ellipse: x and y coordinates<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-x-and-y-coordinates"></a>
@@ -198,7 +216,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
