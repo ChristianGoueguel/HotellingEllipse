@@ -15,6 +15,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 [![CRAN
 status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-project.org/package=HotellingEllipse)
 [![](https://cranlogs.r-pkg.org/badges/HotellingEllipse)](https://cran.r-project.org/package=HotellingEllipse)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/HotellingEllipse?color=orange)](https://cran.r-project.org/package=HotellingEllipse)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -88,18 +89,18 @@ pca_scores <- pca_mod %>%
   as_tibble() %>%
   print()
 #> # A tibble: 100 × 5
-#>      Dim.1   Dim.2  Dim.3  Dim.4   Dim.5
-#>      <dbl>   <dbl>  <dbl>  <dbl>   <dbl>
-#>  1  17689. -20927.  2599. -1570. -3691. 
-#>  2   -775.   -806. -2700. -3263.   989. 
-#>  3  -2401.   -273. -1839. -2279.  -324. 
-#>  4   2862.   6557.  1465.  4453.   -49.7
-#>  5   6379.   3538. -3310.  1160.   496. 
-#>  6   8251.   2326.  3907. -2607. -1172. 
-#>  7 -13022.  -3948.  1698.  4685. -1222. 
-#>  8  -4671.   1999.  3042.  1516.   -75.7
-#>  9  -1460.    800. -2420. -3238.   477. 
-#> 10  19271.  -6668.  -413.  1615.  2149. 
+#>      Dim.1    Dim.2  Dim.3   Dim.4 Dim.5
+#>      <dbl>    <dbl>  <dbl>   <dbl> <dbl>
+#>  1 25306.  -10831.  -1851.   -83.4 -560.
+#>  2   -67.3   1137.  -2946.  2495.  -568.
+#>  3 -1822.     -22.0 -2305.  1640.  -409.
+#>  4 -1238.    3734.   4039. -2428.   379.
+#>  5  3299.    4727.   -888. -1089.   262.
+#>  6  5006.     -49.5  2534.  1917.  -970.
+#>  7 -8325.   -5607.    960. -3361.   103.
+#>  8 -4955.   -1056.   2510.  -397.  -354.
+#>  9 -1610.    1271.  -2556.  2268.  -760.
+#> 10 19582.    2289.    886.  -843.  1483.
 #> # … with 90 more rows
 ```
 
@@ -117,12 +118,12 @@ res_2PCs <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 str(res_2PCs)
 #> List of 4
 #>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:100] 13.738 1.418 0.692 2.761 1.313 ...
+#>   ..$ value: num [1:100] 13.8 2.08 1.06 2.82 1.4 ...
 #>  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
-#>   ..$ a.99pct: num 21419
-#>   ..$ b.99pct: num 16002
-#>   ..$ a.95pct: num 17132
-#>   ..$ b.95pct: num 12799
+#>   ..$ a.99pct: num 19369
+#>   ..$ b.99pct: num 10800
+#>   ..$ a.95pct: num 15492
+#>   ..$ b.95pct: num 8639
 #>  $ cutoff.99pct: num 9.76
 #>  $ cutoff.95pct: num 6.24
 ```
@@ -163,8 +164,8 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 ``` r
 str(coord_2PCs_99)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ x: num [1:500] 21419 21418 21412 21404 21392 ...
-#>  $ y: num [1:500] 8.73e-13 1.30e+02 2.59e+02 3.89e+02 5.19e+02 ...
+#>  $ x: num [1:500] 19369 19367 19363 19355 19344 ...
+#>  $ y: num [1:500] -5.05e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -220,7 +221,7 @@ res_3PCs <- ellipseParam(data = pca_scores, k = 3)
 str(res_3PCs)
 #> List of 3
 #>  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)
-#>   ..$ value: num [1:100] 9.066 0.936 0.456 1.822 0.866 ...
+#>   ..$ value: num [1:100] 9.108 1.37 0.702 1.862 0.925 ...
 #>  $ cutoff.99pct: num 12.2
 #>  $ cutoff.95pct: num 8.26
 ```

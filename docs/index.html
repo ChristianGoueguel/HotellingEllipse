@@ -119,18 +119,18 @@
 <span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 5</span></span>
-<span><span class="co">#&gt;      Dim.1   Dim.2  Dim.3  Dim.4   Dim.5</span></span>
-<span><span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1  17689. -20927.  2599. -1570. -3691. </span></span>
-<span><span class="co">#&gt;  2   -775.   -806. -2700. -3263.   989. </span></span>
-<span><span class="co">#&gt;  3  -2401.   -273. -1839. -2279.  -324. </span></span>
-<span><span class="co">#&gt;  4   2862.   6557.  1465.  4453.   -49.7</span></span>
-<span><span class="co">#&gt;  5   6379.   3538. -3310.  1160.   496. </span></span>
-<span><span class="co">#&gt;  6   8251.   2326.  3907. -2607. -1172. </span></span>
-<span><span class="co">#&gt;  7 -13022.  -3948.  1698.  4685. -1222. </span></span>
-<span><span class="co">#&gt;  8  -4671.   1999.  3042.  1516.   -75.7</span></span>
-<span><span class="co">#&gt;  9  -1460.    800. -2420. -3238.   477. </span></span>
-<span><span class="co">#&gt; 10  19271.  -6668.  -413.  1615.  2149. </span></span>
+<span><span class="co">#&gt;      Dim.1    Dim.2  Dim.3   Dim.4 Dim.5</span></span>
+<span><span class="co">#&gt;      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 25306.  -10831.  -1851.   -83.4 -560.</span></span>
+<span><span class="co">#&gt;  2   -67.3   1137.  -2946.  2495.  -568.</span></span>
+<span><span class="co">#&gt;  3 -1822.     -22.0 -2305.  1640.  -409.</span></span>
+<span><span class="co">#&gt;  4 -1238.    3734.   4039. -2428.   379.</span></span>
+<span><span class="co">#&gt;  5  3299.    4727.   -888. -1089.   262.</span></span>
+<span><span class="co">#&gt;  6  5006.     -49.5  2534.  1917.  -970.</span></span>
+<span><span class="co">#&gt;  7 -8325.   -5607.    960. -3361.   103.</span></span>
+<span><span class="co">#&gt;  8 -4955.   -1056.   2510.  -397.  -354.</span></span>
+<span><span class="co">#&gt;  9 -1610.    1271.  -2556.  2268.  -760.</span></span>
+<span><span class="co">#&gt; 10 19582.    2289.    886.  -843.  1483.</span></span>
 <span><span class="co">#&gt; # … with 90 more rows</span></span></code></pre></div>
 <p><strong>Step 5.</strong> Run <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> for the first two principal components (<strong>k = 2</strong>). We want to compute the length of the semi-axes of the Hotelling ellipse (denoted <strong>a</strong> and <strong>b</strong>) when the first principal component, PC1, is on the <em>x</em>-axis (<strong>pcx = 1</strong>) and, the second principal component, PC2, is on the <em>y</em>-axis (<strong>pcy = 2</strong>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -139,12 +139,12 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res_2PCs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 4</span></span>
 <span><span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ value: num [1:100] 13.738 1.418 0.692 2.761 1.313 ...</span></span>
+<span><span class="co">#&gt;   ..$ value: num [1:100] 13.8 2.08 1.06 2.82 1.4 ...</span></span>
 <span><span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ a.99pct: num 21419</span></span>
-<span><span class="co">#&gt;   ..$ b.99pct: num 16002</span></span>
-<span><span class="co">#&gt;   ..$ a.95pct: num 17132</span></span>
-<span><span class="co">#&gt;   ..$ b.95pct: num 12799</span></span>
+<span><span class="co">#&gt;   ..$ a.99pct: num 19369</span></span>
+<span><span class="co">#&gt;   ..$ b.99pct: num 10800</span></span>
+<span><span class="co">#&gt;   ..$ a.95pct: num 15492</span></span>
+<span><span class="co">#&gt;   ..$ b.95pct: num 8639</span></span>
 <span><span class="co">#&gt;  $ cutoff.99pct: num 9.76</span></span>
 <span><span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></span></code></pre></div>
 <ul><li>Semi-axes of the ellipse at 99% confidence level.</li></ul>
@@ -166,8 +166,8 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">coord_2PCs_99</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ x: num [1:500] 21419 21418 21412 21404 21392 ...</span></span>
-<span><span class="co">#&gt;  $ y: num [1:500] 8.73e-13 1.30e+02 2.59e+02 3.89e+02 5.19e+02 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ x: num [1:500] 19369 19367 19363 19355 19344 ...</span></span>
+<span><span class="co">#&gt;  $ y: num [1:500] -5.05e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...</span></span></code></pre></div>
 <p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for the Hotelling’s T-squared.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -202,7 +202,7 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res_3PCs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ value: num [1:100] 9.066 0.936 0.456 1.822 0.866 ...</span></span>
+<span><span class="co">#&gt;   ..$ value: num [1:100] 9.108 1.37 0.702 1.862 0.925 ...</span></span>
 <span><span class="co">#&gt;  $ cutoff.99pct: num 12.2</span></span>
 <span><span class="co">#&gt;  $ cutoff.95pct: num 8.26</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
