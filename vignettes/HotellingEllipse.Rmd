@@ -56,19 +56,16 @@ pca_mod <- specData %>%
 ```{r}
 pca_scores <- pca_mod %>%
   pluck("ind", "coord") %>%
-  as_tibble()
-```
-
-```{r}
-pca_scores
+  as_tibble() %>%
+  print()
 ```
 
 # Hotelling ellipse: semi-axes 
 
-To add a confidence ellipse, we use the function `ellipseParam()`. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC2 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 2.
+To add a confidence ellipse, we use the function `ellipseParam()`. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC3 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 3.
 
 ```{r}
-res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+res <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 3)
 ```
 
 ```{r}
@@ -97,9 +94,9 @@ b2 <- pluck(res, "Ellipse", "b.95pct")
 Tsq <- pluck(res, "Tsquare", "value")
 ```
 
-```{r eval=FALSE, fig.align='center', fig.height=5, fig.width=7, include=FALSE}
+```{r fig.align='center', fig.height=5, fig.width=7}
 pca_scores %>%
-  ggplot(aes(x = Dim.1, y = Dim.2)) +
+  ggplot(aes(x = Dim.1, y = Dim.3)) +
   geom_point(aes(fill = Tsq), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted") + 
@@ -108,9 +105,9 @@ pca_scores %>%
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
   labs(
     title = "Scatterplot of PCA scores", 
-    subtitle = "PC1 vs. PC2", 
+    subtitle = "PC1 vs. PC3", 
     x = "PC1", 
-    y = "PC2", 
+    y = "PC3", 
     fill = "T2 stats", 
     caption = "Figure 1"
     ) +
