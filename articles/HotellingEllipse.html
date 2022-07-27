@@ -96,93 +96,94 @@
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"specData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="principal-component-analysis">Principal component analysis<a class="anchor" aria-label="anchor" href="#principal-component-analysis"></a>
 </h2>
 <p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
-<span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">PCA</span><span class="op">(</span>scale.unit <span class="op">=</span> <span class="cn">FALSE</span>, graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 5</span></span>
-<span class="co">#&gt;      Dim.1    Dim.2  Dim.3   Dim.4 Dim.5</span>
-<span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">25</span>306.  -<span style="color: #BB0000; text-decoration: underline;">10</span><span style="color: #BB0000;">831.</span>  -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">851.</span>   -<span style="color: #BB0000;">83.4</span> -<span style="color: #BB0000;">560.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>   -<span style="color: #BB0000;">67.3</span>   <span style="text-decoration: underline;">1</span>137.  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">946.</span>  <span style="text-decoration: underline;">2</span>495.  -<span style="color: #BB0000;">568.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">822.</span>     -<span style="color: #BB0000;">22.0</span> -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">305.</span>  <span style="text-decoration: underline;">1</span>640.  -<span style="color: #BB0000;">409.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">238.</span>    <span style="text-decoration: underline;">3</span>734.   <span style="text-decoration: underline;">4</span>039. -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">428.</span>   379.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">3</span>299.    <span style="text-decoration: underline;">4</span>727.   -<span style="color: #BB0000;">888.</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">089.</span>   262.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">5</span>006.     -<span style="color: #BB0000;">49.5</span>  <span style="text-decoration: underline;">2</span>534.  <span style="text-decoration: underline;">1</span>917.  -<span style="color: #BB0000;">970.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> -<span style="color: #BB0000; text-decoration: underline;">8</span><span style="color: #BB0000;">325.</span>   -<span style="color: #BB0000; text-decoration: underline;">5</span><span style="color: #BB0000;">607.</span>    960. -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">361.</span>   103.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">955.</span>   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">056.</span>   <span style="text-decoration: underline;">2</span>510.  -<span style="color: #BB0000;">397.</span>  -<span style="color: #BB0000;">354.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">610.</span>    <span style="text-decoration: underline;">1</span>271.  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">556.</span>  <span style="text-decoration: underline;">2</span>268.  -<span style="color: #BB0000;">760.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">19</span>582.    <span style="text-decoration: underline;">2</span>289.    886.  -<span style="color: #BB0000;">843.</span>  <span style="text-decoration: underline;">1</span>483.</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pca_scores</span> <span class="op">&lt;-</span> <span class="va">pca_mod</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">pluck</span><span class="op">(</span><span class="st">"ind"</span>, <span class="st">"coord"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 5</span></span></span>
+<span><span class="co">#&gt;      Dim.1    Dim.2  Dim.3   Dim.4 Dim.5</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">25</span>306.  -<span style="color: #BB0000; text-decoration: underline;">10</span><span style="color: #BB0000;">831.</span>  -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">851.</span>   -<span style="color: #BB0000;">83.4</span> -<span style="color: #BB0000;">560.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>   -<span style="color: #BB0000;">67.3</span>   <span style="text-decoration: underline;">1</span>137.  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">946.</span>  <span style="text-decoration: underline;">2</span>495.  -<span style="color: #BB0000;">568.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">822.</span>     -<span style="color: #BB0000;">22.0</span> -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">305.</span>  <span style="text-decoration: underline;">1</span>640.  -<span style="color: #BB0000;">409.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">238.</span>    <span style="text-decoration: underline;">3</span>734.   <span style="text-decoration: underline;">4</span>039. -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">428.</span>   379.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">3</span>299.    <span style="text-decoration: underline;">4</span>727.   -<span style="color: #BB0000;">888.</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">089.</span>   262.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">5</span>006.     -<span style="color: #BB0000;">49.5</span>  <span style="text-decoration: underline;">2</span>534.  <span style="text-decoration: underline;">1</span>917.  -<span style="color: #BB0000;">970.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> -<span style="color: #BB0000; text-decoration: underline;">8</span><span style="color: #BB0000;">325.</span>   -<span style="color: #BB0000; text-decoration: underline;">5</span><span style="color: #BB0000;">607.</span>    960. -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">361.</span>   103.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">955.</span>   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">056.</span>   <span style="text-decoration: underline;">2</span>510.  -<span style="color: #BB0000;">397.</span>  -<span style="color: #BB0000;">354.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">610.</span>    <span style="text-decoration: underline;">1</span>271.  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">556.</span>  <span style="text-decoration: underline;">2</span>268.  -<span style="color: #BB0000;">760.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">19</span>582.    <span style="text-decoration: underline;">2</span>289.    886.  -<span style="color: #BB0000;">843.</span>  <span style="text-decoration: underline;">1</span>483.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="hotelling-ellipse-semi-axes">Hotelling ellipse: semi-axes<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-semi-axes"></a>
 </h2>
 <p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC3 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 3.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ value: num [1:100] 13.8 2.08 1.06 2.82 1.4 ...</span>
-<span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ a.99pct: num 19369</span>
-<span class="co">#&gt;   ..$ b.99pct: num 8416</span>
-<span class="co">#&gt;   ..$ a.95pct: num 15492</span>
-<span class="co">#&gt;   ..$ b.95pct: num 6732</span>
-<span class="co">#&gt;  $ cutoff.99pct: num 9.76</span>
-<span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 4</span></span>
+<span><span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   ..$ value: num [1:100] 13.8 2.08 1.06 2.82 1.4 ...</span></span>
+<span><span class="co">#&gt;  $ Ellipse     : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   ..$ a.99pct: num 19369</span></span>
+<span><span class="co">#&gt;   ..$ b.99pct: num 8416</span></span>
+<span><span class="co">#&gt;   ..$ a.95pct: num 15492</span></span>
+<span><span class="co">#&gt;   ..$ b.95pct: num 6732</span></span>
+<span><span class="co">#&gt;  $ cutoff.99pct: num 9.76</span></span>
+<span><span class="co">#&gt;  $ cutoff.95pct: num 6.24</span></span></code></pre></div>
 <p>We can extract parameters for further use:</p>
 <ul>
 <li>Semi-axes of the ellipse at 99% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span>
-<span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.99pct"</span><span class="op">)</span></span>
+<span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.99pct"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Semi-axes of the ellipse at 95% confidence level.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span>
-<span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"a.95pct"</span><span class="op">)</span></span>
+<span><span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Ellipse"</span>, <span class="st">"b.95pct"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Hotelling’s T<span class="math inline">\(^2\)</span> value.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Tsq</span> <span class="op">&lt;-</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">res</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
-    title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, 
-    subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, 
-    x <span class="op">=</span> <span class="st">"PC1"</span>, 
-    y <span class="op">=</span> <span class="st">"PC3"</span>, 
-    fill <span class="op">=</span> <span class="st">"T2 stats"</span>, 
-    caption <span class="op">=</span> <span class="st">"Figure 1"</span>
-    <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pca_scores</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Tsq</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a2</span>, b <span class="op">=</span> <span class="va">b2</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, </span>
+<span>    x <span class="op">=</span> <span class="st">"PC1"</span>, </span>
+<span>    y <span class="op">=</span> <span class="st">"PC3"</span>, </span>
+<span>    fill <span class="op">=</span> <span class="st">"T2 stats"</span>, </span>
+<span>    caption <span class="op">=</span> <span class="st">"Figure 1"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -190,12 +191,12 @@
 </h2>
 <p>Another way to add Hotelling ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinates are estimated based on data projected into the PC1-PC3 subspace.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span>
-<span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ x: num [1:500] 15492 15491 15488 15481 15473 ...</span>
-<span class="co">#&gt;  $ y: num [1:500] -5.05e-13 8.48e+01 1.70e+02 2.54e+02 3.39e+02 ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  $ x: num [1:500] 15492 15491 15488 15481 15473 ...</span></span>
+<span><span class="co">#&gt;  $ y: num [1:500] -5.05e-13 8.48e+01 1.70e+02 2.54e+02 3.39e+02 ...</span></span></code></pre></div>
 </div>
   </div>
 
@@ -216,7 +217,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
