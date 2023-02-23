@@ -40,9 +40,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 <!-- badges: end -->
 
 `HotellingEllipse` computes the lengths of the semi-minor and semi-major
-axes for plotting Hotelling ellipse at 95% and 99% confidence intervals.
-The package also provides the *x*-*y* coordinates at user-defined
-confidence intervals.
+axes for plotting Hotelling ellipse at 95% and 99% confidence intervals (which is based on Hotelling’s T-squared test). The package also provides the *x*-*y* coordinates at user-defined confidence intervals.
 
 ## Installation
 
@@ -171,7 +169,7 @@ str(coord_2PCs_99)
 Hotelling ellipse. Points inside the two elliptical regions are within
 the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
   geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted", fill = "white") +
@@ -201,12 +199,8 @@ ggplot() +
   theme(panel.grid = element_blank())
 ```
 
-**Note:** The easiest way to analyze and interpret Hotelling’s T-squared for
-more than two principal components, is to plot Hotelling’s T-squared *vs.*
-Observations, where the confidence limits are plotted as a line. Thus,
-observations below the two lines are within the Hotelling’s T-squared limits. For
-example, `ellipseParam()` is used with the first three principal
-components (**k = 3**).
+**Note A: Hotelling’s T-squared vs. Observations** 
+The easiest way to analyze and interpret Hotelling’s T-squared for more than two principal components, is to plot Hotelling’s T-squared *vs.* Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the Hotelling’s T-squared limits. For example, `ellipseParam()` is used with the first three principal components (**k = 3**).
 
 ```{r}
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)

@@ -22,9 +22,9 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 <!-- badges: end -->
 
 `HotellingEllipse` computes the lengths of the semi-minor and semi-major
-axes for plotting Hotelling ellipse at 95% and 99% confidence intervals.
-The package also provides the *x*-*y* coordinates at user-defined
-confidence intervals.
+axes for plotting Hotelling ellipse at 95% and 99% confidence intervals
+(which is based on Hotelling’s T-squared test). The package also
+provides the *x*-*y* coordinates at user-defined confidence intervals.
 
 ## Installation
 
@@ -206,12 +206,13 @@ ggplot() +
 
 <img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
 
-**Note:** The easiest way to analyze and interpret Hotelling’s T-squared
-for more than two principal components, is to plot Hotelling’s T-squared
-*vs.* Observations, where the confidence limits are plotted as a line.
-Thus, observations below the two lines are within the Hotelling’s
-T-squared limits. For example, `ellipseParam()` is used with the first
-three principal components (**k = 3**).
+**Note A: Hotelling’s T-squared vs. Observations** The easiest way to
+analyze and interpret Hotelling’s T-squared for more than two principal
+components, is to plot Hotelling’s T-squared *vs.* Observations, where
+the confidence limits are plotted as a line. Thus, observations below
+the two lines are within the Hotelling’s T-squared limits. For example,
+`ellipseParam()` is used with the first three principal components (**k
+= 3**).
 
 ``` r
 res_3PCs <- ellipseParam(data = pca_scores, k = 3)
