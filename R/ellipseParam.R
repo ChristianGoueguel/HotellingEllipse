@@ -32,26 +32,22 @@
 #'
 ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
 
+  # check input validity
   if (length(data) == 0) {
-    stop("Seems you forgot to provide data values.")
+    stop("Data must not be empty.")
   }
-
-  if (is.data.frame(data) == FALSE & tibble::is_tibble(data) == FALSE) {
-    stop("Data must be of class data.frame, tbl_df, or tbl")
+  if (pcx == pcy) {
+    stop("pcx and pcy must be different.")
   }
-
-  if (pcx == 0 | pcy == 0) {
-    stop("No component is provided either in pcx or pcy, or both.")
+  if (!is.data.frame(data) && !tibble::is_tibble(data)) {
+    stop("Data must be of class data.frame, tbl_df, or tbl.")
   }
-
-  if(pcx == pcy) {
-    stop("Please provide two different components in pcx and pcy.")
+  if (pcx == 0 || pcy == 0) {
+    stop("pcx and pcy must be non-zero.")
   }
-
   if (k < 2) {
     stop("k must be at least equal to 2.")
   }
-
   if (k > ncol(data)) {
     stop("k exceeds the number of component in the data.")
   }
