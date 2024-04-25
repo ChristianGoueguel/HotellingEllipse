@@ -69,7 +69,7 @@ library(HotellingEllipse)
 **Step 2.** Load LIBS dataset.
 
 ``` r
-data("specData")
+data("specData", package = "HotellingEllipse")
 ```
 
 **Step 3.** Perform principal component analysis.
@@ -101,7 +101,7 @@ pca_scores <- pca_mod %>%
 #>  8 -4955.   -1056.   2510.  -397.  -354.
 #>  9 -1610.    1271.  -2556.  2268.  -760.
 #> 10 19582.    2289.    886.  -843.  1483.
-#> # … with 90 more rows
+#> # ℹ 90 more rows
 ```
 
 **Step 5.** Run `ellipseParam()` for the first two principal components
@@ -165,7 +165,7 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 str(coord_2PCs_99)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
 #>  $ x: num [1:500] 19369 19367 19363 19355 19344 ...
-#>  $ y: num [1:500] -5.05e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...
+#>  $ y: num [1:500] -4.70e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -236,8 +236,8 @@ tibble(
   geom_point(aes(x = obs, y = T2, fill = T2), shape = 21, size = 3, color = "black") +
   geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), size = .5) +
   scale_fill_gradient(low = "black", high = "red", guide = "none") +
-  geom_hline(yintercept = pluck(res_3PCs, "cutoff.99pct"), linetype = "dashed", color = "darkred", size = .5) +
-  geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", size = .5) +
+  geom_hline(yintercept = pluck(res_3PCs, "cutoff.99pct"), linetype = "dashed", color = "darkred", linewidth = .5) +
+  geom_hline(yintercept = pluck(res_3PCs, "cutoff.95pct"), linetype = "dashed", color = "darkblue", linewidth = .5) +
   annotate("text", x = 80, y = 13, label = "99% limit", color = "darkred") +
   annotate("text", x = 80, y = 9, label = "95% limit", color = "darkblue") +
   labs(x = "Observations", y = "Hotelling’s T-squared (3 PCs)", fill = "T2 stats", caption = "Figure 3: Hotelling’s T-squared vs. Observations") +
