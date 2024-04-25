@@ -43,7 +43,7 @@ ellipseParam <- function(data, k = 2, pcx = 1, pcy = 2) {
     stop("pcx and pcy must be non-zero.")
   }
   if (!is.numeric(k) || k < 2 || k != floor(k)) {
-    stop("k must be a positive integer >= 2.")
+    stop("k must be at least equal to 2.")
   }
   if (k > ncol(data)) {
     stop("k exceeds the number of columns in the data.")
