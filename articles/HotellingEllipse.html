@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -73,11 +73,12 @@
 
       
 
-      </header><script src="HotellingEllipse_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>HotellingEllipse</h1>
-                        <h4 data-toc-skip class="author">Christian L. Goueguel</h4>
+                        <h4 data-toc-skip class="author">Christian L.
+Goueguel</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/HotellingEllipse/blob/HEAD/vignettes/HotellingEllipse.Rmd" class="external-link"><code>vignettes/HotellingEllipse.Rmd</code></a></small>
@@ -87,10 +88,21 @@
 
     
     
-<p>This package is designed to help draw the Hotelling ellipse on the PCA or PLS score scatterplot. <code>HotreellingEllipse</code> computes the Hotelling’s T<span class="math inline">\(^2\)</span> value, the semi-minor axis, the semi-major axis along with the <em>x</em>-<em>y</em> coordinate points for drawing a confidence ellipse based on Hotelling’s T<span class="math inline">\(^2\)</span>. Specifically, there are two functions available:</p>
+<p>This package is designed to help draw the Hotelling ellipse on the
+PCA or PLS score scatterplot. <code>HotreellingEllipse</code> computes
+the Hotelling’s T<span class="math inline">\(^2\)</span> value, the
+semi-minor axis, the semi-major axis along with the
+<em>x</em>-<em>y</em> coordinate points for drawing a confidence ellipse
+based on Hotelling’s T<span class="math inline">\(^2\)</span>.
+Specifically, there are two functions available:</p>
 <ul>
-<li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s T<span class="math inline">\(^2\)</span> and the semi-axes of an ellipse at 99% and 95% confidence intervals.</p></li>
-<li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the <em>x</em> and <em>y</em> coordinates of a confidence ellipse at user-defined confidence interval. The confidence interval is set at 95% by default.</p></li>
+<li><p><code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>, is used to calculate the Hotelling’s
+T<span class="math inline">\(^2\)</span> and the semi-axes of an ellipse
+at 99% and 95% confidence intervals.</p></li>
+<li><p><code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>, is used to get the <em>x</em> and
+<em>y</em> coordinates of a confidence ellipse at user-defined
+confidence interval. The confidence interval is set at 95% by
+default.</p></li>
 </ul>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
@@ -103,7 +115,10 @@
 <div class="section level2">
 <h2 id="principal-component-analysis">Principal component analysis<a class="anchor" aria-label="anchor" href="#principal-component-analysis"></a>
 </h2>
-<p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset <code>specData</code> and extract the PCA scores as a data frame <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
+<p>In this example, we use <code><a href="https://rdrr.io/pkg/FactoMineR/man/PCA.html" class="external-link">FactoMineR::PCA()</a></code> to perform the
+Principal Component Analysis (PCA) from a LIBS spectral dataset
+<code>specData</code> and extract the PCA scores as a data frame
+<code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">pca_mod</span> <span class="op">&lt;-</span> <span class="va">specData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -127,12 +142,16 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">955.</span>   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">056.</span>   <span style="text-decoration: underline;">2</span>510.  -<span style="color: #BB0000;">397.</span>  -<span style="color: #BB0000;">354.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">610.</span>    <span style="text-decoration: underline;">1</span>271.  -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">556.</span>  <span style="text-decoration: underline;">2</span>268.  -<span style="color: #BB0000;">760.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">19</span>582.    <span style="text-decoration: underline;">2</span>289.    886.  -<span style="color: #BB0000;">843.</span>  <span style="text-decoration: underline;">1</span>483.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 90 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="hotelling-ellipse-semi-axes">Hotelling ellipse: semi-axes<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-semi-axes"></a>
 </h2>
-<p>To add a confidence ellipse, we use the function <code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the ellipse semi-axes for bivariate data within the PC1-PC3 subspace. To do this, we set the number of components, k, to 2, while the pcx and pcy inputs are respectively set to 1 and 3.</p>
+<p>To add a confidence ellipse, we use the function
+<code><a href="../reference/ellipseParam.html">ellipseParam()</a></code>. We want to compute the length of the
+ellipse semi-axes for bivariate data within the PC1-PC3 subspace. To do
+this, we set the number of components, k, to 2, while the pcx and pcy
+inputs are respectively set to 1 and 3.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">2</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -185,21 +204,27 @@
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` in the `default_aes` field and elsewhere instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <p><img src="HotellingEllipse_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="hotelling-ellipse-x-and-y-coordinates">Hotelling ellipse: x and y coordinates<a class="anchor" aria-label="anchor" href="#hotelling-ellipse-x-and-y-coordinates"></a>
 </h2>
-<p>Another way to add Hotelling ellipse is to use the function <code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and <em>y</em> coordinates of the confidence ellipse at user-defined confidence interval. The confidence interval <code>confi.limit</code> is set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinates are estimated based on data projected into the PC1-PC3 subspace.</p>
+<p>Another way to add Hotelling ellipse is to use the function
+<code><a href="../reference/ellipseCoord.html">ellipseCoord()</a></code>. This function provides the <em>x</em> and
+<em>y</em> coordinates of the confidence ellipse at user-defined
+confidence interval. The confidence interval <code>confi.limit</code> is
+set at 95% by default. Below, the <em>x</em>-<em>y</em> coordinates are
+estimated based on data projected into the PC1-PC3 subspace.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xy_coord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">3</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">xy_coord</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [500 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ x: num [1:500] 15492 15491 15488 15481 15473 ...</span></span>
-<span><span class="co">#&gt;  $ y: num [1:500] -5.05e-13 8.48e+01 1.70e+02 2.54e+02 3.39e+02 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ y: num [1:500] -1.95e-12 8.48e+01 1.70e+02 2.54e+02 3.39e+02 ...</span></span></code></pre></div>
 </div>
   </div>
 
@@ -220,7 +245,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
