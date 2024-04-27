@@ -56,7 +56,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ellipseCoord</span><span class="op">(</span><span class="va">data</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ellipseCoord</span><span class="op">(</span><span class="va">data</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, pcz <span class="op">=</span> <span class="cn">NULL</span>, conf.limit <span class="op">=</span> <span class="fl">0.95</span>, pts <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -66,11 +66,15 @@
 
 
 <dt>pcx</dt>
-<dd><p>Integer specifying which component is on the x-axis (by default 1).</p></dd>
+<dd><p>Integer specifying which component is on the x-axis (<code>pcx = 1</code> by default).</p></dd>
 
 
 <dt>pcy</dt>
-<dd><p>Integer specifying which component is on the y-axis (by default 2).</p></dd>
+<dd><p>Integer specifying which component is on the y-axis (<code>pcy = 2</code> by default).</p></dd>
+
+
+<dt>pcz</dt>
+<dd><p>Optional (<code>NULL</code> by default). Integer specifying which component is on the z-axis.</p></dd>
 
 
 <dt>conf.limit</dt>
