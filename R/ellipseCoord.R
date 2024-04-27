@@ -1,8 +1,9 @@
 #' @title Coordinate Points Of Hotelling Ellipse
 #' @description Get the *x* and *y* coordinates of Hotelling ellipse.
 #' @param data Data frame or tibble of PCA, PLS, and ICA scores, or from other feature projection methods.
-#' @param pcx Integer specifying which component is on the x-axis (by default 1).
-#' @param pcy Integer specifying which component is on the y-axis (by default 2).
+#' @param pcx Integer specifying which component is on the x-axis (`pcx = 1` by default).
+#' @param pcy Integer specifying which component is on the y-axis (`pcy = 2` by default).
+#' @param pcz Optional (`NULL` by default). Integer specifying which component is on the z-axis.
 #' @param conf.limit Number between 0 and 1 specifying the confidence level (by default 0.95).
 #' @param pts Integer indicating the number of points for drawing the Hotelling ellipse (by default 200).
 #' @return Data frame containing the *x* and *y* coordinate points of the Hotelling ellipse.
@@ -26,7 +27,7 @@
 #' library(HotellingEllipse)
 #' xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
 #'
-ellipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
+ellipseCoord <- function(data, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200) {
   if (length(data) == 0) {
     stop("Data must not be empty.")
   }
@@ -46,16 +47,30 @@ ellipseCoord <- function(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200) {
   n <- nrow(X)
   alpha <- as.numeric(conf.limit)
   m <- as.numeric(pts)
-  p <- seq(0, 2*pi, length.out = m)
 
-  Tsq_limit <- (2*(n-1)/(n-2))*stats::qf(p = alpha, df1 = 2, df2 = (n-2))
-
-  rx <- sqrt(Tsq_limit*stats::var(X[, pcx]))
-  ry <- sqrt(Tsq_limit*stats::var(X[, pcy]))
-
-  res.coord <- tibble::tibble(
-    x = rx*cos(p) + mean(X[, pcx], na.rm = TRUE),
-    y = ry*sin(p) + mean(X[, pcy], na.rm = TRUE)
-  )
-  return(res.coord)
+  if (is.null(pcz)) {
+    theta <- seq(0, 2 * pi, length.out = m)
+    Tsq_limit <- (2 * (n-1)/(n-2)) * stats::qf(p = alpha, df1 = 2, df2 = (n-2))
+    res_coord <- tibble::tibble(
+      x = sqrt(Tsq_limit * stats::var(X[, pcx])) * cos(theta) + mean(X[, pcx], na.rm = TRUE),
+      y = sqrt(Tsq_limit * stats::var(X[, pcy])) * sin(theta) + mean(X[, pcy], na.rm = TRUE)
+    )
+  } else {
+    # if (pcx == pcy == pcz) {
+    #   stop("pcx, pcy and pcz must be different.")
+    # }
+    # if (pcz == 0) {
+    #   stop("pcz must be non-zero.")
+    # }
+    theta <- seq(0, 2 * pi, length.out = m)
+    phi <- seq(0, pi, length.out = m)
+    grid <- expand.grid(Theta = theta, Phi = phi)
+    Tsq_limit <- (3 * (n-1)/(n-3)) * stats::qf(p = alpha, df1 = 3, df2 = (n-3))
+    res_coord <- tibble::tibble(
+      x = sqrt(Tsq_limit * stats::var(X[, pcx])) * cos(grid$Theta) * sin(grid$Phi) + mean(X[, pcx], na.rm = TRUE),
+      y = sqrt(Tsq_limit * stats::var(X[, pcy])) * sin(grid$Theta) * sin(grid$Phi) + mean(X[, pcy], na.rm = TRUE),
+      z = sqrt(Tsq_limit * stats::var(X[, pcz])) * cos(grid$Phi) + mean(X[, pcz], na.rm = TRUE)
+    )
+  }
+  return(res_coord)
 }

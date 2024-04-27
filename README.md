@@ -63,7 +63,8 @@ confidence ellipse:
 **Step 1.** Load the package.
 
 ``` r
-library(HotellingEllipse)
+#library(HotellingEllipse)
+devtools::load_all()
 ```
 
 **Step 2.** Load LIBS dataset.
@@ -165,7 +166,7 @@ coord_2PCs_90 <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 3, conf.limit = 
 str(coord_2PCs_99)
 #> tibble [500 × 2] (S3: tbl_df/tbl/data.frame)
 #>  $ x: num [1:500] 19369 19367 19363 19355 19344 ...
-#>  $ y: num [1:500] -4.70e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...
+#>  $ y: num [1:500] -5.30e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...
 ```
 
 **Step 6.** Plot PC1 *vs.* PC2 scatterplot, with the two corresponding
@@ -175,8 +176,8 @@ the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 ``` r
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "dotted", fill = "white") +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "solid", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "solid", fill = "white") +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
@@ -192,21 +193,20 @@ Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and
 
 ``` r
 ggplot() +
-  geom_ellipse(data = coord_2PCs_99, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "black", linetype = "dashed") +
-  geom_ellipse(data = coord_2PCs_95, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "darkred", linetype = "dotted") +
-  geom_ellipse(data = coord_2PCs_90, aes(x0 = x, y0 = y, a = 1, b = 1, angle = 0), size = .9, color = "darkblue", linetype = "dotted") +
+  geom_polygon(data = coord_2PCs_99, aes(x, y), color = "black", fill = "white") +
+  geom_path(data = coord_2PCs_95, aes(x, y), color = "darkred") +
+  geom_path(data = coord_2PCs_90, aes(x, y), color = "darkblue") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.3, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
-  theme_bw() +
-  theme(panel.grid = element_blank())
+  theme_dark()
 ```
 
 <img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
 
-**Note A: Hotelling’s T-squared vs. Observations** The easiest way to
+**Note: Hotelling’s T-squared vs. Observations.** The easiest way to
 analyze and interpret Hotelling’s T-squared for more than two principal
 components, is to plot Hotelling’s T-squared *vs.* Observations, where
 the confidence limits are plotted as a line. Thus, observations below
@@ -245,3 +245,40 @@ tibble(
 ```
 
 <img src="man/figures/README-unnamed-chunk-18-1.png" width="90%" height="90%" />
+
+**Update (development version).** In the `ellipseCoord` function, we’ve
+incorporated the addition of an extra input parameter called `pcz`,
+which is set to `NULL` by default. This addition serves to facilitate
+the visualization of Hotelling’s ellipsoid in three dimensions, thereby
+enriching the functionality and versatility of the function.
+
+``` r
+df <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3)
+```
+
+``` r
+rgl::setupKnitr(autoprint = TRUE)
+rgl::plot3d(
+  x = df$x, 
+  y = df$y, 
+  z = df$z,
+  xlab = "PC1", 
+  ylab = "PC2", 
+  zlab = "PC3",
+  type = "l", 
+  lwd = 0.5,
+  col = "lightblue",
+  alpha = 0.5
+)
+rgl::points3d(
+  x = pca_scores$Dim.1, 
+  y = pca_scores$Dim.2, 
+  z = pca_scores$Dim.3, 
+  col = "darkred",
+  size = 5,
+  add = TRUE
+)
+rgl::view3d(zoom = .8)
+```
+
+<img src="man/figures/README-unnamed-chunk-20-1-rgl.png" width="90%" height="90%" />

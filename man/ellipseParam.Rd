@@ -47,5 +47,4 @@ T2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
 }
 \author{
 Christian L. Goueguel,
-christian.goueguel@gmail.com
 }

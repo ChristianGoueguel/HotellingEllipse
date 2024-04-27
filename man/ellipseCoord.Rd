@@ -4,14 +4,16 @@
 \alias{ellipseCoord}
 \title{Coordinate Points Of Hotelling Ellipse}
 \usage{
-ellipseCoord(data, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+ellipseCoord(data, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 }
 \arguments{
 \item{data}{Data frame or tibble of PCA, PLS, and ICA scores, or from other feature projection methods.}
 
-\item{pcx}{Integer specifying which component is on the x-axis (by default 1).}
+\item{pcx}{Integer specifying which component is on the x-axis (\code{pcx = 1} by default).}
 
-\item{pcy}{Integer specifying which component is on the y-axis (by default 2).}
+\item{pcy}{Integer specifying which component is on the y-axis (\code{pcy = 2} by default).}
+
+\item{pcz}{Optional (\code{NULL} by default). Integer specifying which component is on the z-axis.}
 
 \item{conf.limit}{Number between 0 and 1 specifying the confidence level (by default 0.95).}
 
