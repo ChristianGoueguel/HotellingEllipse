@@ -36,6 +36,7 @@ status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-p
 [![](https://cranlogs.r-pkg.org/badges/grand-total/HotellingEllipse?color=orange)](https://cran.r-project.org/package=HotellingEllipse)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![HitCount](https://hits.dwyl.com/ChristianGoueguel/HotellingEllipse.svg?style=flat-square)](http://hits.dwyl.com/ChristianGoueguel/HotellingEllipse)
 
 <!-- badges: end -->
 
@@ -196,7 +197,7 @@ ggplot() +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
-  theme_dark()
+  theme_grey()
 ```
 
 **Note: Hotelling’s T-squared vs. Observations.** 
