@@ -64,8 +64,7 @@ confidence ellipse:
 **Step 1.** Load the package.
 
 ``` r
-#library(HotellingEllipse)
-devtools::load_all()
+library(HotellingEllipse)
 ```
 
 **Step 2.** Load LIBS dataset.

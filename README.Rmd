@@ -78,8 +78,11 @@ confidence ellipse:
 
 **Step 1.** Load the package.
 
-```{r message=FALSE, warning=FALSE}
-#library(HotellingEllipse)
+```r
+library(HotellingEllipse)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
 devtools::load_all()
 ```
 
