@@ -2,48 +2,68 @@
 % Please edit documentation in R/ellipseCoord.R
 \name{ellipseCoord}
 \alias{ellipseCoord}
-\title{Coordinate Points Of Hotelling Ellipse}
+\title{Coordinate Points of the Hotelling's T-squared Ellipse}
 \usage{
-ellipseCoord(data, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
+ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 }
 \arguments{
-\item{data}{Data frame or tibble of PCA, PLS, and ICA scores, or from other feature projection methods.}
+\item{x}{A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other dimensionality reduction methods. Each column should represent a component, and each row an observation.}
 
-\item{pcx}{Integer specifying which component is on the x-axis (\code{pcx = 1} by default).}
+\item{pcx}{An integer specifying which component to use for the x-axis (default is 1).}
 
-\item{pcy}{Integer specifying which component is on the y-axis (\code{pcy = 2} by default).}
+\item{pcy}{An integer specifying which component to use for the y-axis (default is 2).}
 
-\item{pcz}{Optional (\code{NULL} by default). Integer specifying which component is on the z-axis.}
+\item{pcz}{An integer specifying which component to use for the z-axis for 3D ellipses. If \code{NULL} (default), a 2D ellipse is computed.}
 
-\item{conf.limit}{Number between 0 and 1 specifying the confidence level (by default 0.95).}
+\item{conf.limit}{A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95\% confidence).}
 
-\item{pts}{Integer indicating the number of points for drawing the Hotelling ellipse (by default 200).}
+\item{pts}{An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.}
 }
 \value{
-Data frame containing the \emph{x} and \emph{y} coordinate points of the Hotelling ellipse.
+A data frame containing the coordinate points of the Hotelling's T-squared ellipse:
+\itemize{
+\item For 2D ellipses: columns \code{x} and \code{y}
+\item For 3D ellipses: columns \code{x}, \code{y}, and \code{z}
+}
 }
 \description{
-Get the \emph{x} and \emph{y} coordinates of Hotelling ellipse.
+This function calculates the coordinate points for drawing a Hotelling's T-squared
+ellipse based on multivariate data. It can generate points for both 2D and 3D ellipses.
+}
+\details{
+The function computes the shape and orientation of the ellipse based on the
+covariance structure of the specified components. It then generates a set of
+points that lie on the ellipse's surface at the specified confidence level.
+For 2D ellipses, the function uses the first two specified components \code{pcx}
+and \code{pcy}. For 3D ellipses, it uses three components \code{pcx}, \code{pcy}, and \code{pcz}.
+The \code{conf.limit} parameter determines the size of the ellipse. A higher confidence
+level results in a larger ellipse that encompasses more data points.
 }
 \examples{
-## Principal components analysis (PCA)
+\dontrun{
+# Load required libraries
+library(HotellingEllipse)
 library(dplyr)
+
+data("specData", package = "HotellingEllipse")
+
+# Perform PCA
 set.seed(123)
 pca_mod <- specData \%>\%
-  dplyr::select(where(is.numeric)) \%>\%
+  select(where(is.numeric)) \%>\%
   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 
-## Extract PCA scores
-pca_scores <- pca_mod \%>\%
-   purrr::pluck("ind", "coord") \%>\%
-   tibble::as_tibble()
+# Extract PCA scores
+pca_scores <- pca_mod$ind$coord \%>\% as.data.frame()
 
-## Get Hotelling ellipse coordinate points
-library(HotellingEllipse)
-xy_coord <- ellipseCoord(data = pca_scores, pcx = 1, pcy = 2, conf.limit = 0.95, pts = 200)
+# Example 1: Calculate Hotelling's T-squared ellipse coordinates
+xy_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2)
+
+# Example 2: Calculate Hotelling's T-squared ellipsoid coordinates
+xyz_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3)
+}
 
 }
 \author{
-Christian L. Goueguel,
-christian.goueguel@gmail.com
+Christian L. Goueguel \href{mailto:christian.goueguel@gmail.com}{christian.goueguel@gmail.com}
 }

@@ -2,49 +2,99 @@
 % Please edit documentation in R/ellipseParam.R
 \name{ellipseParam}
 \alias{ellipseParam}
-\title{Lengths Of The Semi-Axes Of Hotelling Ellipse}
+\title{Hotelling's T-squared Statistic and Ellipse Parameters}
 \usage{
-ellipseParam(data, k = 2, pcx = 1, pcy = 2)
+ellipseParam(
+  x,
+  k = 2,
+  pcx = 1,
+  pcy = 2,
+  threshold = NULL,
+  rel.tol = 0.001,
+  abs.tol = .Machine$double.eps
+)
 }
 \arguments{
-\item{data}{Data frame or tibble of PCA, PLS, or ICA scores, or from other feature projection methods.}
+\item{x}{A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other similar methods. Each column should represent a component, and each row an observation.}
 
-\item{k}{Integer specifying the number of components (by default 2).}
+\item{k}{An integer specifying the number of components to use (default is 2). This parameter is ignored if \code{threshold} is provided.}
 
-\item{pcx}{Integer specifying which component is on the x-axis (by default 1).}
+\item{pcx}{An integer specifying which component to use for the x-axis when \code{k = 2} (default is 1).}
 
-\item{pcy}{Integer specifying which component is on the y-axis (by default 2).}
+\item{pcy}{An integer specifying which component to use for the y-axis when \code{k = 2} (default is 2).}
+
+\item{threshold}{A numeric value between 0 and 1 specifying the desired cumulative explained variance threshold (default is \code{NULL}). If provided, the function determines the minimum number of components needed to explain at least this proportion of total variance. When \code{NULL}, the function uses the fixed number of components specified by \code{k}.}
+
+\item{rel.tol}{A numeric value specifying the minimum proportion of total variance a component should explain to be considered non-negligible (default is 0.001, i.e., 0.1\%).}
+
+\item{abs.tol}{A numeric value specifying the minimum absolute variance a component should have to be considered non-negligible (default is \code{.Machine$double.eps}).}
 }
 \value{
-Returns a list that includes:
-\enumerate{
-\item \strong{Tsquare} Data frame containing the T-squared statistic.
-\item \strong{Ellipse} Data frame containing the lengths of the semi-minor and semi-major axes.
-\item \strong{cutoff.99pct} Number corresponding to the T-squared cutoff at 99\% confidence level.
-\item \strong{cutoff.95pct} Number corresponding to the T-squared cutoff at 95\% confidence level.
+A list containing the following elements:
+\itemize{
+\item \code{Tsquare}: A data frame containing the T-squared statistic for each observation.
+\item \code{Ellipse}: A data frame containing the lengths of the semi-minor and semi-major axes (only when \code{k = 2}).
+\item \code{cutoff.99pct}: The T-squared cutoff value at the 99\% confidence level.
+\item \code{cutoff.95pct}: The T-squared cutoff value at the 95\% confidence level.
+\item \code{nb.comp}: The number of components used in the calculation.
 }
 }
 \description{
-Compute the lengths of the semi-axes of Hotelling ellipse.
+This function calculates Hotelling's T-squared statistic and, when applicable,
+the lengths of the semi-axes of the Hotelling's ellipse. It can work with a
+specified number of components or use a cumulative variance threshold.
+}
+\details{
+When \code{threshold} is used, the function selects the minimum number of \code{k} components
+that cumulatively explain at least the specified proportion of variance. This
+parameter allows for dynamic component selection based on explained variance,
+rather than using a fixed number of components. It must be greater than \code{rel.tol}.
+Typical values range from 0.8 to 0.95.
+
+The \code{rel.tol} parameter sets a minimum variance threshold for individual components.
+Components with variance below this threshold are considered negligible and are
+removed from the analysis. Setting \code{rel.tol} too high
+may remove potentially important components, while setting it too low may
+retain noise or cause computational issues. Adjust based on your data
+characteristics and analysis goals.
+
+Note that components are considered to have near-zero variance and are removed
+if their relative variance is below \code{rel_tol} or their absolute variance is
+below \code{abs_tol}. This dual-threshold approach helps ensure numerical stability
+while also accounting for the relative importance of components. The default
+value for \code{abs.tol} is set to \code{.Machine$double.eps}, providing a lower bound
+for detecting near-zero variance that may cause numerical instability.
 }
 \examples{
-## Principal components analysis (PCA)
+\dontrun{
+# Load required libraries
+library(HotellingEllipse)
 library(dplyr)
+
+data("specData", package = "HotellingEllipse")
+
+# Perform PCA
 set.seed(123)
 pca_mod <- specData \%>\%
-  dplyr::select(where(is.numeric)) \%>\%
+  select(where(is.numeric)) \%>\%
   FactoMineR::PCA(scale.unit = FALSE, graph = FALSE)
 
-## Extract PCA scores
-pca_scores <- pca_mod \%>\%
-   purrr::pluck("ind", "coord") \%>\%
-   tibble::as_tibble()
+# Extract PCA scores
+pca_scores <- pca_mod$ind$coord \%>\% as.data.frame()
 
-## Get Hotelling T2-value and the lengths of the ellipse semi-axes
-library(HotellingEllipse)
-T2 <- ellipseParam(data = pca_scores, k = 2, pcx = 1, pcy = 2)
+# Example 1: Calculate Hotelling's T-squared and ellipse parameters using
+# the 2nd and 4th components
+T2_fixed <- ellipseParam(x = pca_scores, pcx = 2, pcy = 4)
+
+# Example 2: Calculate using the first 4 components
+T2_comp <- ellipseParam(x = pca_scores, k = 4)
+
+# Example 3: Calculate using a cumulative variance threshold
+T2_threshold <- ellipseParam(x = pca_scores, threshold = 0.95)
+}
+
 
 }
 \author{
-Christian L. Goueguel,
+Christian L. Goueguel \href{mailto:christian.goueguel@gmail.com}{christian.goueguel@gmail.com}
 }
