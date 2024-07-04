@@ -212,13 +212,13 @@ str(xyz_coord)
 T2 <- ellipseParam(pca_scores, k = 3)$Tsquare$value
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 color_palette <- viridisLite::viridis(nrow(pca_scores))
 scaled_T2 <- scales::rescale(T2, to = c(1, nrow(pca_scores)))
 point_colors <- color_palette[round(scaled_T2)]
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 rgl::setupKnitr(autoprint = TRUE)
 rgl::plot3d(
   x = xyz_coord$x, 
