@@ -98,7 +98,7 @@ can quickly identify abnormal samples and establish well-defined
 confidence regions for normal process operations.</p>
 <p>The package’s functionality enables computing the Hotelling’s
 T-squared statistic, the semi-minor and semi-major axes of the
-otelling’s T-squared ellipse, and generates the coordinate points
+Hotelling’s T-squared ellipse, and generates the coordinate points
 necessary for constructing a confidence ellipse. Specifically, the
 package provides two primary functions:</p>
 <ul>
@@ -391,6 +391,40 @@ dimensions.</p>
 <span><span class="co">#&gt;  $ z: num [1:10000] 7745 7745 7745 7745 7745 ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span><span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">Tsquare</span><span class="op">$</span><span class="va">value</span></span></code></pre></div>
+<pre><code><span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">scaled_T2</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">T2</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">point_colors</span> <span class="op">&lt;-</span> <span class="va">color_palette</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">scaled_T2</span><span class="op">)</span><span class="op">]</span></span></code></pre>
+<pre><code><span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/setupKnitr.html" class="external-link">setupKnitr</a></span><span class="op">(</span>autoprint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">xyz_coord</span><span class="op">$</span><span class="va">x</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">xyz_coord</span><span class="op">$</span><span class="va">y</span>, </span>
+<span>  z <span class="op">=</span> <span class="va">xyz_coord</span><span class="op">$</span><span class="va">z</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"PC1"</span>, </span>
+<span>  ylab <span class="op">=</span> <span class="st">"PC2"</span>, </span>
+<span>  zlab <span class="op">=</span> <span class="st">"PC3"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l"</span>, </span>
+<span>  lwd <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  col <span class="op">=</span> <span class="st">"lightgray"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/primitives.html" class="external-link">points3d</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">pca_scores</span><span class="op">$</span><span class="va">Dim.1</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">pca_scores</span><span class="op">$</span><span class="va">Dim.2</span>, </span>
+<span>  z <span class="op">=</span> <span class="va">pca_scores</span><span class="op">$</span><span class="va">Dim.3</span>, </span>
+<span>  col <span class="op">=</span> <span class="va">point_colors</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/bgplot3d.html" class="external-link">bgplot3d</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/frame.html" class="external-link">plot.new</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">color_palette</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0.85</span>, <span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="fl">0.9</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="fl">0.92</span>, </span>
+<span>      y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, </span>
+<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">T2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">T2</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>      cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.92</span>, y <span class="op">=</span> <span class="fl">0.95</span>, labels <span class="op">=</span> <span class="st">"T2"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/viewpoint.html" class="external-link">view3d</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span>, phi <span class="op">=</span> <span class="fl">25</span>, zoom <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
   </div>
