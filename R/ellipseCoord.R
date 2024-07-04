@@ -9,22 +9,22 @@
 #' @param x A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other dimensionality reduction methods. Each column should represent a component, and each row an observation.
 #' @param pcx An integer specifying which component to use for the x-axis (default is 1).
 #' @param pcy An integer specifying which component to use for the y-axis (default is 2).
-#' @param pcz An integer specifying which component to use for the z-axis for 3D ellipses. If `NULL` (default), a 2D ellipse is computed.
+#' @param pcz An integer specifying which component to use for the z-axis for 3D ellipsoids. If `NULL` (default), a 2D ellipse is computed.
 #' @param conf.limit A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95% confidence).
 #' @param pts An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.
 #'
 #' @return A data frame containing the coordinate points of the Hotelling's T-squared ellipse:
 #' \itemize{
 #'   \item For 2D ellipses: columns `x` and `y`
-#'   \item For 3D ellipses: columns `x`, `y`, and `z`
+#'   \item For 3D ellipsoids: columns `x`, `y`, and `z`
 #' }
 #'
 #' @details
 #' The function computes the shape and orientation of the ellipse based on the
-#' covariance structure of the specified components. It then generates a set of
+#' Hotelling's T-squared distribution and the specified components. It then generates a set of
 #' points that lie on the ellipse's surface at the specified confidence level.
-#' For 2D ellipses, the function uses the first two specified components `pcx`
-#' and `pcy`. For 3D ellipses, it uses three components `pcx`, `pcy`, and `pcz`.
+#' For 2D ellipses, the function uses two components `pcx`
+#' and `pcy`. For 3D ellipsoids, it uses three components `pcx`, `pcy`, and `pcz`.
 #' The `conf.limit` parameter determines the size of the ellipse. A higher confidence
 #' level results in a larger ellipse that encompasses more data points.
 #'

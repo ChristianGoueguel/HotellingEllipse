@@ -186,12 +186,12 @@ the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 ``` r
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "solid", fill = "white") +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "solid", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), linewidth = .5, linetype = "solid", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), linewidth = .5, linetype = "solid", fill = "white") +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling's T2 ellipse obtained\n using the ellipseParam function") +
   theme_grey()
 ```
@@ -208,8 +208,8 @@ ggplot() +
   geom_path(data = coord_2PCs_90, aes(x, y), color = "darkblue") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.3, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
   theme_grey()
 ```
@@ -330,6 +330,11 @@ tibble(
   annotate("text", x = 80, y = 9, label = "95% limit", color = "darkblue") +
   labs(x = "Observations", y = "Hotelling’s T-squared (4 PCs)", fill = "T2 stats", caption = "Figure 4: Hotelling’s T-squared vs. Observations") +
   theme_bw()
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="man/figures/README-unnamed-chunk-24-1.png" width="90%" height="90%" />

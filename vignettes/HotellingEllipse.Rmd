@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package is specifically designed to help draw the Hotelling's T-squared ellipses on the PCA or PLS score scatterplot. It computes the Hotelling’s T-squared statistic, the semi-minor axis, the semi-major axis along with the coordinate points for drawing a confidence ellipse based on Hotelling’s T-squared statistic. Specifically, there are two functions available:
+This package is specifically designed to help draw Hotelling's T-squared ellipses on PCA or PLS score scatterplots, a crucial tool in chemometrics for multivariate data analysis and quality control. In the field of chemometrics, these ellipses serve as powerful visual aids for measurements assessment, outlier detection, and process monitoring. By superimposing Hotelling's T-squared ellipses onto score plots, analysts can quickly identify abnormal samples and establish well-defined confidence regions for normal process operations. 
+
+The package's functionality enables computing the Hotelling’s T-squared statistic,  the semi-minor and semi-major axes of the otelling’s T-squared ellipse, and generates the coordinate points necessary for constructing a confidence ellipse. Specifically, the package provides two primary functions:
 
   * `ellipseParam()`, is used to calculate the Hotelling’s T-squared statistic and the semi-axes of the confidence ellipses at 99% and 95% confidence intervals.
   
@@ -50,7 +52,7 @@ data("specData", package = "HotellingEllipse")
 
 # Principal component analysis
 
-In this example, we use `FactoMineR::PCA()` to perform the Principal Component Analysis (PCA) from a LIBS spectral dataset `specData` and extract the PCA scores as a data frame `tibble::as_tibble()`. 
+In this example, we use `FactoMineR::PCA()` to perform the Principal Component Analysis (PCA) on a LIBS spectral dataset `specData`, and extract the PCA scores. 
 
 ```{r}
 set.seed(002)
@@ -88,7 +90,7 @@ T2 <- ellipseParam(pca_scores, k = 5)$Tsquare$value
 T2
 ```
 
-## Calculate using a cumulative variance threshold 
+## Calculate using the cumulative variance threshold 
 
 ```{r}
 T2 <- ellipseParam(pca_scores, threshold = 0.80)$Tsquare$value
@@ -142,15 +144,15 @@ b2 <- ellipse_axes %>% pluck("Ellipse", "b.95pct")
 Tsq <- ellipse_axes %>% pluck("Tsquare", "value")
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 pca_scores %>%
   ggplot(aes(x = Dim.2, y = Dim.4)) +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "solid", fill = "white") + 
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "dashed", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), linewidth = .5, linetype = "solid", fill = "white") + 
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), linewidth = .5, linetype = "dashed", fill = "white") +
   geom_point(aes(fill = Tsq), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(
     title = "Scatterplot of PCA scores", 
     subtitle = "PC1 vs. PC3", 
@@ -176,12 +178,12 @@ xy_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 5, conf.limit = 0.975, pts =
 str(xy_coord)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggplot() +
   geom_polygon(data = xy_coord, aes(x, y), color = "black", fill = "white") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.5), shape = 21, size = 5, fill = "blue", color = "black", alpha = 1/2) +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(
     title = "Scatterplot of PCA scores", 
     subtitle = "PC1 vs. PC5", 

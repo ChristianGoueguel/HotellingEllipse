@@ -63,7 +63,7 @@ This section provides a comprehensive step-by-step tutorial on how to use the `H
     Analysis (PCA) from a LIBS spectral dataset `data("specData")` and
     extract the PCA scores.
 
--   with `ellipseParam()` we get the Hotelling's T-squared statistic along with the        values of the semi-minor and semi-major axes. Whereas, `ellipseCoord()`
+-   with `ellipseParam()` we get the Hotelling's T-squared statistic along with the values of the semi-minor and semi-major axes. Whereas, `ellipseCoord()`
     provides the coordinates for drawing the Hotelling
     ellipse at user-defined confidence interval.
 
@@ -179,12 +179,12 @@ the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 ```{r message=FALSE, warning=FALSE}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), size = .5, linetype = "solid", fill = "white") +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), size = .5, linetype = "solid", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), linewidth = .5, linetype = "solid", fill = "white") +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = a2, b = b2, angle = 0), linewidth = .5, linetype = "solid", fill = "white") +
   geom_point(aes(fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling's T2 ellipse obtained\n using the ellipseParam function") +
   theme_grey()
 ```
@@ -192,15 +192,15 @@ pca_scores %>%
 Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and
 90%.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggplot() +
   geom_polygon(data = coord_2PCs_99, aes(x, y), color = "black", fill = "white") +
   geom_path(data = coord_2PCs_95, aes(x, y), color = "darkred") +
   geom_path(data = coord_2PCs_90, aes(x, y), color = "darkblue") +
   geom_point(data = pca_scores, aes(x = Dim.1, y = Dim.3, fill = T2), shape = 21, size = 3, color = "black") +
   scale_fill_viridis_c(option = "viridis") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black", size = .2) +
-  geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .2) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
+  geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
   theme_grey()
 ```
