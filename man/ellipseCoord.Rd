@@ -13,7 +13,7 @@ ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 
 \item{pcy}{An integer specifying which component to use for the y-axis (default is 2).}
 
-\item{pcz}{An integer specifying which component to use for the z-axis for 3D ellipses. If \code{NULL} (default), a 2D ellipse is computed.}
+\item{pcz}{An integer specifying which component to use for the z-axis for 3D ellipsoids. If \code{NULL} (default), a 2D ellipse is computed.}
 
 \item{conf.limit}{A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95\% confidence).}
 
@@ -23,7 +23,7 @@ ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 A data frame containing the coordinate points of the Hotelling's T-squared ellipse:
 \itemize{
 \item For 2D ellipses: columns \code{x} and \code{y}
-\item For 3D ellipses: columns \code{x}, \code{y}, and \code{z}
+\item For 3D ellipsoids: columns \code{x}, \code{y}, and \code{z}
 }
 }
 \description{
@@ -32,10 +32,10 @@ ellipse based on multivariate data. It can generate points for both 2D and 3D el
 }
 \details{
 The function computes the shape and orientation of the ellipse based on the
-covariance structure of the specified components. It then generates a set of
+Hotelling's T-squared distribution and the specified components. It then generates a set of
 points that lie on the ellipse's surface at the specified confidence level.
-For 2D ellipses, the function uses the first two specified components \code{pcx}
-and \code{pcy}. For 3D ellipses, it uses three components \code{pcx}, \code{pcy}, and \code{pcz}.
+For 2D ellipses, the function uses two components \code{pcx}
+and \code{pcy}. For 3D ellipsoids, it uses three components \code{pcx}, \code{pcy}, and \code{pcz}.
 The \code{conf.limit} parameter determines the size of the ellipse. A higher confidence
 level results in a larger ellipse that encompasses more data points.
 }

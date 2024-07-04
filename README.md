@@ -19,6 +19,7 @@ status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-p
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![HitCount](https://hits.dwyl.com/ChristianGoueguel/HotellingEllipse.svg?style=flat-square)](http://hits.dwyl.com/ChristianGoueguel/HotellingEllipse)
+
 <!-- badges: end -->
 
 The `HotellingEllipse` package offers a comprehensive set of functions
