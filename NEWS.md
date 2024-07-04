@@ -2,6 +2,8 @@
 
 In this version:
 
+-   Fixed issue #3   
+
 -   Improved functions description.
 
 -   Added more robust checks for input types and values
