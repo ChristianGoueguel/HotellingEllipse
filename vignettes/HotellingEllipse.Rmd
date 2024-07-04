@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 This package is specifically designed to help draw Hotelling's T-squared ellipses on PCA or PLS score scatterplots, a crucial tool in chemometrics for multivariate data analysis and quality control. In the field of chemometrics, these ellipses serve as powerful visual aids for measurements assessment, outlier detection, and process monitoring. By superimposing Hotelling's T-squared ellipses onto score plots, analysts can quickly identify abnormal samples and establish well-defined confidence regions for normal process operations. 
 
-The package's functionality enables computing the Hotelling’s T-squared statistic,  the semi-minor and semi-major axes of the otelling’s T-squared ellipse, and generates the coordinate points necessary for constructing a confidence ellipse. Specifically, the package provides two primary functions:
+The package's functionality enables computing the Hotelling’s T-squared statistic,  the semi-minor and semi-major axes of the Hotelling’s T-squared ellipse, and generates the coordinate points necessary for constructing a confidence ellipse. Specifically, the package provides two primary functions:
 
   * `ellipseParam()`, is used to calculate the Hotelling’s T-squared statistic and the semi-axes of the confidence ellipses at 99% and 95% confidence intervals.
   
@@ -214,13 +214,13 @@ str(xyz_coord)
 T2 <- ellipseParam(pca_scores, k = 3)$Tsquare$value
 ```
 
-```{r eval=FALSE, include=FALSE}
+```
 color_palette <- viridisLite::viridis(nrow(pca_scores))
 scaled_T2 <- scales::rescale(T2, to = c(1, nrow(pca_scores)))
 point_colors <- color_palette[round(scaled_T2)]
 ```
 
-```{r eval=FALSE, include=FALSE}
+```
 rgl::setupKnitr(autoprint = TRUE)
 rgl::plot3d(
   x = xyz_coord$x, 
