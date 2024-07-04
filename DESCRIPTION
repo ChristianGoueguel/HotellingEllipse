@@ -24,6 +24,7 @@ Imports:
     lifecycle,
     magrittr,
     purrr,
+    rgl,
     stats,
     tibble
 Depends: 
@@ -35,7 +36,6 @@ Suggests:
     testthat (>= 3.0.0),
     spelling,
     covr,
-    rgl,
     scales,
     viridisLite
 VignetteBuilder: knitr

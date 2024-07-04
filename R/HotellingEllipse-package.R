@@ -21,5 +21,9 @@
 #' @importFrom ggplot2 theme_grey
 #' @importFrom lifecycle badge
 #' @importFrom purrr pluck
+#' @importFrom rgl plot3d
+#' @importFrom rgl points3d
+#' @importFrom rgl setupKnitr
+#' @importFrom rgl view3d
 ## usethis namespace: end
 NULL
