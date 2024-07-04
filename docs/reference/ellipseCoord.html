@@ -76,7 +76,7 @@ ellipse based on multivariate data. It can generate points for both 2D and 3D el
 
 
 <dt>pcz</dt>
-<dd><p>An integer specifying which component to use for the z-axis for 3D ellipses. If <code>NULL</code> (default), a 2D ellipse is computed.</p></dd>
+<dd><p>An integer specifying which component to use for the z-axis for 3D ellipsoids. If <code>NULL</code> (default), a 2D ellipse is computed.</p></dd>
 
 
 <dt>conf.limit</dt>
@@ -92,15 +92,15 @@ ellipse based on multivariate data. It can generate points for both 2D and 3D el
     
 
 <p>A data frame containing the coordinate points of the Hotelling's T-squared ellipse:</p><ul><li><p>For 2D ellipses: columns <code>x</code> and <code>y</code></p></li>
-<li><p>For 3D ellipses: columns <code>x</code>, <code>y</code>, and <code>z</code></p></li>
+<li><p>For 3D ellipsoids: columns <code>x</code>, <code>y</code>, and <code>z</code></p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
     <p>The function computes the shape and orientation of the ellipse based on the
-covariance structure of the specified components. It then generates a set of
+Hotelling's T-squared distribution and the specified components. It then generates a set of
 points that lie on the ellipse's surface at the specified confidence level.
-For 2D ellipses, the function uses the first two specified components <code>pcx</code>
-and <code>pcy</code>. For 3D ellipses, it uses three components <code>pcx</code>, <code>pcy</code>, and <code>pcz</code>.
+For 2D ellipses, the function uses two components <code>pcx</code>
+and <code>pcy</code>. For 3D ellipsoids, it uses three components <code>pcx</code>, <code>pcy</code>, and <code>pcz</code>.
 The <code>conf.limit</code> parameter determines the size of the ellipse. A higher confidence
 level results in a larger ellipse that encompasses more data points.</p>
     </div>
