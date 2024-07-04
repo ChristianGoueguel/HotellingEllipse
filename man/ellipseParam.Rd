@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipseParam.R
 \name{ellipseParam}
 \alias{ellipseParam}
-\title{Hotelling's T-squared Statistic and Ellipse Parameters}
+\title{Hotelling’s T-squared Statistic and Ellipse Parameters}
 \usage{
 ellipseParam(
   x,
@@ -40,8 +40,8 @@ A list containing the following elements:
 }
 }
 \description{
-This function calculates Hotelling's T-squared statistic and, when applicable,
-the lengths of the semi-axes of the Hotelling's ellipse. It can work with a
+This function calculates Hotelling’s T-squared statistic and, when applicable,
+the lengths of the semi-axes of the Hotelling’s ellipse. It can work with a
 specified number of components or use a cumulative variance threshold.
 }
 \details{
@@ -82,7 +82,7 @@ pca_mod <- specData \%>\%
 # Extract PCA scores
 pca_scores <- pca_mod$ind$coord \%>\% as.data.frame()
 
-# Example 1: Calculate Hotelling's T-squared and ellipse parameters using
+# Example 1: Calculate Hotelling’s T-squared and ellipse parameters using
 # the 2nd and 4th components
 T2_fixed <- ellipseParam(x = pca_scores, pcx = 2, pcy = 4)
 

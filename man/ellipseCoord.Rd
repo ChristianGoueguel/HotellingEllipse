@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipseCoord.R
 \name{ellipseCoord}
 \alias{ellipseCoord}
-\title{Coordinate Points of the Hotelling's T-squared Ellipse}
+\title{Coordinate Points of the Hotelling’s T-squared Ellipse}
 \usage{
 ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 }
@@ -20,19 +20,19 @@ ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 \item{pts}{An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.}
 }
 \value{
-A data frame containing the coordinate points of the Hotelling's T-squared ellipse:
+A data frame containing the coordinate points of the Hotelling’s T-squared ellipse:
 \itemize{
 \item For 2D ellipses: columns \code{x} and \code{y}
 \item For 3D ellipsoids: columns \code{x}, \code{y}, and \code{z}
 }
 }
 \description{
-This function calculates the coordinate points for drawing a Hotelling's T-squared
+This function calculates the coordinate points for drawing a Hotelling’s T-squared
 ellipse based on multivariate data. It can generate points for both 2D and 3D ellipses.
 }
 \details{
 The function computes the shape and orientation of the ellipse based on the
-Hotelling's T-squared distribution and the specified components. It then generates a set of
+Hotelling’s T-squared distribution and the specified components. It then generates a set of
 points that lie on the ellipse's surface at the specified confidence level.
 For 2D ellipses, the function uses two components \code{pcx}
 and \code{pcy}. For 3D ellipsoids, it uses three components \code{pcx}, \code{pcy}, and \code{pcz}.
@@ -56,10 +56,10 @@ pca_mod <- specData \%>\%
 # Extract PCA scores
 pca_scores <- pca_mod$ind$coord \%>\% as.data.frame()
 
-# Example 1: Calculate Hotelling's T-squared ellipse coordinates
+# Example 1: Calculate Hotelling’s T-squared ellipse coordinates
 xy_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2)
 
-# Example 2: Calculate Hotelling's T-squared ellipsoid coordinates
+# Example 2: Calculate Hotelling’s T-squared ellipsoid coordinates
 xyz_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3)
 }
 

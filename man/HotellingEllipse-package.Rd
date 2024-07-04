@@ -4,11 +4,11 @@
 \name{HotellingEllipse-package}
 \alias{HotellingEllipse}
 \alias{HotellingEllipse-package}
-\title{HotellingEllipse: Hotelling's T-Squared Statistic and Ellipse}
+\title{HotellingEllipse: Hotelling’s T-Squared Statistic and Ellipse}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functions to calculate the Hotelling's T-squared statistic and corresponding 2D or 3D confidence ellipses. Provides the semi-axes of Hotelling's T-squared ellipse at 95% and 99% confidence levels. Additionally, enables users to obtain the coordinates in two or three dimensions at user-defined confidence levels, allowing for the construction of 2D or 3D ellipses with customized confidence levels. Bro and Smilde (2014) \doi{10.1039/c3ay41907j}. Brereton (2016) \doi{10.1002/cem.2763}.
+Functions to calculate the Hotelling’s T-squared statistic and corresponding confidence ellipses. Provides the semi-axes of the Hotelling’s T-squared ellipses at 95% and 99% confidence levels. Enables users to obtain the coordinates in two or three dimensions at user-defined confidence levels, allowing for the construction of 2D or 3D ellipses with customized confidence levels. Bro and Smilde (2014) \doi{10.1039/c3ay41907j}. Brereton (2016) \doi{10.1002/cem.2763}.
 }
 \seealso{
 Useful links:
