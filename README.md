@@ -18,7 +18,6 @@ status](https://www.r-pkg.org/badges/version/HotellingEllipse)](https://CRAN.R-p
 [![](https://cranlogs.r-pkg.org/badges/grand-total/HotellingEllipse?color=orange)](https://cran.r-project.org/package=HotellingEllipse)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![HitCount](https://hits.dwyl.com/ChristianGoueguel/HotellingEllipse.svg?style=flat-square)](http://hits.dwyl.com/ChristianGoueguel/HotellingEllipse)
 
 <!-- badges: end -->
 
@@ -27,14 +26,15 @@ that help visualizing multivariate data through Hotelling’s T-squared
 ellipses. At its core, the package calculates the crucial parameters
 needed for Hotelling’s T-squared ellipse representation: the lengths of
 both the semi-minor and semi-major axes. These calculations are
-performed for two confidence intervals, 95% and 99%. `HotellingEllipse`
-extends its functionality to provide coordinate points for plotting
-these ellipses. Users have the flexibility to generate either
-two-dimensional or three-dimensional coordinates, enabling the creation
-of both planar ellipses and spatial ellipsoids. While it offers
-pre-calculated results for common confidence intervals, it also allows
-users to specify custom confidence levels. For more features, please see
-the package vignette.
+performed for two confidence intervals, 95% and 99%.
+
+`HotellingEllipse` extends its functionality to provide coordinate
+points for plotting these ellipses. Users have the flexibility to
+generate either two-dimensional or three-dimensional coordinates,
+enabling the creation of both planar ellipses and spatial ellipsoids.
+While it offers pre-calculated results for common confidence intervals,
+it also allows users to specify custom confidence levels. For more
+features, please see the package vignette.
 
 ## Installation
 
@@ -193,7 +193,7 @@ pca_scores %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling's T2 ellipse obtained\n using the ellipseParam function") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function") +
   theme_grey()
 ```
 
@@ -211,7 +211,7 @@ ggplot() +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling's T2 ellipse obtained\n using the ellipseCoord function") +
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function") +
   theme_grey()
 ```
 

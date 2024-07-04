@@ -1,10 +1,10 @@
-#' @title Hotelling's T-squared Statistic and Ellipse Parameters
+#' @title Hotelling’s T-squared Statistic and Ellipse Parameters
 #'
 #' @author Christian L. Goueguel <christian.goueguel@gmail.com>
 #'
 #' @description
-#' This function calculates Hotelling's T-squared statistic and, when applicable,
-#' the lengths of the semi-axes of the Hotelling's ellipse. It can work with a
+#' This function calculates Hotelling’s T-squared statistic and, when applicable,
+#' the lengths of the semi-axes of the Hotelling’s ellipse. It can work with a
 #' specified number of components or use a cumulative variance threshold.
 #'
 #' @param x A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other similar methods. Each column should represent a component, and each row an observation.
@@ -62,7 +62,7 @@
 #' # Extract PCA scores
 #' pca_scores <- pca_mod$ind$coord %>% as.data.frame()
 #'
-#' # Example 1: Calculate Hotelling's T-squared and ellipse parameters using
+#' # Example 1: Calculate Hotelling’s T-squared and ellipse parameters using
 #' # the 2nd and 4th components
 #' T2_fixed <- ellipseParam(x = pca_scores, pcx = 2, pcy = 4)
 #'

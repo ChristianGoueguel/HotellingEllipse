@@ -1,5 +1,5 @@
 Package: HotellingEllipse
-Title: Hotelling's T-Squared Statistic and Ellipse
+Title: Hotelling’s T-Squared Statistic and Ellipse
 Version: 1.2.0
 Authors@R: 
     person(given = "Christian L.",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
-Description: Functions to calculate the Hotelling's T-squared statistic and corresponding 2D or 3D confidence ellipses. Provides the semi-axes of Hotelling's T-squared ellipse at 95% and 99% confidence levels. Additionally, enables users to obtain the coordinates in two or three dimensions at user-defined confidence levels, allowing for the construction of 2D or 3D ellipses with customized confidence levels. Bro and Smilde (2014) <DOI:10.1039/c3ay41907j>. Brereton (2016) <DOI:10.1002/cem.2763>.
+Description: Functions to calculate the Hotelling’s T-squared statistic and corresponding confidence ellipses. Provides the semi-axes of the Hotelling’s T-squared ellipses at 95% and 99% confidence levels. Enables users to obtain the coordinates in two or three dimensions at user-defined confidence levels, allowing for the construction of 2D or 3D ellipses with customized confidence levels. Bro and Smilde (2014) <DOI:10.1039/c3ay41907j>. Brereton (2016) <DOI:10.1002/cem.2763>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package is specifically designed to help draw Hotelling's T-squared ellipses on PCA or PLS score scatterplots, a crucial tool in chemometrics for multivariate data analysis and quality control. In the field of chemometrics, these ellipses serve as powerful visual aids for measurements assessment, outlier detection, and process monitoring. By superimposing Hotelling's T-squared ellipses onto score plots, analysts can quickly identify abnormal samples and establish well-defined confidence regions for normal process operations. 
+This package is specifically designed to help draw Hotelling’s T-squared ellipses on PCA or PLS score scatterplots, a crucial tool in chemometrics for multivariate data analysis and quality control. In the field of chemometrics, these ellipses serve as powerful visual aids for measurements assessment, outlier detection, and process monitoring. By superimposing Hotelling’s T-squared ellipses onto score plots, analysts can quickly identify abnormal samples and establish well-defined confidence regions for normal process operations. 
 
 The package's functionality enables computing the Hotelling’s T-squared statistic,  the semi-minor and semi-major axes of the Hotelling’s T-squared ellipse, and generates the coordinate points necessary for constructing a confidence ellipse. Specifically, the package provides two primary functions:
 
@@ -68,9 +68,9 @@ pca_scores <- pca_mod %>%
   print()
 ```
 
-# Hotelling's T-Squared Statistic
+# Hotelling’s T-Squared Statistic
 
-The Hotelling's T-squared statistic can be computed using the `ellipseParam` function in two distinct ways. (1) By specifying the parameter `k`: This represents the number of principal components to retain. (2) By setting the `threshold` parameter: This defines the cumulative explained variance to determine the number of components.
+The Hotelling’s T-squared statistic can be computed using the `ellipseParam` function in two distinct ways. (1) By specifying the parameter `k`: This represents the number of principal components to retain. (2) By setting the `threshold` parameter: This defines the cumulative explained variance to determine the number of components.
 
 ## Calculate using the first k components 
 
@@ -108,7 +108,7 @@ T2 <- ellipseParam(pca_scores, threshold = 0.95)$Tsquare$value
 T2
 ```
 
-# Hotelling's T-Squared Ellipse
+# Hotelling’s T-Squared Ellipse
 
 ## Calculating the semi-axes 
 
@@ -166,7 +166,7 @@ pca_scores %>%
 
 ## Calculating the x-y coordinates
 
-An alternative method for visualizing the Hotelling's T-squared confidence region is to utilize the `ellipseCoord()` function. This function generates the *x* and *y* coordinates for plotting the confidence ellipse, offering greater flexibility in visualization and further analysis. It allows users to specify a custom confidence level via the `confi.limit` parameter. The default confidence level is set at 95%, which is commonly used in statistical analyses. The function returns a set of coordinates that define the ellipse's boundary in the chosen subspace, thereby complementing the semi-axes information provided by the `ellipseParam()` function.
+An alternative method for visualizing the Hotelling’s T-squared confidence region is to utilize the `ellipseCoord()` function. This function generates the *x* and *y* coordinates for plotting the confidence ellipse, offering greater flexibility in visualization and further analysis. It allows users to specify a custom confidence level via the `confi.limit` parameter. The default confidence level is set at 95%, which is commonly used in statistical analyses. The function returns a set of coordinates that define the ellipse's boundary in the chosen subspace, thereby complementing the semi-axes information provided by the `ellipseParam()` function.
 
 In the example below, we focus on the subspace spanned by the 1st and 5th components.
 
@@ -194,13 +194,13 @@ ggplot() +
   theme_grey()
 ```
 
-# Hotelling's T-Squared Ellipsoid
+# Hotelling’s T-Squared Ellipsoid
 
 The `ellipseCoord` function offers an optional parameter `pcz`. When activated, this parameter extends the function's capabilities from two-dimensional ellipses to three-dimensional ellipsoids, providing a more comprehensive visualization of multivariate data, particularly in situation where the first two principal components do not adequately capture the data's variability.
 
 ## Calculating the x-y-z coordinates
 
-In the example below, the resulting 3D Hotelling's T-squared ellipsoid serves as a volumetric confidence region in the subspace spanned by the 1st, 2nd, and 3rd components. It encapsulates a specified proportion of data points, determined by the confidence level, providing a more holistic view of the data's distribution and outliers in three dimensions.
+In the example below, the resulting 3D Hotelling’s T-squared ellipsoid serves as a volumetric confidence region in the subspace spanned by the 1st, 2nd, and 3rd components. It encapsulates a specified proportion of data points, determined by the confidence level, providing a more holistic view of the data's distribution and outliers in three dimensions.
 
 ```{r}
 xyz_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3, conf.limit = 0.95, pts = 100)

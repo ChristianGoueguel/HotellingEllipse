@@ -1,9 +1,9 @@
-#' @title Coordinate Points of the Hotelling's T-squared Ellipse
+#' @title Coordinate Points of the Hotelling’s T-squared Ellipse
 #'
 #' @author Christian L. Goueguel <christian.goueguel@gmail.com>
 #'
 #' @description
-#' This function calculates the coordinate points for drawing a Hotelling's T-squared
+#' This function calculates the coordinate points for drawing a Hotelling’s T-squared
 #' ellipse based on multivariate data. It can generate points for both 2D and 3D ellipses.
 #'
 #' @param x A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other dimensionality reduction methods. Each column should represent a component, and each row an observation.
@@ -13,7 +13,7 @@
 #' @param conf.limit A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95% confidence).
 #' @param pts An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.
 #'
-#' @return A data frame containing the coordinate points of the Hotelling's T-squared ellipse:
+#' @return A data frame containing the coordinate points of the Hotelling’s T-squared ellipse:
 #' \itemize{
 #'   \item For 2D ellipses: columns `x` and `y`
 #'   \item For 3D ellipsoids: columns `x`, `y`, and `z`
@@ -21,7 +21,7 @@
 #'
 #' @details
 #' The function computes the shape and orientation of the ellipse based on the
-#' Hotelling's T-squared distribution and the specified components. It then generates a set of
+#' Hotelling’s T-squared distribution and the specified components. It then generates a set of
 #' points that lie on the ellipse's surface at the specified confidence level.
 #' For 2D ellipses, the function uses two components `pcx`
 #' and `pcy`. For 3D ellipsoids, it uses three components `pcx`, `pcy`, and `pcz`.
@@ -47,10 +47,10 @@
 #' # Extract PCA scores
 #' pca_scores <- pca_mod$ind$coord %>% as.data.frame()
 #'
-#' # Example 1: Calculate Hotelling's T-squared ellipse coordinates
+#' # Example 1: Calculate Hotelling’s T-squared ellipse coordinates
 #' xy_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2)
 #'
-#' # Example 2: Calculate Hotelling's T-squared ellipsoid coordinates
+#' # Example 2: Calculate Hotelling’s T-squared ellipsoid coordinates
 #' xyz_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3)
 #' }
 #'
