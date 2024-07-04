@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HotellingEllipse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -51,9 +51,26 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.0" id="hotellingellipse-120">HotellingEllipse 1.2.0<a class="anchor" aria-label="anchor" href="#hotellingellipse-120"></a></h2>
+<p>In this version:</p>
+<ul><li><p>Improved functions description.</p></li>
+<li><p>Added more robust checks for input types and values</p></li>
+<li><p>Added an <code>is_integer</code> function that uses implicit integer division. When a number is divided by 1 using integer division (<code>%/%</code>), the result will be equal to the original number only if it’s an integer. The <code>is_integer</code> function is used to check <code>k</code>, <code>pcx</code>, and <code>pcy</code>.</p></li>
+<li><p>Improved error messages to be more informative and specific.</p></li>
+<li><p>Converted input to matrix once at the beginning to avoid repeated conversions.</p></li>
+<li><p>For both <code>ellipseParam</code> and <code>ellipseCoord</code> functions, the code is restructured into smaller, more focused functions for better readability and maintainability.</p></li>
+<li><p>Extracted the columns <code>x[, pcx]</code> and <code>x[, pcy]</code> into separate vectors <code>x_col</code> and <code>y_col</code> before using them in the calculations. Use <code>drop = TRUE</code> to ensure that even if <code>x</code> is a single-column matrix, it’s converted to a vector.</p></li>
+<li><p>Added three new parameters for the <code>ellipseParam</code> function: <code>threshold</code>, <code>real.tol</code>, and <code>abs.tol</code>. The <code>threshold</code> parameter serves to select the minimum number of <code>k</code> components that cumulatively explain at least the specified proportion of variance. As for the two tolerance parameters, <code>rel_tol</code> (for relative tolerance) and <code>abs_tol</code> (for absolute tolerance), they serve as variance threshold of components deemed negligible if their variance is below EITHER of these thresholds.</p></li>
+<li><p>Implemented a three-dimensional extension to the <code>ellipseCoord</code> function by introducing a third axis parameter, <code>pcz</code>. This addition enables the computation of coordinates for 3D ellipsoids, expanding the function’s capabilities beyond its previous 2D computation.</p></li>
+<li><p>Renamed some variables for better clarity (e.g., <code>m</code> to <code>pts</code>)</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="hotellingellipse-110">HotellingEllipse 1.1.0<small>2022-06-24</small><a class="anchor" aria-label="anchor" href="#hotellingellipse-110"></a></h2>
-<p>This version includes (1) a correction of an error that occurred in the <code>ellipseParam</code> and <code>ellipseCoord</code>functions, when data is data.frame, instead of tibble; (2) an improvement of the package documentation; (3) changes in the vignette (the difference between <code>ellipseParam</code> and <code>ellipseCoord</code> functions to draw Hotelling’s ellipse is much clearer for users).</p>
-</div>
+<p>This version includes the following modifications:</p>
+<ul><li><p>Correction of an error that occurred in the <code>ellipseParam</code> and <code>ellipseCoord</code>functions, when data is data.frame, instead of tibble</p></li>
+<li><p>Improvement of the package documentation</p></li>
+<li><p>Changes in the vignette (the difference between <code>ellipseParam</code> and <code>ellipseCoord</code> functions to draw Hotelling’s ellipse is much clearer for users).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="hotellingellipse-100">HotellingEllipse 1.0.0<a class="anchor" aria-label="anchor" href="#hotellingellipse-100"></a></h2>
 <p>Not released</p>
