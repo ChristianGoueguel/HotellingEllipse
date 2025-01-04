@@ -5,7 +5,7 @@ specified number of components or use a cumulative variance threshold."><meta pr
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,20 +36,20 @@ specified number of components or use a cumulative variance threshold."><meta pr
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/ChristianGoueguel/HotellingEllipse/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Hotelling’s T-squared Statistic and Ellipse Parameters</h1>
-    <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/HotellingEllipse/blob/HEAD/R/ellipseParam.R" class="external-link"><code>R/ellipseParam.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/HotellingEllipse/blob/master/R/ellipseParam.R" class="external-link"><code>R/ellipseParam.R</code></a></small>
     <div class="hidden name"><code>ellipseParam.Rd</code></div>
     </div>
 
@@ -73,39 +73,39 @@ specified number of components or use a cumulative variance threshold.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>x</dt>
+
+
+<dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other similar methods. Each column should represent a component, and each row an observation.</p></dd>
 
 
-<dt>k</dt>
+<dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
 <dd><p>An integer specifying the number of components to use (default is 2). This parameter is ignored if <code>threshold</code> is provided.</p></dd>
 
 
-<dt>pcx</dt>
+<dt id="arg-pcx">pcx<a class="anchor" aria-label="anchor" href="#arg-pcx"></a></dt>
 <dd><p>An integer specifying which component to use for the x-axis when <code>k = 2</code> (default is 1).</p></dd>
 
 
-<dt>pcy</dt>
+<dt id="arg-pcy">pcy<a class="anchor" aria-label="anchor" href="#arg-pcy"></a></dt>
 <dd><p>An integer specifying which component to use for the y-axis when <code>k = 2</code> (default is 2).</p></dd>
 
 
-<dt>threshold</dt>
+<dt id="arg-threshold">threshold<a class="anchor" aria-label="anchor" href="#arg-threshold"></a></dt>
 <dd><p>A numeric value between 0 and 1 specifying the desired cumulative explained variance threshold (default is <code>NULL</code>). If provided, the function determines the minimum number of components needed to explain at least this proportion of total variance. When <code>NULL</code>, the function uses the fixed number of components specified by <code>k</code>.</p></dd>
 
 
-<dt>rel.tol</dt>
+<dt id="arg-rel-tol">rel.tol<a class="anchor" aria-label="anchor" href="#arg-rel-tol"></a></dt>
 <dd><p>A numeric value specifying the minimum proportion of total variance a component should explain to be considered non-negligible (default is 0.001, i.e., 0.1%).</p></dd>
 
 
-<dt>abs.tol</dt>
+<dt id="arg-abs-tol">abs.tol<a class="anchor" aria-label="anchor" href="#arg-abs-tol"></a></dt>
 <dd><p>A numeric value specifying the minimum absolute variance a component should have to be considered non-negligible (default is <code>.Machine$double.eps</code>).</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list containing the following elements:</p><ul><li><p><code>Tsquare</code>: A data frame containing the T-squared statistic for each observation.</p></li>
+    <p>A list containing the following elements:</p><ul><li><p><code>Tsquare</code>: A data frame containing the T-squared statistic for each observation.</p></li>
 <li><p><code>Ellipse</code>: A data frame containing the lengths of the semi-minor and semi-major axes (only when <code>k = 2</code>).</p></li>
 <li><p><code>cutoff.99pct</code>: The T-squared cutoff value at the 99% confidence level.</p></li>
 <li><p><code>cutoff.95pct</code>: The T-squared cutoff value at the 95% confidence level.</p></li>
@@ -138,7 +138,7 @@ for detecting near-zero variance that may cause numerical instability.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># Load required libraries</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ChristianGoueguel/HotellingEllipse" class="external-link">HotellingEllipse</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
@@ -163,7 +163,7 @@ for detecting near-zero variance that may cause numerical instability.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Calculate using a cumulative variance threshold</span></span></span>
 <span class="r-in"><span><span class="va">T2_threshold</span> <span class="op">&lt;-</span> <span class="fu">ellipseParam</span><span class="op">(</span>x <span class="op">=</span> <span class="va">pca_scores</span>, threshold <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -180,15 +180,15 @@ for detecting near-zero variance that may cause numerical instability.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
