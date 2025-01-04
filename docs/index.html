@@ -26,7 +26,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +60,7 @@
 <li>
   <a href="https://github.com/ChristianGoueguel/HotellingEllipse/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -71,7 +71,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -172,6 +172,10 @@
 <span><span class="co">#&gt;  $ y: num [1:500] -5.30e-13 1.06e+02 2.12e+02 3.18e+02 4.24e+02 ...</span></span></code></pre></div>
 <p><strong>Step 6.</strong> Plot PC1 <em>vs.</em> PC2 scatterplot, with the two corresponding Hotelling ellipse. Points inside the two elliptical regions are within the 99% and 95% confidence intervals for the Hotelling’s T-squared.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">pca_mod</span><span class="op">$</span><span class="va">eig</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">pca_mod</span><span class="op">$</span><span class="va">eig</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">pca_mod</span><span class="op">$</span><span class="va">eig</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Dim.1</span>, y <span class="op">=</span> <span class="va">Dim.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_ellipse</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, a <span class="op">=</span> <span class="va">a1</span>, b <span class="op">=</span> <span class="va">b1</span>, angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">.5</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -180,11 +184,19 @@
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, fill <span class="op">=</span> <span class="st">"T2"</span>, caption <span class="op">=</span> <span class="st">"Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_grey</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%"></p>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC2"</span>, x <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"PC1 [{t1}%]"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"PC2 [{t2}%]"</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"T2"</span>, caption <span class="op">=</span> <span class="st">"Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_grey</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span></span>
+<span>    aspect.ratio <span class="op">=</span> <span class="fl">.7</span>,</span>
+<span>    panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span></span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">.3</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="90%" height="90%"></p>
 <p>Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and 90%.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_polygon</span><span class="op">(</span>data <span class="op">=</span> <span class="va">coord_2PCs_99</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_path</span><span class="op">(</span>data <span class="op">=</span> <span class="va">coord_2PCs_95</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -193,26 +205,34 @@
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC3"</span>, fill <span class="op">=</span> <span class="st">"T2"</span>, caption <span class="op">=</span> <span class="st">"Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_grey</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="90%" height="90%"></p>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scatterplot of PCA scores"</span>, subtitle <span class="op">=</span> <span class="st">"PC1 vs. PC3"</span>, x <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"PC1 [{t1}%]"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"PC3 [{t3}%]"</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"T2"</span>, caption <span class="op">=</span> <span class="st">"Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_grey</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">theme</span><span class="op">(</span></span>
+<span>    aspect.ratio <span class="op">=</span> <span class="fl">.7</span>,</span>
+<span>    panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span></span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">.3</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%"></p>
 <p><strong>Note 1: Hotelling’s T-squared Ellipsoid - Visualizing Multivariate Data in 3D Space.</strong></p>
 <p>The <code>ellipseCoord</code> function has an optional parameter <code>pcz</code>, which is set to <code>NULL</code> by default. When specified, this parameter enables the computation of coordinates for Hotelling’s T-squared ellipsoid in three-dimensional space. In the example below, the 1st, 2nd, and 3rd components are mapped to the <em>x</em>, <em>y</em>, and <em>z</em>-axis, respectively. The resulting ellipsoid serves as a three-dimensional confidence region, encompassing a specified proportion of the data points based on the chosen confidence level.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df_ellipsoid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span><span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, pcz <span class="op">=</span> <span class="fl">3</span>, pts <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_ellipsoid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseCoord.html">ellipseCoord</a></span><span class="op">(</span><span class="va">pca_scores</span>, pcx <span class="op">=</span> <span class="fl">1</span>, pcy <span class="op">=</span> <span class="fl">2</span>, pcz <span class="op">=</span> <span class="fl">3</span>, pts <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df_ellipsoid</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [2,500 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ x: num [1:2500] -2.32e-13 -2.32e-13 -2.32e-13 -2.32e-13 -2.32e-13 ...</span></span>
 <span><span class="co">#&gt;  $ y: num [1:2500] 6.93e-13 6.93e-13 6.93e-13 6.93e-13 6.93e-13 ...</span></span>
 <span><span class="co">#&gt;  $ z: num [1:2500] 7745 7745 7745 7745 7745 ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span><span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">Tsquare</span><span class="op">$</span><span class="va">value</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">T2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span><span class="va">pca_scores</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">Tsquare</span><span class="op">$</span><span class="va">value</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">scaled_T2</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">T2</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">point_colors</span> <span class="op">&lt;-</span> <span class="va">color_palette</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">scaled_T2</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/setupKnitr.html" class="external-link">setupKnitr</a></span><span class="op">(</span>autoprint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">df_ellipsoid</span><span class="op">$</span><span class="va">x</span>, </span>
@@ -244,13 +264,13 @@
 <span>      cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.92</span>, y <span class="op">=</span> <span class="fl">0.95</span>, labels <span class="op">=</span> <span class="st">"T2"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/viewpoint.html" class="external-link">view3d</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span>, phi <span class="op">=</span> <span class="fl">25</span>, zoom <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-21-1-rgl.png" width="90%" height="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-22-1.-rgl.png" width="90%" height="90%"></p>
 <p><strong>Note 2: Analysis of Hotelling’s T-squared Using Multiple Components.</strong></p>
 <p>When dealing with more than two principal components, visualizing Hotelling’s T-squared becomes challenging in traditional 2D or 3D plots. A more effective approach for analyzing and interpreting this multivariate statistic involves plotting Hotelling’s T-squared against Observations, where the confidence limits are plotted as a line. Thus, observations below the two lines are within the Hotelling’s T-squared limits.</p>
 <p>In the provided example, we utilize the <code><a href="reference/ellipseParam.html">ellipseParam()</a></code> function with a cumulative variance threshold of 0.95 (<code>threshold = 0.95</code>). This setting ensures that the analysis captures 95% of the total variance in the data.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span><span class="va">pca_scores</span>, threshold <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ellipseParam.html">ellipseParam</a></span><span class="op">(</span><span class="va">pca_scores</span>, threshold <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 4</span></span>
 <span><span class="co">#&gt;  $ Tsquare     : tibble [100 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
@@ -258,27 +278,22 @@
 <span><span class="co">#&gt;  $ cutoff.99pct: num 14.5</span></span>
 <span><span class="co">#&gt;  $ cutoff.95pct: num 10.2</span></span>
 <span><span class="co">#&gt;  $ nb.comp     : num 4</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span></span>
 <span>  T2 <span class="op">=</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">df</span>, <span class="st">"Tsquare"</span>, <span class="st">"value"</span><span class="op">)</span>, </span>
 <span>  obs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pca_scores</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">obs</span>, y <span class="op">=</span> <span class="va">T2</span>, fill <span class="op">=</span> <span class="va">T2</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_segment</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">obs</span>, y <span class="op">=</span> <span class="va">T2</span>, xend <span class="op">=</span> <span class="va">obs</span>, yend <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_segment</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">obs</span>, y <span class="op">=</span> <span class="va">T2</span>, xend <span class="op">=</span> <span class="va">obs</span>, yend <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradient</span><span class="op">(</span>low <span class="op">=</span> <span class="st">"black"</span>, high <span class="op">=</span> <span class="st">"red"</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">df</span>, <span class="st">"cutoff.99pct"</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"darkred"</span>, linewidth <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu">pluck</span><span class="op">(</span><span class="va">df</span>, <span class="st">"cutoff.95pct"</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"darkblue"</span>, linewidth <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">80</span>, y <span class="op">=</span> <span class="fl">13</span>, label <span class="op">=</span> <span class="st">"99% limit"</span>, color <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">80</span>, y <span class="op">=</span> <span class="fl">9</span>, label <span class="op">=</span> <span class="st">"95% limit"</span>, color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Observations"</span>, y <span class="op">=</span> <span class="st">"Hotelling’s T-squared (4 PCs)"</span>, fill <span class="op">=</span> <span class="st">"T2 stats"</span>, caption <span class="op">=</span> <span class="st">"Figure 4: Hotelling’s T-squared vs. Observations"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
-<span><span class="co">#&gt; generated.</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-24-1.png" width="90%" height="90%"></p>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-25-1.png" width="90%" height="90%"></p>
 </div>
 </div>
   </div>
@@ -329,16 +344,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
