@@ -185,6 +185,12 @@ Hotelling ellipse. Points inside the two elliptical regions are within
 the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 
 ``` r
+t1 <- round(as.numeric(pca_mod$eig[1,2]), 2)
+t2 <- round(as.numeric(pca_mod$eig[2,2]), 2)
+t3 <- round(as.numeric(pca_mod$eig[3,2]), 2)
+```
+
+``` r
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
   geom_ellipse(aes(x0 = 0, y0 = 0, a = a1, b = b1, angle = 0), linewidth = .5, linetype = "solid", fill = "white") +
@@ -193,11 +199,19 @@ pca_scores %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function") +
-  theme_grey()
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = glue("PC1 [{t1}%]"), y = glue("PC2 [{t2}%]"), fill = "T2", caption = "Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function") +
+  theme_grey() +
+  theme(
+    aspect.ratio = .7,
+    panel.grid = element_blank(),
+    panel.background = element_rect(
+    colour = "black",
+    linewidth = .3
+    )
+  )
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="90%" height="90%" />
 
 Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and
 90%.
@@ -211,11 +225,19 @@ ggplot() +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function") +
-  theme_grey()
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = glue("PC1 [{t1}%]"), y = glue("PC3 [{t3}%]"), fill = "T2", caption = "Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function") +
+  theme_grey() +
+   theme(
+    aspect.ratio = .7,
+    panel.grid = element_blank(),
+    panel.background = element_rect(
+    colour = "black",
+    linewidth = .3
+    )
+  )
 ```
 
-<img src="man/figures/README-unnamed-chunk-16-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="90%" height="90%" />
 
 **Note 1: Hotelling’s T-squared Ellipsoid - Visualizing Multivariate
 Data in 3D Space.**
@@ -285,7 +307,7 @@ rgl::bgplot3d({
 rgl::view3d(theta = 30, phi = 25, zoom = .8)
 ```
 
-<img src="man/figures/README-unnamed-chunk-21-1-rgl.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-22-1.-rgl.png" width="90%" height="90%" />
 
 **Note 2: Analysis of Hotelling’s T-squared Using Multiple Components.**
 
@@ -323,7 +345,7 @@ tibble(
   ) %>%
   ggplot() +
   geom_point(aes(x = obs, y = T2, fill = T2), shape = 21, size = 3, color = "black") +
-  geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), size = .5) +
+  geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), linewidth = .5) +
   scale_fill_gradient(low = "black", high = "red", guide = "none") +
   geom_hline(yintercept = pluck(df, "cutoff.99pct"), linetype = "dashed", color = "darkred", linewidth = .5) +
   geom_hline(yintercept = pluck(df, "cutoff.95pct"), linetype = "dashed", color = "darkblue", linewidth = .5) +
@@ -331,11 +353,6 @@ tibble(
   annotate("text", x = 80, y = 9, label = "95% limit", color = "darkblue") +
   labs(x = "Observations", y = "Hotelling’s T-squared (4 PCs)", fill = "T2 stats", caption = "Figure 4: Hotelling’s T-squared vs. Observations") +
   theme_bw()
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
-<img src="man/figures/README-unnamed-chunk-24-1.png" width="90%" height="90%" />
+<img src="man/figures/README-unnamed-chunk-25-1.png" width="90%" height="90%" />

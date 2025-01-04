@@ -85,6 +85,7 @@ devtools::load_all()
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(FactoMineR)
+library(glue)
 library(dplyr)
 library(purrr)
 library(tibble)
@@ -177,6 +178,12 @@ str(coord_2PCs_99)
 Hotelling ellipse. Points inside the two elliptical regions are within
 the 99% and 95% confidence intervals for the Hotelling’s T-squared.
 
+```{r}
+t1 <- round(as.numeric(pca_mod$eig[1,2]), 2)
+t2 <- round(as.numeric(pca_mod$eig[2,2]), 2)
+t3 <- round(as.numeric(pca_mod$eig[3,2]), 2)
+```
+
 ```{r message=FALSE, warning=FALSE}
 pca_scores %>%
   ggplot(aes(x = Dim.1, y = Dim.2)) +
@@ -186,8 +193,16 @@ pca_scores %>%
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = "PC1", y = "PC2", fill = "T2", caption = "Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function") +
-  theme_grey()
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC2", x = glue("PC1 [{t1}%]"), y = glue("PC2 [{t2}%]"), fill = "T2", caption = "Figure 1: Hotelling’s T2 ellipse obtained\n using the ellipseParam function") +
+  theme_grey() +
+  theme(
+    aspect.ratio = .7,
+    panel.grid = element_blank(),
+    panel.background = element_rect(
+    colour = "black",
+    linewidth = .3
+    )
+  )
 ```
 
 Or in the PC1-PC3 subspace at the confidence intervals set at 99, 95 and
@@ -202,8 +217,16 @@ ggplot() +
   scale_fill_viridis_c(option = "viridis") +
   geom_hline(yintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", linewidth = .2) +
-  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = "PC1", y = "PC3", fill = "T2", caption = "Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function") +
-  theme_grey()
+  labs(title = "Scatterplot of PCA scores", subtitle = "PC1 vs. PC3", x = glue("PC1 [{t1}%]"), y = glue("PC3 [{t3}%]"), fill = "T2", caption = "Figure 2: Hotelling’s T2 ellipse obtained\n using the ellipseCoord function") +
+  theme_grey() +
+   theme(
+    aspect.ratio = .7,
+    panel.grid = element_blank(),
+    panel.background = element_rect(
+    colour = "black",
+    linewidth = .3
+    )
+  )
 ```
 
 
@@ -285,7 +308,7 @@ tibble(
   ) %>%
   ggplot() +
   geom_point(aes(x = obs, y = T2, fill = T2), shape = 21, size = 3, color = "black") +
-  geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), size = .5) +
+  geom_segment(aes(x = obs, y = T2, xend = obs, yend = 0), linewidth = .5) +
   scale_fill_gradient(low = "black", high = "red", guide = "none") +
   geom_hline(yintercept = pluck(df, "cutoff.99pct"), linetype = "dashed", color = "darkred", linewidth = .5) +
   geom_hline(yintercept = pluck(df, "cutoff.95pct"), linetype = "dashed", color = "darkblue", linewidth = .5) +
