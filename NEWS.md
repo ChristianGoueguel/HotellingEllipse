@@ -12,6 +12,8 @@
 
 -   New `method` argument in `ellipseParam()` and `ellipseCoord()` to choose the T-squared limit. The default, `method = "f"`, is the limit used in previous versions, k(n − 1) / (n − k) × F(k, n − k), so cutoffs and ellipses are unchanged. `method = "beta"` uses the exact distribution of T-squared for the observations used to estimate the mean and covariance, (n − 1)² / n × Beta(k/2, (n − k − 1)/2) (Tracy, Young and Mason, 1992), e.g. the scores of the samples a PCA or PLS model was built on. The F-based limit is more conservative for small n: with n = 10 and k = 2, the 99% F limit is 19.5, while no observation can have T-squared above (n − 1)² / n = 8.1.
 
+-   New `conf.limit` argument in `ellipseParam()` to set the confidence levels of the T-squared cutoffs and ellipse semi-axes. It accepts any number of levels and defaults to `c(0.95, 0.99)`, which gives the same output as before. Results are named after each level, from the highest to the lowest: `conf.limit = c(0.975, 0.999)` returns `cutoff.99.9pct` and `cutoff.97.5pct`, and `Ellipse` columns `a.99.9pct`, `b.99.9pct`, `a.97.5pct` and `b.97.5pct`.
+
 ## Bug fixes
 
 -   When `k = 2`, `ellipseParam()` now computes `Tsquare` on components `pcx` and `pcy`, the same components used for the ellipse. Previously it always used the first two components.

@@ -97,10 +97,9 @@ test_that("compute_tsquared function works correctly", {
   result <- compute_tsquared(test_data, ncomp = 2)
 
   expect_type(result, "list")
-  expect_named(result, c("Tsq", "Tsq_limit1", "Tsq_limit2"))
+  expect_named(result, c("Tsq", "Tsq_limits"))
   expect_s3_class(result$Tsq, "tbl_df")
-  expect_true(is.numeric(result$Tsq_limit1))
-  expect_true(is.numeric(result$Tsq_limit2))
+  expect_named(result$Tsq_limits, c("99pct", "95pct"))
 })
 
 test_that("T-squared values are on the same scale as the cutoffs", {
@@ -112,9 +111,9 @@ test_that("T-squared values are on the same scale as the cutoffs", {
   expect_equal(result$Tsq$value, unname(expected))
 
   n <- nrow(test_data)
-  expect_equal(result$Tsq_limit2, 2 * (n - 1) / (n - 2) * stats::qf(0.95, 2, n - 2))
+  expect_equal(result$Tsq_limits[["95pct"]], 2 * (n - 1) / (n - 2) * stats::qf(0.95, 2, n - 2))
   result_beta <- compute_tsquared(test_data, ncomp = 2, method = "beta")
-  expect_equal(result_beta$Tsq_limit2, (n - 1)^2 / n * stats::qbeta(0.95, 1, (n - 3) / 2))
+  expect_equal(result_beta$Tsq_limits[["95pct"]], (n - 1)^2 / n * stats::qbeta(0.95, 1, (n - 3) / 2))
 })
 
 test_that("T-squared uses pcx and pcy when k = 2", {
@@ -202,4 +201,43 @@ test_that("equal-variance uncorrelated scores give angle 0", {
   res <- ellipseParam(pca)
   expect_identical(res$Ellipse$angle, 0)
   expect_equal(res$Ellipse$a.95pct, res$Ellipse$b.95pct)
+})
+
+test_that("conf.limit sets the cutoff and semi-axis levels", {
+  set.seed(123)
+  test_data <- stats::prcomp(matrix(rnorm(400), ncol = 4))$x
+  n <- nrow(test_data)
+  f_limit <- function(level, k = 2) k * (n - 1) / (n - k) * stats::qf(level, k, n - k)
+
+  # Default output is unchanged
+  res <- ellipseParam(test_data)
+  expect_identical(res, ellipseParam(test_data, conf.limit = c(0.95, 0.99)))
+  expect_identical(res, ellipseParam(test_data, conf.limit = c(0.99, 0.95)))
+  expect_named(res, c("Tsquare", "cutoff.99pct", "cutoff.95pct", "nb.comp", "Ellipse"))
+  expect_named(res$Ellipse, c("a.99pct", "b.99pct", "a.95pct", "b.95pct", "angle"))
+
+  # Custom levels are named after the level, from highest to lowest
+  res <- ellipseParam(test_data, conf.limit = c(0.975, 0.999))
+  expect_named(res, c("Tsquare", "cutoff.99.9pct", "cutoff.97.5pct", "nb.comp", "Ellipse"))
+  expect_named(res$Ellipse, c("a.99.9pct", "b.99.9pct", "a.97.5pct", "b.97.5pct", "angle"))
+  expect_equal(res$cutoff.97.5pct, f_limit(0.975))
+  expect_equal(res$Ellipse$a.99.9pct, sqrt(f_limit(0.999) * stats::var(test_data[, 1])))
+  expect_equal(res$Ellipse$b.97.5pct, sqrt(f_limit(0.975) * stats::var(test_data[, 2])))
+
+  # A single level, and more than two levels
+  res <- ellipseParam(test_data, conf.limit = 0.9)
+  expect_named(res, c("Tsquare", "cutoff.90pct", "nb.comp", "Ellipse"))
+  expect_named(res$Ellipse, c("a.90pct", "b.90pct", "angle"))
+  res <- ellipseParam(test_data, k = 3, conf.limit = c(0.9, 0.95, 0.99))
+  expect_named(res, c("Tsquare", "cutoff.99pct", "cutoff.95pct", "cutoff.90pct", "nb.comp"))
+  expect_equal(res$cutoff.90pct, f_limit(0.9, k = 3))
+  res <- ellipseParam(test_data, threshold = 0.9, conf.limit = 0.975, method = "beta")
+  expect_named(res, c("Tsquare", "cutoff.97.5pct", "nb.comp"))
+
+  # Invalid values
+  expect_error(ellipseParam(test_data, conf.limit = 1), "'conf.limit' must be a numeric vector")
+  expect_error(ellipseParam(test_data, conf.limit = c(0.95, NA)), "'conf.limit' must be a numeric vector")
+  expect_error(ellipseParam(test_data, conf.limit = numeric(0)), "'conf.limit' must be a numeric vector")
+  expect_error(ellipseParam(test_data, conf.limit = "0.95"), "'conf.limit' must be a numeric vector")
+  expect_error(ellipseParam(test_data, conf.limit = c(0.95, 0.95)), "must not contain duplicated values")
 })

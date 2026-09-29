@@ -23,6 +23,13 @@ tsq_limit <- function(n, k, conf.limit, method) {
 
 
 
+# Confidence level as a percentage label: 0.95 -> "95", 0.975 -> "97.5", 0.999 -> "99.9"
+level_label <- function(level) {
+  as.character(signif(100 * level, 10))
+}
+
+
+
 check_nobs <- function(n, k) {
   if (n < k + 2) {
     stop(sprintf("At least %d observations are needed to use %d components (got %d).", k + 2, k, n))
