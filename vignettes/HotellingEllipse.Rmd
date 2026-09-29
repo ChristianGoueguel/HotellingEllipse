@@ -4,7 +4,7 @@ author: "Christian L. Goueguel"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HotellingEllipse}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -73,6 +73,8 @@ pca_scores <- pca_mod %>%
 
 The Hotelling’s T-squared statistic can be computed using the `ellipseParam` function in two distinct ways. (1) By specifying the parameter `k`: This represents the number of principal components to retain. (2) By setting the `threshold` parameter: This defines the cumulative explained variance to determine the number of components.
 
+The function also returns the 95% and 99% cutoffs (`cutoff.95pct` and `cutoff.99pct`), on the same scale as the T-squared values. By default (`method = "f"`), they are based on the F distribution, as in previous versions of the package. Setting `method = "beta"` uses the exact distribution of T-squared for the observations used to build the model (e.g. the PCA scores themselves), which is less conservative for small sample sizes.
+
 ## Calculate using the first k components 
 
 ```{r}
@@ -113,7 +115,7 @@ T2
 
 ## Calculating the semi-axes 
 
-To visualize the confidence region for our multivariate data, we employ the `ellipseParam()` function to generate a confidence ellipse. Our objective is to calculate the lengths of the semi-axes for this ellipse, focusing on the bivariate relationship within the PC2-PC4 subspace of our principal component analysis. We maintain the default value for `k` (number of components) at 2. This ensures we're working with a two-dimensional representation. We specify `pcx = 2` and `pcy = 4` as inputs. This directs the function to use the 2nd and 4th principal components for the *x* and *y* axes, respectively.
+To visualize the confidence region for our multivariate data, we employ the `ellipseParam()` function to generate a confidence ellipse. Our objective is to calculate the lengths of the semi-axes for this ellipse, focusing on the bivariate relationship within the PC1-PC3 subspace of our principal component analysis. We maintain the default value for `k` (number of components) at 2. This ensures we're working with a two-dimensional representation. We specify `pcx = 1` and `pcy = 3` as inputs. This directs the function to use the 1st and 3rd principal components for the *x* and *y* axes, respectively. The Hotelling’s T-squared statistic returned in `Tsquare` is computed on these same two components, so an observation lies outside the ellipse exactly when its T-squared value exceeds the corresponding cutoff.
 
 ```{r}
 ellipse_axes <- ellipseParam(pca_scores, pcx = 1, pcy = 3)
@@ -182,7 +184,7 @@ pca_scores %>%
 
 An alternative method for visualizing the Hotelling’s T-squared confidence region is to utilize the `ellipseCoord()` function. This function generates the *x* and *y* coordinates for plotting the confidence ellipse, offering greater flexibility in visualization and further analysis. It allows users to specify a custom confidence level via the `confi.limit` parameter. The default confidence level is set at 95%, which is commonly used in statistical analyses. The function returns a set of coordinates that define the ellipse's boundary in the chosen subspace, thereby complementing the semi-axes information provided by the `ellipseParam()` function.
 
-In the example below, we focus on the subspace spanned by the 1st and 5th components.
+In the example below, we focus on the subspace spanned by the 2nd and 3rd components.
 
 ```{r}
 xy_coord <- ellipseCoord(pca_scores, pcx = 2, pcy = 3, conf.limit = 0.975, pts = 500)

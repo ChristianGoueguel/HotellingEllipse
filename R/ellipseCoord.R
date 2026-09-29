@@ -12,6 +12,7 @@
 #' @param pcz An integer specifying which component to use for the z-axis for 3D ellipsoids. If `NULL` (default), a 2D ellipse is computed.
 #' @param conf.limit A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95% confidence).
 #' @param pts An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.
+#' @param method A character string specifying how the T-squared limit is computed: `"f"` (default) or `"beta"`. See [ellipseParam()] for details.
 #'
 #' @return A data frame containing the coordinate points of the Hotelling’s T-squared ellipse:
 #' \itemize{
@@ -27,6 +28,10 @@
 #' and `pcy`. For 3D ellipsoids, it uses three components `pcx`, `pcy`, and `pcz`.
 #' The `conf.limit` parameter determines the size of the ellipse. A higher confidence
 #' level results in a larger ellipse that encompasses more data points.
+#' When the selected components are correlated, the ellipse (ellipsoid) is rotated
+#' accordingly; for uncorrelated scores, such as the PCA or PLS scores of the samples
+#' the model was fitted on, its axes are aligned
+#' with the components.
 #'
 #' @export ellipseCoord
 #'
@@ -54,7 +59,7 @@
 #' xyz_coord <- ellipseCoord(pca_scores, pcx = 1, pcy = 2, pcz = 3)
 #' }
 #'
-ellipseCoord <- function(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200) {
+ellipseCoord <- function(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200, method = c("f", "beta")) {
 
   if (missing(x)) {
     stop("Missing input data.")
@@ -62,9 +67,10 @@ ellipseCoord <- function(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts
   if (!is.matrix(x) && !is.data.frame(x) && !tibble::is_tibble(x)) {
     stop("The input data must be a matrix, data frame or tibble.")
   }
-  if (!is.numeric(conf.limit) || conf.limit <= 0 || conf.limit >= 1) {
+  if (!is_number(conf.limit) || conf.limit <= 0 || conf.limit >= 1) {
     stop("Confidence level should be a numeric value between 0 and 1.")
   }
+  method <- match.arg(method)
 
   x <- as.matrix(x)
   p <- as.integer(ncol(x))
@@ -92,9 +98,9 @@ ellipseCoord <- function(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts
   }
 
   if (is.null(pcz)) {
-    res_coord <- computeEllipse(x, pcx, pcy, n, conf.limit, pts)
+    res_coord <- computeEllipse(x, pcx, pcy, n, conf.limit, pts, method)
   } else {
-    res_coord <- computeEllipsoid(x, pcx, pcy, pcz, n, conf.limit, pts)
+    res_coord <- computeEllipsoid(x, pcx, pcy, pcz, n, conf.limit, pts, method)
   }
 
   return(res_coord)
@@ -102,27 +108,24 @@ ellipseCoord <- function(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts
 
 
 
-is_integer <- function(x) {
-  x == as.integer(x)
-  }
-
-
-computeEllipse <- function(x, pcx, pcy, n, conf.limit, pts) {
+computeEllipse <- function(x, pcx, pcy, n, conf.limit, pts, method = "f") {
   theta <- seq(0, 2 * pi, length.out = pts)
   p <- 2
-  Tsq_limit <- ((p * (n - 1)) / (n - p)) * stats::qf(p = conf.limit, df1 = p, df2 = (n - p))
-  x_col <- x[, pcx, drop = TRUE]
-  y_col <- x[, pcy, drop = TRUE]
+  check_nobs(n, p)
+  Tsq_limit <- tsq_limit(n, p, conf.limit, method)
+  xy <- x[, c(pcx, pcy), drop = FALSE]
+  unit <- rbind(cos(theta), sin(theta))
+  coord <- t(sqrt(Tsq_limit) * sqrtm(stats::cov(xy)) %*% unit) + rep(colMeans(xy), each = pts)
   res <- tibble::tibble(
-    x = sqrt(Tsq_limit * as.numeric(stats::var(x_col))) * cos(theta) + as.numeric(mean(x_col)),
-    y = sqrt(Tsq_limit * as.numeric(stats::var(y_col))) * sin(theta) + as.numeric(mean(y_col))
+    x = coord[, 1],
+    y = coord[, 2]
   )
   return(res)
 }
 
 
 
-computeEllipsoid <- function(x, pcx, pcy, pcz, n, conf.limit, pts) {
+computeEllipsoid <- function(x, pcx, pcy, pcz, n, conf.limit, pts, method = "f") {
   theta <- seq(0, 2 * pi, length.out = pts)
   phi <- seq(0, pi, length.out = pts)
   grid <- expand.grid(theta = theta, phi = phi)
@@ -131,15 +134,15 @@ computeEllipsoid <- function(x, pcx, pcy, pcz, n, conf.limit, pts) {
   cos_theta <- cos(grid$theta)
   sin_theta <- sin(grid$theta)
   p <- 3
-  Tsq_limit <- ((p * (n - 1)) / (n - p)) * stats::qf(p = conf.limit, df1 = p, df2 = (n - p))
-  x_col <- x[, pcx, drop = TRUE]
-  y_col <- x[, pcy, drop = TRUE]
-  z_col <- x[, pcz, drop = TRUE]
+  check_nobs(n, p)
+  Tsq_limit <- tsq_limit(n, p, conf.limit, method)
+  xyz <- x[, c(pcx, pcy, pcz), drop = FALSE]
+  unit <- rbind(cos_theta * sin_phi, sin_theta * sin_phi, cos_phi)
+  coord <- t(sqrt(Tsq_limit) * sqrtm(stats::cov(xyz)) %*% unit) + rep(colMeans(xyz), each = nrow(grid))
   res <- tibble::tibble(
-    x = sqrt(Tsq_limit * as.numeric(stats::var(x_col))) * cos_theta * sin_phi + as.numeric(mean(x_col)),
-    y = sqrt(Tsq_limit * as.numeric(stats::var(y_col))) * sin_theta * sin_phi + as.numeric(mean(y_col)),
-    z = sqrt(Tsq_limit * as.numeric(stats::var(z_col))) * cos_phi + as.numeric(mean(z_col))
+    x = coord[, 1],
+    y = coord[, 2],
+    z = coord[, 3]
   )
   return(res)
 }
-

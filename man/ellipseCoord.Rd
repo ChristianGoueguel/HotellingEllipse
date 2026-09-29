@@ -4,7 +4,15 @@
 \alias{ellipseCoord}
 \title{Coordinate Points of the Hotelling’s T-squared Ellipse}
 \usage{
-ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
+ellipseCoord(
+  x,
+  pcx = 1,
+  pcy = 2,
+  pcz = NULL,
+  conf.limit = 0.95,
+  pts = 200,
+  method = c("f", "beta")
+)
 }
 \arguments{
 \item{x}{A matrix, data frame or tibble containing scores from PCA, PLS, ICA, or other dimensionality reduction methods. Each column should represent a component, and each row an observation.}
@@ -18,6 +26,8 @@ ellipseCoord(x, pcx = 1, pcy = 2, pcz = NULL, conf.limit = 0.95, pts = 200)
 \item{conf.limit}{A numeric value between 0 and 1 specifying the confidence level for the ellipse (default is 0.95, i.e., 95\% confidence).}
 
 \item{pts}{An integer specifying the number of points to generate for drawing the ellipse (default is 200). Higher values result in smoother ellipses.}
+
+\item{method}{A character string specifying how the T-squared limit is computed: \code{"f"} (default) or \code{"beta"}. See \code{\link[=ellipseParam]{ellipseParam()}} for details.}
 }
 \value{
 A data frame containing the coordinate points of the Hotelling’s T-squared ellipse:
@@ -38,6 +48,10 @@ For 2D ellipses, the function uses two components \code{pcx}
 and \code{pcy}. For 3D ellipsoids, it uses three components \code{pcx}, \code{pcy}, and \code{pcz}.
 The \code{conf.limit} parameter determines the size of the ellipse. A higher confidence
 level results in a larger ellipse that encompasses more data points.
+When the selected components are correlated, the ellipse (ellipsoid) is rotated
+accordingly; for uncorrelated scores, such as the PCA or PLS scores of the samples
+the model was fitted on, its axes are aligned
+with the components.
 }
 \examples{
 \dontrun{

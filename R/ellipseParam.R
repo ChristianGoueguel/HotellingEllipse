@@ -14,10 +14,11 @@
 #' @param threshold A numeric value between 0 and 1 specifying the desired cumulative explained variance threshold (default is `NULL`). If provided, the function determines the minimum number of components needed to explain at least this proportion of total variance. When `NULL`, the function uses the fixed number of components specified by `k`.
 #' @param rel.tol A numeric value specifying the minimum proportion of total variance a component should explain to be considered non-negligible (default is 0.001, i.e., 0.1%).
 #' @param abs.tol A numeric value specifying the minimum absolute variance a component should have to be considered non-negligible (default is `.Machine$double.eps`).
+#' @param method A character string specifying how the T-squared cutoffs are computed: `"f"` (default) or `"beta"`. See Details.
 #'
 #' @return A list containing the following elements:
-#'  - `Tsquare`: A data frame containing the T-squared statistic for each observation.
-#'  - `Ellipse`: A data frame containing the lengths of the semi-minor and semi-major axes (only when `k = 2`).
+#'  - `Tsquare`: A data frame containing the T-squared statistic for each observation (the squared Mahalanobis distance), on the same scale as `cutoff.99pct` and `cutoff.95pct`. When `k = 2`, it is computed on components `pcx` and `pcy`.
+#'  - `Ellipse`: A data frame containing the lengths of the semi-axes at the 99% and 95% confidence levels (`a.99pct`, `b.99pct`, `a.95pct`, `b.95pct`) and the rotation `angle` of the ellipse in radians (only when `k = 2`). `a` is the semi-axis closest to the `pcx` direction. For uncorrelated scores, such as the PCA or PLS scores of the samples the model was fitted on, `angle` is 0.
 #'  - `cutoff.99pct`: The T-squared cutoff value at the 99% confidence level.
 #'  - `cutoff.95pct`: The T-squared cutoff value at the 95% confidence level.
 #'  - `nb.comp`: The number of components used in the calculation.
@@ -42,6 +43,27 @@
 #' while also accounting for the relative importance of components. The default
 #' value for `abs.tol` is set to `.Machine$double.eps`, providing a lower bound
 #' for detecting near-zero variance that may cause numerical instability.
+#'
+#' The `method` parameter sets the distribution used for the cutoffs. With
+#' `method = "f"` (default), the cutoffs are
+#' \eqn{\frac{k(n-1)}{n-k} F_{\alpha}(k, n-k)}{k(n - 1)/(n - k) * F(k, n - k)},
+#' as in previous versions of the package. With `method = "beta"`, the cutoffs
+#' follow the exact distribution of T-squared for the observations used to
+#' estimate the mean and covariance,
+#' \eqn{\frac{(n-1)^2}{n} B_{\alpha}(k/2, (n-k-1)/2)}{(n - 1)^2 / n * Beta(k/2, (n - k - 1)/2)}
+#' (Tracy, Young and Mason, 1992), e.g. the scores of the samples a PCA or PLS
+#' model was built on. The F-based limit is more conservative, especially for
+#' small `n`: it can even exceed the largest T-squared value any observation can
+#' reach, \eqn{(n-1)^2/n}{(n - 1)^2 / n}. For `n` larger than about 100, the two
+#' limits are close.
+#'
+#' When the selected components are correlated (e.g. new samples projected onto a model, or ICA scores), the
+#' ellipse is rotated so that it matches the T-squared statistic: an observation
+#' lies outside the ellipse exactly when its T-squared value exceeds the cutoff.
+#'
+#' @references
+#' Tracy, N. D., Young, J. C. and Mason, R. L. (1992). Multivariate control charts
+#' for individual observations. \emph{Journal of Quality Technology}, 24(2), 88--95.
 #'
 #' @export ellipseParam
 #'
@@ -74,7 +96,7 @@
 #' }
 #'
 #'
-ellipseParam <- function(x, k = 2, pcx = 1, pcy = 2, threshold = NULL, rel.tol = 0.001, abs.tol = .Machine$double.eps) {
+ellipseParam <- function(x, k = 2, pcx = 1, pcy = 2, threshold = NULL, rel.tol = 0.001, abs.tol = .Machine$double.eps, method = c("f", "beta")) {
 
   if (missing(x)) {
     stop("Missing input data.")
@@ -82,22 +104,22 @@ ellipseParam <- function(x, k = 2, pcx = 1, pcy = 2, threshold = NULL, rel.tol =
   if (!is.matrix(x) && !is.data.frame(x) && !tibble::is_tibble(x)) {
     stop("The input data must be a matrix, data frame or tibble.")
   }
-  if (!is.numeric(rel.tol) || rel.tol < 0) {
+  if (!is_number(rel.tol) || rel.tol < 0) {
     stop("'rel.tol' must be a non-negative numeric value.")
   }
-  if (!is.numeric(abs.tol) || abs.tol < 0) {
+  if (!is_number(abs.tol) || abs.tol < 0) {
     stop("'abs.tol' must be a non-negative numeric value.")
   }
   if (abs.tol > rel.tol) {
     stop("'abs.tol' must be less than or equal to 'rel.tol'.")
   }
+  method <- match.arg(method)
 
   x <- as.matrix(x)
   p <- as.integer(ncol(x))
-  is_integer <- function(x) { x == as.integer(x) }
 
   if (!is.null(threshold)) {
-    if (!is.numeric(threshold) || threshold <= 0 || threshold > 1) {
+    if (!is_number(threshold) || threshold <= 0 || threshold > 1) {
       stop("Threshold must be a numeric value between 0 and 1.")
     }
   } else {
@@ -120,12 +142,10 @@ ellipseParam <- function(x, k = 2, pcx = 1, pcy = 2, threshold = NULL, rel.tol =
   relative_var <- comp_var / total_var
   nearzero_var <- (relative_var < rel.tol) | (comp_var < abs.tol)
 
-  res_param <- list()
-
   if (is.null(threshold)) {
-    res_param<- process_fixed_comp(x, k, pcx, pcy, nearzero_var, comp_var, relative_var, rel.tol)
+    res_param <- process_fixed_comp(x, k, pcx, pcy, nearzero_var, comp_var, relative_var, rel.tol, method)
   } else {
-    res_param<- process_threshold(x, threshold, nearzero_var, relative_var)
+    res_param <- process_threshold(x, threshold, nearzero_var, relative_var, method)
   }
 
   return(res_param)
@@ -133,24 +153,8 @@ ellipseParam <- function(x, k = 2, pcx = 1, pcy = 2, threshold = NULL, rel.tol =
 
 
 
-process_fixed_comp <- function(x, k, pcx, pcy, nearzero_var, comp_var, relative_var, rel.tol) {
+process_fixed_comp <- function(x, k, pcx, pcy, nearzero_var, comp_var, relative_var, rel.tol, method = "f") {
   res <- list()
-  if (any(nearzero_var[1:k])) {
-    removed_comp <- colnames(x)[nearzero_var[1:k]]
-    message(sprintf("Components with explained variance lower than 'rel.tol' detected: %s removed.", paste(removed_comp, collapse = ", ")))
-    x <- x[, !nearzero_var, drop = FALSE]
-    k <- min(k, ncol(x))
-  }
-  t2_values <- tryCatch(
-    compute_tsquared(x, k),
-    error = function(e) {
-      stop(sprintf("Error in T-squared calculation: %s", e$message))
-    }
-  )
-  res$Tsquare <- t2_values$Tsq
-  res$cutoff.99pct <- t2_values$Tsq_limit1
-  res$cutoff.95pct <- t2_values$Tsq_limit2
-  res$nb.comp <- k
   if (k == 2) {
     if (relative_var[pcx] < rel.tol) {
       stop("'pcx' has a relative variance lower than 'rel.tol'. Please check!")
@@ -158,11 +162,37 @@ process_fixed_comp <- function(x, k, pcx, pcy, nearzero_var, comp_var, relative_
     if (relative_var[pcy] < rel.tol) {
       stop("'pcy' has a relative variance lower than 'rel.tol'. Please check!")
     }
+    # T-squared must be computed on the same components as the ellipse
+    x <- x[, c(pcx, pcy), drop = FALSE]
+  } else if (any(nearzero_var[1:k])) {
+    removed_comp <- colnames(x)[nearzero_var[1:k]]
+    message(sprintf("Components with explained variance lower than 'rel.tol' detected: %s removed.", paste(removed_comp, collapse = ", ")))
+    x <- x[, !nearzero_var, drop = FALSE]
+    k <- min(k, ncol(x))
+    if (k < 2) {
+      stop("Fewer than two components remain after removing near-zero variance components.")
+    }
+  }
+  t2_values <- tryCatch(
+    compute_tsquared(x, k, method),
+    error = function(e) {
+      stop(sprintf("Error in T-squared calculation: %s", e$message))
+    }
+  )
+  res$Tsquare <- t2_values$Tsq
+  res$cutoff.99pct <- t2_values$Tsq_limit1
+  res$cutoff.95pct <- t2_values$Tsq_limit2
+  res$nb.comp <- as.integer(k)
+  if (k == 2) {
+    S <- stats::cov(x)
+    ax99 <- ellipse_axes(S, t2_values$Tsq_limit1)
+    ax95 <- ellipse_axes(S, t2_values$Tsq_limit2)
     res$Ellipse <- tibble::tibble(
-      a.99pct = as.numeric(sqrt(t2_values$Tsq_limit1 * comp_var[pcx])),
-      b.99pct = as.numeric(sqrt(t2_values$Tsq_limit1 * comp_var[pcy])),
-      a.95pct = as.numeric(sqrt(t2_values$Tsq_limit2 * comp_var[pcx])),
-      b.95pct = as.numeric(sqrt(t2_values$Tsq_limit2 * comp_var[pcy]))
+      a.99pct = ax99$a,
+      b.99pct = ax99$b,
+      a.95pct = ax95$a,
+      b.95pct = ax95$b,
+      angle = ax95$angle
     )
   }
   return(res)
@@ -170,11 +200,12 @@ process_fixed_comp <- function(x, k, pcx, pcy, nearzero_var, comp_var, relative_
 
 
 
-process_threshold <- function(x, threshold, nearzero_var, relative_var) {
+process_threshold <- function(x, threshold, nearzero_var, relative_var, method = "f") {
   res <- list()
+  # Tolerance so that threshold = 1 is reachable despite floating-point rounding
+  tol <- sqrt(.Machine$double.eps)
   cum_var <- cumsum(relative_var)
-  k <- which(cum_var >= threshold)[1]
-  k <- as.numeric(k)
+  k <- unname(which(cum_var >= threshold - tol)[1])
   if (is.na(k)) {
     stop("Threshold is too high. Cannot find enough components to meet the threshold.")
   }
@@ -188,11 +219,17 @@ process_threshold <- function(x, threshold, nearzero_var, relative_var) {
     x <- x[, !nearzero_var, drop = FALSE]
     relative_var <- relative_var[!nearzero_var]
     cum_var <- cumsum(relative_var)
-    k <- which(cum_var >= threshold)[1]
-    k <- as.numeric(k)
+    # The removed components carry negligible variance, so use all remaining
+    # components if the threshold is no longer reached
+    k <- unname(which(cum_var >= threshold - tol)[1])
+    if (is.na(k)) k <- ncol(x)
+    k <- max(k, 2)
+    if (ncol(x) < 2) {
+      stop("Fewer than two components remain after removing near-zero variance components.")
+    }
   }
   t2_values <- tryCatch(
-    compute_tsquared(x, k),
+    compute_tsquared(x, k, method),
     error = function(e) {
       stop(sprintf("Error in T-squared calculation: %s", e$message))
     }
@@ -200,15 +237,15 @@ process_threshold <- function(x, threshold, nearzero_var, relative_var) {
   res$Tsquare <- t2_values$Tsq
   res$cutoff.99pct <- t2_values$Tsq_limit1
   res$cutoff.95pct <- t2_values$Tsq_limit2
-  res$nb.comp <- k
+  res$nb.comp <- as.integer(k)
   return(res)
 }
 
 
 
-
-compute_tsquared <- function(x, ncomp) {
+compute_tsquared <- function(x, ncomp, method = "f") {
   n <- nrow(x)
+  check_nobs(n, ncomp)
   x <- x[, 1:ncomp, drop = FALSE]
   MDsq <- stats::mahalanobis(
     x = x,
@@ -216,9 +253,9 @@ compute_tsquared <- function(x, ncomp) {
     cov = stats::cov(x),
     inverted = FALSE
   )
-  Tsq_limit1 <- (ncomp * (n - 1) / (n - ncomp)) * stats::qf(p = 0.99, df1 = ncomp, df2 = (n - ncomp))
-  Tsq_limit2 <- (ncomp * (n - 1) / (n - ncomp)) * stats::qf(p = 0.95, df1 = ncomp, df2 = (n - ncomp))
-  Tsq <- tibble::tibble(value = ((n - ncomp) / (ncomp * (n - 1))) * MDsq)
+  Tsq_limit1 <- tsq_limit(n, ncomp, 0.99, method)
+  Tsq_limit2 <- tsq_limit(n, ncomp, 0.95, method)
+  Tsq <- tibble::tibble(value = unname(MDsq))
   res <- list(
     Tsq = Tsq,
     Tsq_limit1 = Tsq_limit1,
