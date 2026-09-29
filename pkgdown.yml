@@ -1,9 +1,9 @@
-pandoc: 3.1.11
-pkgdown: 2.1.1
+pandoc: 3.8.3
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   HotellingEllipse: HotellingEllipse.html
-last_built: 2025-01-04T11:28Z
+last_built: 2026-09-29T02:19Z
 urls:
   reference: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/reference
   article: https://pkgdown.r-lib.org, https://github.com/ChristianGoueguel/HotellingEllipse/articles
