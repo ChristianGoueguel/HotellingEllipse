@@ -75,6 +75,14 @@ The Hotelling’s T-squared statistic can be computed using the `ellipseParam` f
 
 The function also returns the 95% and 99% cutoffs (`cutoff.95pct` and `cutoff.99pct`), on the same scale as the T-squared values. By default (`method = "f"`), they are based on the F distribution, as in previous versions of the package. Setting `method = "beta"` uses the exact distribution of T-squared for the observations used to build the model (e.g. the PCA scores themselves), which is less conservative for small sample sizes.
 
+The confidence levels are set with `conf.limit` (default `c(0.95, 0.99)`). Any number of levels can be given, and the cutoffs are named after them:
+
+```{r}
+res <- ellipseParam(pca_scores, k = 3, conf.limit = c(0.975, 0.999))
+res$cutoff.97.5pct
+res$cutoff.99.9pct
+```
+
 ## Calculate using the first k components 
 
 ```{r}
