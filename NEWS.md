@@ -1,3 +1,33 @@
+# HotellingEllipse 1.3.0
+
+## Breaking changes
+
+-   `ellipseParam()` now returns `Tsquare$value` as Hotelling's T-squared statistic (the squared Mahalanobis distance). Previously it returned the F-scaled statistic, (n − k) / (k(n − 1)) × T², while `cutoff.95pct` and `cutoff.99pct` were on the T-squared scale. Comparing `value` against the cutoffs therefore used a threshold that was too high by a factor of k(n − 1) / (n − k) (about 2 for n = 50, k = 2), so outliers were missed. `value` and the cutoffs are now on the same scale, and a point lies outside the ellipse exactly when `value` exceeds the corresponding cutoff.
+
+-   `ellipseParam()` returns an additional `angle` column in `Ellipse`.
+
+## New features
+
+-   The ellipse (ellipsoid) is now rotated when the selected components are correlated, so that it always matches the T-squared statistic. Previously it was always axis-aligned. The scores of the samples a PCA or PLS model was fitted on are uncorrelated, so for them `angle` is 0 and the results are identical to previous versions. Rotation only applies to correlated scores, e.g. new samples projected onto a model, PLS Y-scores, rotated (varimax) or ICA components.
+
+-   New `method` argument in `ellipseParam()` and `ellipseCoord()` to choose the T-squared limit. The default, `method = "f"`, is the limit used in previous versions, k(n − 1) / (n − k) × F(k, n − k), so cutoffs and ellipses are unchanged. `method = "beta"` uses the exact distribution of T-squared for the observations used to estimate the mean and covariance, (n − 1)² / n × Beta(k/2, (n − k − 1)/2) (Tracy, Young and Mason, 1992), e.g. the scores of the samples a PCA or PLS model was built on. The F-based limit is more conservative for small n: with n = 10 and k = 2, the 99% F limit is 19.5, while no observation can have T-squared above (n − 1)² / n = 8.1.
+
+## Bug fixes
+
+-   When `k = 2`, `ellipseParam()` now computes `Tsquare` on components `pcx` and `pcy`, the same components used for the ellipse. Previously it always used the first two components.
+
+-   With `threshold`, removing near-zero variance components could leave the number of components undefined or equal to 1. `threshold = 1` could also fail due to floating-point rounding. Both cases are now handled.
+
+-   Missing, non-scalar or non-integer values of `k`, `pcx`, `pcy`, `pts`, `threshold`, `conf.limit`, `rel.tol` and `abs.tol` now give informative errors instead of "missing value where TRUE/FALSE needed". An error is also raised when there are too few observations for the number of components.
+
+-   `nb.comp` is now returned as an integer.
+
+## Other changes
+
+-   `dplyr`, `FactoMineR`, `ggforce`, `ggplot2`, `purrr` and `rgl` moved from Imports to Suggests, since they are only used in examples, the vignette and the README. `lifecycle` is no longer a dependency. `glue`, used in the vignette, was added to Suggests. The package now imports only `magrittr`, `stats` and `tibble`.
+
+-   The vignette now uses the `knitr::rmarkdown` engine, which its `rmarkdown::html_vignette` output requires. With recent versions of `knitr`, the previous `knitr::knitr` engine failed to build it.
+
 # HotellingEllipse 1.2.0
 
 In this version:

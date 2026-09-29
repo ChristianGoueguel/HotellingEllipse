@@ -11,7 +11,8 @@ ellipseParam(
   pcy = 2,
   threshold = NULL,
   rel.tol = 0.001,
-  abs.tol = .Machine$double.eps
+  abs.tol = .Machine$double.eps,
+  method = c("f", "beta")
 )
 }
 \arguments{
@@ -28,12 +29,14 @@ ellipseParam(
 \item{rel.tol}{A numeric value specifying the minimum proportion of total variance a component should explain to be considered non-negligible (default is 0.001, i.e., 0.1\%).}
 
 \item{abs.tol}{A numeric value specifying the minimum absolute variance a component should have to be considered non-negligible (default is \code{.Machine$double.eps}).}
+
+\item{method}{A character string specifying how the T-squared cutoffs are computed: \code{"f"} (default) or \code{"beta"}. See Details.}
 }
 \value{
 A list containing the following elements:
 \itemize{
-\item \code{Tsquare}: A data frame containing the T-squared statistic for each observation.
-\item \code{Ellipse}: A data frame containing the lengths of the semi-minor and semi-major axes (only when \code{k = 2}).
+\item \code{Tsquare}: A data frame containing the T-squared statistic for each observation (the squared Mahalanobis distance), on the same scale as \code{cutoff.99pct} and \code{cutoff.95pct}. When \code{k = 2}, it is computed on components \code{pcx} and \code{pcy}.
+\item \code{Ellipse}: A data frame containing the lengths of the semi-axes at the 99\% and 95\% confidence levels (\code{a.99pct}, \code{b.99pct}, \code{a.95pct}, \code{b.95pct}) and the rotation \code{angle} of the ellipse in radians (only when \code{k = 2}). \code{a} is the semi-axis closest to the \code{pcx} direction. For uncorrelated scores, such as the PCA or PLS scores of the samples the model was fitted on, \code{angle} is 0.
 \item \code{cutoff.99pct}: The T-squared cutoff value at the 99\% confidence level.
 \item \code{cutoff.95pct}: The T-squared cutoff value at the 95\% confidence level.
 \item \code{nb.comp}: The number of components used in the calculation.
@@ -64,6 +67,23 @@ below \code{abs_tol}. This dual-threshold approach helps ensure numerical stabil
 while also accounting for the relative importance of components. The default
 value for \code{abs.tol} is set to \code{.Machine$double.eps}, providing a lower bound
 for detecting near-zero variance that may cause numerical instability.
+
+The \code{method} parameter sets the distribution used for the cutoffs. With
+\code{method = "f"} (default), the cutoffs are
+\eqn{\frac{k(n-1)}{n-k} F_{\alpha}(k, n-k)}{k(n - 1)/(n - k) * F(k, n - k)},
+as in previous versions of the package. With \code{method = "beta"}, the cutoffs
+follow the exact distribution of T-squared for the observations used to
+estimate the mean and covariance,
+\eqn{\frac{(n-1)^2}{n} B_{\alpha}(k/2, (n-k-1)/2)}{(n - 1)^2 / n * Beta(k/2, (n - k - 1)/2)}
+(Tracy, Young and Mason, 1992), e.g. the scores of the samples a PCA or PLS
+model was built on. The F-based limit is more conservative, especially for
+small \code{n}: it can even exceed the largest T-squared value any observation can
+reach, \eqn{(n-1)^2/n}{(n - 1)^2 / n}. For \code{n} larger than about 100, the two
+limits are close.
+
+When the selected components are correlated (e.g. new samples projected onto a model, or ICA scores), the
+ellipse is rotated so that it matches the T-squared statistic: an observation
+lies outside the ellipse exactly when its T-squared value exceeds the cutoff.
 }
 \examples{
 \dontrun{
@@ -94,6 +114,10 @@ T2_threshold <- ellipseParam(x = pca_scores, threshold = 0.95)
 }
 
 
+}
+\references{
+Tracy, N. D., Young, J. C. and Mason, R. L. (1992). Multivariate control charts
+for individual observations. \emph{Journal of Quality Technology}, 24(2), 88--95.
 }
 \author{
 Christian L. Goueguel \href{mailto:christian.goueguel@gmail.com}{christian.goueguel@gmail.com}
