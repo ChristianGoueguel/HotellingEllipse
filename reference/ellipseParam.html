@@ -68,7 +68,8 @@ specified number of components or use a cumulative variance threshold.</p>
 <span>  threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rel.tol <span class="op">=</span> <span class="fl">0.001</span>,</span>
 <span>  abs.tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"beta"</span><span class="op">)</span></span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"beta"</span><span class="op">)</span>,</span>
+<span>  conf.limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">0.99</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -107,14 +108,17 @@ specified number of components or use a cumulative variance threshold.</p>
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>A character string specifying how the T-squared cutoffs are computed: <code>"f"</code> (default) or <code>"beta"</code>. See Details.</p></dd>
 
+
+<dt id="arg-conf-limit">conf.limit<a class="anchor" aria-label="anchor" href="#arg-conf-limit"></a></dt>
+<dd><p>A numeric vector of confidence levels, each strictly between 0 and 1, at which the T-squared cutoffs and ellipse semi-axes are computed (default is <code>c(0.95, 0.99)</code>). Any number of levels can be given. See Value for how the results are named.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following elements:</p><ul><li><p><code>Tsquare</code>: A data frame containing the T-squared statistic for each observation (the squared Mahalanobis distance), on the same scale as <code>cutoff.99pct</code> and <code>cutoff.95pct</code>. When <code>k = 2</code>, it is computed on components <code>pcx</code> and <code>pcy</code>.</p></li>
-<li><p><code>Ellipse</code>: A data frame containing the lengths of the semi-axes at the 99% and 95% confidence levels (<code>a.99pct</code>, <code>b.99pct</code>, <code>a.95pct</code>, <code>b.95pct</code>) and the rotation <code>angle</code> of the ellipse in radians (only when <code>k = 2</code>). <code>a</code> is the semi-axis closest to the <code>pcx</code> direction. For uncorrelated scores, such as the PCA or PLS scores of the samples the model was fitted on, <code>angle</code> is 0.</p></li>
-<li><p><code>cutoff.99pct</code>: The T-squared cutoff value at the 99% confidence level.</p></li>
-<li><p><code>cutoff.95pct</code>: The T-squared cutoff value at the 95% confidence level.</p></li>
+    <p>A list containing the following elements:</p><ul><li><p><code>Tsquare</code>: A data frame containing the T-squared statistic for each observation (the squared Mahalanobis distance), on the same scale as the cutoffs. When <code>k = 2</code>, it is computed on components <code>pcx</code> and <code>pcy</code>.</p></li>
+<li><p><code>cutoff.&lt;level&gt;pct</code>: The T-squared cutoff value at each confidence level in <code>conf.limit</code>, from the highest to the lowest level. With the default <code>conf.limit = c(0.95, 0.99)</code>, these are <code>cutoff.99pct</code> and <code>cutoff.95pct</code>; with <code>conf.limit = c(0.975, 0.999)</code>, they are <code>cutoff.99.9pct</code> and <code>cutoff.97.5pct</code>.</p></li>
 <li><p><code>nb.comp</code>: The number of components used in the calculation.</p></li>
+<li><p><code>Ellipse</code>: A data frame containing the lengths of the semi-axes at each confidence level (<code>a.&lt;level&gt;pct</code>, <code>b.&lt;level&gt;pct</code>, e.g. <code>a.99pct</code>, <code>b.99pct</code>, <code>a.95pct</code>, <code>b.95pct</code> by default) and the rotation <code>angle</code> of the ellipse in radians (only when <code>k = 2</code>). <code>a</code> is the semi-axis closest to the <code>pcx</code> direction. For uncorrelated scores, such as the PCA or PLS scores of the samples the model was fitted on, <code>angle</code> is 0.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
@@ -188,6 +192,11 @@ for individual observations. <em>Journal of Quality Technology</em>, 24(2), 88â€
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Calculate using a cumulative variance threshold</span></span></span>
 <span class="r-in"><span><span class="va">T2_threshold</span> <span class="op">&lt;-</span> <span class="fu">ellipseParam</span><span class="op">(</span>x <span class="op">=</span> <span class="va">pca_scores</span>, threshold <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 4: Cutoffs and semi-axes at the 97.5% and 99.9% confidence levels</span></span></span>
+<span class="r-in"><span><span class="va">T2_levels</span> <span class="op">&lt;-</span> <span class="fu">ellipseParam</span><span class="op">(</span>x <span class="op">=</span> <span class="va">pca_scores</span>, conf.limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.975</span>, <span class="fl">0.999</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">T2_levels</span><span class="op">$</span><span class="va">cutoff.99.9pct</span></span></span>
+<span class="r-in"><span><span class="va">T2_levels</span><span class="op">$</span><span class="va">Ellipse</span><span class="op">$</span><span class="va">a.97.5pct</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
